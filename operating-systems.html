@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Understand Linux, Windows, macOS, processes, services, permissions, authentication, and logs.">
+  <title>Operating systems — Cybersecurity Foundations</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body id="top">
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-mark">F</span> FIELDNOTES <span class="brand-divider">/</span> CYBERSECURITY</a>
+    <a class="header-link" href="index.html#curriculum">All learning paths <span aria-hidden="true">↗</span></a>
+  </header>
+  <main>
+    <section class="guide-hero">
+      <div class="breadcrumbs"><a href="index.html">Home</a> / Level 1 / Operating systems</div>
+      <p class="eyebrow">02 — WHAT RUNS ON DEVICES</p>
+      <h1>Operating systems</h1>
+      <p>Learn how Linux, Windows, and macOS manage programs, accounts, permissions, and activity. You don't need to be a system administrator to understand the essentials.</p>
+    </section>
+    <div class="guide-layout">
+      <nav class="guide-toc" aria-label="On this page">
+        <h2>IN THIS GUIDE</h2>
+        <ol><li><a href="#role">What an OS does</a></li><li><a href="#families">Linux, Windows, macOS</a></li><li><a href="#processes">Processes and services</a></li><li><a href="#permissions">Permissions</a></li><li><a href="#authentication">Authentication</a></li><li><a href="#logs">Logs and events</a></li><li><a href="#practice">Practice and recap</a></li></ol>
+      </nav>
+      <article class="guide-content">
+        <p>An <strong>operating system (OS)</strong> coordinates hardware and provides common services to applications. It manages memory, storage, devices, networking, users, and running programs. Security depends in part on how the OS separates users and processes and records what happens.</p>
+        <section id="role">
+          <h2>1. What an operating system does</h2>
+          <p>The OS kernel manages privileged operations and access to hardware. Applications usually run with less privilege and ask the OS for services. This separation helps contain mistakes and limit what a program can do, though vulnerabilities or excessive permissions can weaken it.</p>
+          <p>Accounts represent identities. Groups make it easier to assign shared permissions. Administrative or root access can change system-wide settings, so everyday work should use a standard account where practical.</p>
+        </section>
+        <section id="families">
+          <h2>2. Linux, Windows, and macOS</h2>
+          <p><strong>Linux</strong> is a family of open-source operating systems used on servers, desktops, embedded devices, and cloud systems. Distributions package the Linux kernel with software and tools; command-line conventions and package managers vary.</p>
+          <p><strong>Windows</strong> is widely used on personal computers and in organizations. It provides graphical administration tools, PowerShell, Windows Defender, and event logging. <strong>macOS</strong> is Apple's desktop operating system, with a Unix-based foundation, graphical tools, and a terminal.</p>
+          <p>The interfaces differ, but the security ideas are shared: patch software, limit privilege, protect credentials, use trusted sources, and review useful system records.</p>
+        </section>
+        <section id="processes">
+          <h2>3. Processes and services</h2>
+          <p>A <strong>process</strong> is a running program with its own memory and operating-system resources. The OS assigns each process an identifier (PID), schedules its use of the CPU, and enforces its permissions. A <strong>service</strong> (also called a daemon on many Unix-like systems) is a background process that provides a capability, such as printing or synchronizing time.</p>
+          <p>Unexpected CPU use or unfamiliar programs can be worth investigating, but a process name alone is not proof of malicious activity. Check its location, publisher, parent process, expected role, and security software findings before taking action.</p>
+          <div class="lab"><strong>SAFE EXERCISE</strong><p>Use your built-in process viewer: Task Manager on Windows, Activity Monitor on macOS, or System Monitor / <code>ps</code> on Linux. Identify a browser process and compare its resource use while idle and while you load a page. Do not terminate processes you don't recognize.</p></div>
+        </section>
+        <section id="permissions">
+          <h2>4. Files and permissions</h2>
+          <p>Permissions determine which identities may read, change, or run a file. Linux and other Unix-like systems commonly use owner/group/other permissions and additional access-control lists. Windows uses access-control lists (ACLs) to grant specific rights to users and groups. macOS combines Unix permissions with additional privacy controls.</p>
+          <p>The <strong>least privilege</strong> principle means giving an account or application only the access it needs, for only as long as it needs it. This limits the damage if an account or program is misused.</p>
+          <div class="callout"><strong>BE CAREFUL</strong><p>Don't fix a permissions problem by making a file or folder accessible to everyone. Identify the intended owner and users, then grant only the necessary access.</p></div>
+        </section>
+        <section id="authentication">
+          <h2>5. Authentication</h2>
+          <p><strong>Authentication</strong> checks that someone is who they claim to be. It is different from <strong>authorization</strong>, which decides what an authenticated identity can do. Passwords are one authentication factor; a separate possession factor (such as a security key) or inherence factor (such as a biometric) can add protection.</p>
+          <p>Use unique passwords with a reputable password manager, enable multifactor authentication where available, and protect recovery options. Do not share accounts: individual identities make it easier to limit access and understand audit records.</p>
+        </section>
+        <section id="logs">
+          <h2>6. Logs and events</h2>
+          <p>Logs are records of system and application activity. They may record logins, service changes, errors, or security events. Windows provides Event Viewer; macOS provides Console; Linux commonly uses <code>journalctl</code> or files under <code>/var/log</code>. Exact sources depend on the system and configuration.</p>
+          <p>A log entry is a clue, not a conclusion. Consider its timestamp, time zone, source, surrounding events, and whether the system clock was correct. Logs can be incomplete, rotated, or altered, so important records may need central collection and access protection.</p>
+          <div class="lab"><strong>SAFE EXERCISE</strong><p>Open your OS's log viewer and look for ordinary events from the last day, such as a successful sign-in or an application update. Note the time and source, and avoid sharing log exports publicly: they can contain usernames, device names, or other private details.</p></div>
+        </section>
+        <section id="practice">
+          <h2>Practice and recap</h2>
+          <div class="checkpoint"><strong>CHECK YOUR UNDERSTANDING</strong><ul><li>How does a process differ from a service?</li><li>What is the difference between authentication and authorization?</li><li>Why is least privilege useful?</li><li>What context would you gather before interpreting a log entry?</li></ul></div>
+          <p>As a personal baseline, confirm your device receives automatic security updates, review which accounts have administrator access, and know where to find its built-in security and event tools.</p>
+        </section>
+        <div class="next-guide"><a href="security.html">Next: Security →</a></div>
+      </article>
+    </div>
+  </main>
+  <footer class="site-footer"><a class="brand" href="index.html"><span class="brand-mark">F</span> FIELDNOTES</a><span>Level 1 · Cybersecurity Foundation</span><a href="#top">Back to top ↑</a></footer>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Learn the CIA triad, threats, vulnerabilities, risk, cryptography, IAM, controls, and threat modeling.">
+  <title>Security — Cybersecurity Foundations</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body id="top">
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-mark">F</span> FIELDNOTES <span class="brand-divider">/</span> CYBERSECURITY</a>
+    <a class="header-link" href="index.html#curriculum">All learning paths <span aria-hidden="true">↗</span></a>
+  </header>
+  <main>
+    <section class="guide-hero">
+      <div class="breadcrumbs"><a href="index.html">Home</a> / Level 1 / Security</div>
+      <p class="eyebrow">03 — HOW TO REDUCE RISK</p>
+      <h1>Security</h1>
+      <p>Learn a shared vocabulary for protecting information and systems. These principles help you reason about what matters, what could go wrong, and which safeguards make sense.</p>
+    </section>
+    <div class="guide-layout">
+      <nav class="guide-toc" aria-label="On this page">
+        <h2>IN THIS GUIDE</h2>
+        <ol><li><a href="#cia">The CIA triad</a></li><li><a href="#threats">Threats and vulnerabilities</a></li><li><a href="#risk">Risk</a></li><li><a href="#crypto">Cryptography</a></li><li><a href="#iam">Identity and access</a></li><li><a href="#controls">Security controls</a></li><li><a href="#modeling">Threat modeling</a></li><li><a href="#practice">Practice and recap</a></li></ol>
+      </nav>
+      <article class="guide-content">
+        <p>Cybersecurity is the practice of protecting systems and information from unwanted access, change, disruption, or loss. Good security is not one product or setting: it is a set of safeguards matched to the people, information, and systems involved.</p>
+        <section id="cia">
+          <h2>1. The CIA triad</h2>
+          <p>The <strong>CIA triad</strong> is a simple model for security objectives:</p>
+          <ul><li><strong>Confidentiality:</strong> information is available only to authorized people and systems.</li><li><strong>Integrity:</strong> information and systems remain accurate and are changed only in authorized ways.</li><li><strong>Availability:</strong> authorized users can access services and data when needed.</li></ul>
+          <p>These goals can compete. Strong access restrictions may improve confidentiality but make legitimate access harder. A good design balances all three for the situation.</p>
+        </section>
+        <section id="threats">
+          <h2>2. Threats and vulnerabilities</h2>
+          <p>A <strong>threat</strong> is a potential cause of harm, such as a phishing campaign, equipment failure, or accidental deletion. A <strong>vulnerability</strong> is a weakness that could be exploited or triggered, such as unpatched software, excessive permissions, or missing backups. A <strong>control</strong> is a safeguard that reduces the chance or impact of harm.</p>
+          <p>Threats can be intentional or accidental, human or environmental. Security planning should consider ordinary mistakes and failures as well as deliberate attacks.</p>
+        </section>
+        <section id="risk">
+          <h2>3. Risk and prioritization</h2>
+          <p><strong>Risk</strong> describes the possibility of harm and its consequences. A useful first pass considers what could happen, how likely or plausible it is, and how severe the impact would be. Some teams use likelihood × impact as a qualitative or quantitative aid, but a score is only as good as its assumptions.</p>
+          <p>Prioritize risks to important assets, consider existing safeguards, and write down uncertainty. A low-probability event with severe impact may deserve attention; a frequent minor issue may also accumulate significant cost. Risk decisions should be revisited as systems and circumstances change.</p>
+          <div class="callout"><strong>DON'T CONFUSE A SCORE FOR CERTAINTY</strong><p>Risk ratings help people compare and discuss priorities. They do not predict the future precisely, and different organizations may use different scales.</p></div>
+        </section>
+        <section id="crypto">
+          <h2>4. Cryptography</h2>
+          <p><strong>Encryption</strong> transforms readable information (plaintext) into ciphertext that should be unreadable without the key. Symmetric encryption uses a shared secret key; public-key cryptography uses related public and private keys. Key protection and correct implementation are essential.</p>
+          <p><strong>Hashing</strong> produces a fixed-size digest used to detect changes or support password storage. A hash is not encryption and cannot simply be decrypted. Password storage should use purpose-built, slow password-hashing schemes with a unique salt—not a fast general-purpose hash alone.</p>
+          <p><strong>Digital signatures</strong> can help verify that data was signed by the holder of a private key and has not changed since signing. Certificates help bind public keys to identities. Cryptography protects specific properties; it cannot compensate for stolen keys, compromised devices, or trusting the wrong identity.</p>
+        </section>
+        <section id="iam">
+          <h2>5. Identity and access management (IAM)</h2>
+          <p><strong>Identity and access management</strong> covers how identities are created, authenticated, authorized, reviewed, and removed. Use unique accounts, multifactor authentication for important access, and least privilege. Grant access based on role and need, then review it when responsibilities change.</p>
+          <p>Authentication verifies identity; authorization checks permitted actions; accounting or auditing records relevant activity. Strong account recovery and prompt deprovisioning are part of the lifecycle, not afterthoughts.</p>
+        </section>
+        <section id="controls">
+          <h2>6. Security controls</h2>
+          <p>Controls can be grouped in two helpful ways. By purpose: <strong>preventive</strong> controls try to stop an event, <strong>detective</strong> controls help discover it, and <strong>corrective</strong> controls help contain or recover. By form: controls can be <strong>administrative</strong> (policy and training), <strong>technical</strong> (access settings and encryption), or <strong>physical</strong> (locks and secure facilities).</p>
+          <p>Examples include software updates, multifactor authentication, backups, endpoint protections, staff procedures, and monitoring. Choose controls that address identified risks; verify that they work, and plan what happens when they fail.</p>
+        </section>
+        <section id="modeling">
+          <h2>7. Threat modeling</h2>
+          <p><strong>Threat modeling</strong> is a structured way to ask what you are protecting, from whom or what, through which paths, and with what safeguards. It can be useful even for a simple personal project.</p>
+          <ol><li>Describe the system and the information it handles.</li><li>Identify valuable assets and trust boundaries.</li><li>List realistic threats and likely failure or misuse scenarios.</li><li>Assess impact and existing safeguards.</li><li>Choose proportionate improvements and review them later.</li></ol>
+          <p>For a small personal photo backup, assets include the photos and account credentials; threats might include device loss, account takeover, accidental deletion, or a failed drive. Different safeguards—device encryption, multifactor authentication, and a separate tested backup—address different risks.</p>
+        </section>
+        <section id="practice">
+          <h2>Practice and recap</h2>
+          <div class="lab"><strong>MINI THREAT MODEL</strong><p>Choose a system you own or are responsible for, such as a personal laptop. Write down one important asset, two plausible threats, the impact of each, one existing safeguard, and one proportionate improvement. Keep personal or sensitive details out of public notes.</p></div>
+          <div class="checkpoint"><strong>CHECK YOUR UNDERSTANDING</strong><ul><li>Which part of the CIA triad is affected by accidental deletion?</li><li>How are a threat and a vulnerability different?</li><li>Why isn't encryption the same as hashing?</li><li>Give one preventive, one detective, and one corrective control.</li><li>What is the value of revisiting a threat model?</li></ul></div>
+        </section>
+        <div class="next-guide"><a href="index.html#curriculum">← Return to all learning paths</a></div>
+      </article>
+    </div>
+  </main>
+  <footer class="site-footer"><a class="brand" href="index.html"><span class="brand-mark">F</span> FIELDNOTES</a><span>Level 1 · Cybersecurity Foundation</span><a href="#top">Back to top ↑</a></footer>
+</body>
+</html>

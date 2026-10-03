@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Learn TCP/IP, DNS, HTTP, TLS, routing, and firewalls with safe beginner exercises.">
+  <title>Networking — Cybersecurity Foundations</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body id="top">
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-mark">F</span> FIELDNOTES <span class="brand-divider">/</span> CYBERSECURITY</a>
+    <a class="header-link" href="index.html#curriculum">All learning paths <span aria-hidden="true">↗</span></a>
+  </header>
+  <main>
+    <section class="guide-hero">
+      <div class="breadcrumbs"><a href="index.html">Home</a> / Level 1 / Networking</div>
+      <p class="eyebrow">01 — HOW DEVICES CONNECT</p>
+      <h1>Networking</h1>
+      <p>Learn how devices address each other, find services, and exchange information. These building blocks make network security easier to understand.</p>
+    </section>
+    <div class="guide-layout">
+      <nav class="guide-toc" aria-label="On this page">
+        <h2>IN THIS GUIDE</h2>
+        <ol><li><a href="#tcpip">TCP/IP and ports</a></li><li><a href="#dns">DNS</a></li><li><a href="#http">HTTP</a></li><li><a href="#tls">TLS</a></li><li><a href="#routing">Routing</a></li><li><a href="#firewalls">Firewalls</a></li><li><a href="#practice">Practice and recap</a></li></ol>
+      </nav>
+      <article class="guide-content">
+        <p>A network is a set of connected devices that exchange data using agreed rules called <strong>protocols</strong>. When you open a website, several protocols work together: names are looked up, packets are routed, and a connection carries a request and response.</p>
+        <section id="tcpip">
+          <h2>1. TCP/IP and ports</h2>
+          <p><strong>IP (Internet Protocol)</strong> addresses and moves packets between networks. IPv4 addresses look like <code>192.0.2.10</code>; IPv6 addresses are longer and written in hexadecimal. An IP address identifies a network interface at a point in time, not necessarily a person or a permanent device.</p>
+          <p><strong>TCP (Transmission Control Protocol)</strong> provides an ordered, reliable byte stream: it tracks delivery and retransmits missing data. <strong>UDP</strong> sends independent datagrams with less delivery machinery, which can suit voice, video, or DNS. Neither protocol is encryption.</p>
+          <p>A <strong>port</strong> identifies an application endpoint on a device. IP plus transport protocol plus port helps deliver traffic to the right service. Ports 443 and 80 are commonly used for HTTPS and HTTP; the number alone does not prove which application is actually listening.</p>
+          <div class="callout"><strong>KEEP IN MIND</strong><p>An IP address answers “which network endpoint?” A port answers “which application endpoint?” A protocol defines how they communicate.</p></div>
+        </section>
+        <section id="dns">
+          <h2>2. DNS: names to addresses</h2>
+          <p>The <strong>Domain Name System</strong> is a distributed directory. A resolver looks up records such as an <code>A</code> record for an IPv4 address, <code>AAAA</code> for IPv6, or <code>MX</code> for mail servers. Caching speeds up repeat lookups; cached answers can remain until their time-to-live expires.</p>
+          <p>DNS normally helps find an address; it does not establish that a site is trustworthy. A familiar-looking domain can still lead somewhere unsafe, so check the actual domain and the browser's security indicators.</p>
+          <div class="lab"><strong>SAFE EXERCISE</strong><p>Look up a public domain you recognize: run <code>nslookup example.com</code> in Windows, macOS, or Linux. Compare the returned addresses later; DNS answers can vary by location, provider, or time.</p></div>
+        </section>
+        <section id="http">
+          <h2>3. HTTP: requests and responses</h2>
+          <p><strong>HTTP</strong> is a request-and-response protocol used by web clients and servers. A request includes a method (such as <code>GET</code> to retrieve or <code>POST</code> to submit), a path, headers, and sometimes a body. The response contains a status code, headers, and often content. For example, <code>200</code> indicates success, <code>404</code> indicates a missing resource, and <code>500</code> indicates a server error.</p>
+          <p>Plain HTTP does not protect the contents from observers on the network. <strong>HTTPS</strong> is HTTP carried inside a TLS-protected connection. Encryption protects data in transit, but does not make a dishonest website honest or protect a compromised endpoint.</p>
+        </section>
+        <section id="tls">
+          <h2>4. TLS: protecting a connection</h2>
+          <p><strong>Transport Layer Security (TLS)</strong> helps provide confidentiality, integrity, and server authentication. During setup, the client and server negotiate compatible settings, the server presents a certificate, and both sides establish shared session keys. Modern TLS uses asymmetric cryptography during setup and efficient symmetric encryption for ongoing traffic.</p>
+          <p>A certificate connects a public key to a domain identity through a certificate authority. Browsers check things such as the domain name, validity period, and trust chain. A padlock means the connection is protected as expected; it is not a review of the site's intentions or content.</p>
+          <div class="callout"><strong>IMPORTANT DISTINCTION</strong><p>Encryption protects data while it travels. Access control decides who may use a service. Backups help recover data. No one safeguard replaces the others.</p></div>
+        </section>
+        <section id="routing">
+          <h2>5. Routing: choosing a path</h2>
+          <p>A <strong>router</strong> forwards IP packets between networks. It consults a routing table, which contains destination networks and next hops. Your device usually sends traffic for outside its local network to a default gateway, often a home or office router. The internet is a collection of independently operated networks that exchange routes.</p>
+          <p>Packets can take different paths, and network tools reveal only partial information. Firewalls, address translation, and routing policy can hide or change what a path looks like.</p>
+          <div class="lab"><strong>SAFE EXERCISE</strong><p>Inspect the route to a domain you use. Windows: <code>tracert example.com</code>. macOS/Linux: <code>traceroute example.com</code> (some systems may need the utility installed). Run this only for ordinary connectivity learning; missing hops are common and do not by themselves mean an attack.</p></div>
+        </section>
+        <section id="firewalls">
+          <h2>6. Firewalls: filtering traffic</h2>
+          <p>A <strong>firewall</strong> applies rules to network traffic. Rules may consider source and destination addresses, ports, protocols, connection state, or application identity. Host firewalls run on devices; network firewalls help protect boundaries between networks. A common principle is <strong>default deny</strong>: allow only traffic required for a clear purpose.</p>
+          <p>Firewalls reduce exposure, but they do not replace updates, strong authentication, endpoint protection, or monitoring. An allowed connection can still carry unwanted content, and a rule that is too broad can weaken protection.</p>
+        </section>
+        <section id="practice">
+          <h2>Practice and recap</h2>
+          <div class="lab"><strong>PUT THE PIECES TOGETHER</strong><p>On your own device, open a familiar HTTPS website. Describe the sequence: DNS resolves a name; IP routing moves packets; TCP or another transport carries data; TLS protects the connection; HTTP exchanges requests and responses; firewalls apply their configured rules.</p></div>
+          <div class="checkpoint"><strong>CHECK YOUR UNDERSTANDING</strong><ul><li>What does a port identify, and how is it different from an IP address?</li><li>Why does a browser use both DNS and TLS?</li><li>What does HTTPS protect—and what does it not guarantee?</li><li>Why can a missing hop in a route trace be normal?</li></ul></div>
+        </section>
+        <div class="next-guide"><a href="operating-systems.html">Next: Operating systems →</a></div>
+      </article>
+    </div>
+  </main>
+  <footer class="site-footer"><a class="brand" href="index.html"><span class="brand-mark">F</span> FIELDNOTES</a><span>Level 1 · Cybersecurity Foundation</span><a href="#top">Back to top ↑</a></footer>
+</body>
+</html>
