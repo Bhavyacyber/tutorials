@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Follow the standards, frameworks, and compliance topics relevant to every stage of a cybersecurity career, from system foundations to AI product security.">
+  <title>Standards and compliance — Cybersecurity Foundations</title>
+  <link rel="stylesheet" href="styles-v2.css?v=20261004-4">
+</head>
+<body id="top">
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-mark">F</span> FIELDNOTES <span class="brand-divider">/</span> <span class="brand-name">CYBERSECURITY</span></a>
+    <div class="header-context"><span>CAREER TOOLKIT</span><span>STANDARDS &amp; COMPLIANCE</span></div>
+    <nav class="header-nav" aria-label="Main navigation">
+      <a class="header-link" href="index.html#curriculum">Learning paths <span aria-hidden="true">↗</span></a>
+      <a class="standards-tab" href="compliance.html" aria-current="page" aria-label="Standards and compliance"><span class="standards-full-label">Standards &amp; compliance</span><span class="standards-short-label">Standards</span></a>
+    </nav>
+  </header>
+  <main>
+    <section class="guide-hero">
+      <div class="breadcrumbs"><a href="index.html">Home</a> / Career toolkit / Standards and compliance</div>
+      <p class="eyebrow">A PRACTICAL ENGINEERING REFERENCE</p>
+      <h1>Standards and compliance</h1>
+      <p>Follow the standards, frameworks, and compliance topics alongside every stage of this career path: from networking and operating-system foundations to application security, product security, and AI security.</p>
+    </section>
+    <div class="guide-layout">
+      <nav class="guide-toc" aria-label="On this page">
+        <h2>IN THIS GUIDE</h2>
+        <ol>
+          <li><a href="#terms">How to read this guide</a></li>
+          <li><a href="#level-1">Level 1: Foundations</a></li>
+          <li><a href="#level-2">Level 2: Application security</a></li>
+          <li><a href="#level-3">Level 3: Product security</a></li>
+          <li><a href="#level-4">Level 4: AI application security</a></li>
+          <li><a href="#threat-frameworks">Cross-cutting threat frameworks</a></li>
+          <li><a href="#engineer">What an engineer should do</a></li>
+          <li><a href="#resources">Free learning resources</a></li>
+        </ol>
+      </nav>
+      <article class="guide-content">
+        <p>Application and product security engineers help teams meet security obligations by translating them into design decisions, tests, operational controls, and evidence. The exact obligations depend on the product, data, customers, contracts, and countries involved; this guide is educational, not legal advice.</p>
+        <aside class="beginner-guide" aria-labelledby="compliance-simple">
+          <p class="eyebrow">START WITH THE IDEA</p>
+          <h2 id="compliance-simple">Know what kind of document you are looking at</h2>
+          <p>A law or regulation can impose legal duties. A standard describes agreed requirements. A framework organizes practices and outcomes. An audit report describes evidence about an organization's controls. They are related, but they are not interchangeable—and none automatically proves a product is secure.</p>
+          <p><strong>Your engineering role:</strong> understand what applies, build the required controls into the product, test them, and keep accurate evidence. Ask the organization's privacy, legal, compliance, and audit teams to interpret formal obligations.</p>
+        </aside>
+
+        <section id="terms">
+          <h2>1. First, distinguish the terms</h2>
+          <ul>
+            <li><strong>Law or regulation:</strong> legally binding requirements when the organization, product, data, and activity are in scope.</li>
+            <li><strong>Standard:</strong> a published set of requirements or guidance. Some standards support an organization's certification; they do not certify an individual engineer or guarantee secure software.</li>
+            <li><strong>Framework:</strong> a way to organize risk-management or engineering practices. Framework use may be voluntary unless incorporated into a contract, policy, or regulation.</li>
+            <li><strong>Assurance report:</strong> evidence about an organization's controls and a defined audit scope and period. It is not the same as a product security certification.</li>
+          </ul>
+        </section>
+
+        <section id="level-1">
+          <p class="eyebrow">CAREER PATH · LEVEL 1</p>
+          <h2>2. Security foundations: networks, systems, and risk</h2>
+          <p><strong>Learning goal:</strong> understand security language, identity, configuration, and basic risk. At this stage, learn what the frameworks are for; you are not expected to certify systems or interpret legal scope by yourself.</p>
+          <div class="table-wrap">
+            <table class="standards-table">
+              <thead><tr><th>Reference</th><th>How it fits Level 1</th><th>What to learn</th></tr></thead>
+              <tbody>
+                <tr>
+                  <th scope="row"><a href="https://www.nist.gov/cyberframework" target="_blank" rel="noopener noreferrer">NIST Cybersecurity Framework (CSF) 2.0</a></th>
+                  <td>A voluntary framework for managing cybersecurity risk.</td>
+                  <td>Recognize Govern, Identify, Protect, Detect, Respond, and Recover as organization-wide outcomes. Use the CSF to understand risk conversations; it is not a step-by-step technical checklist or certification.</td>
+                </tr>
+                <tr>
+                  <th scope="row"><a href="https://www.cisecurity.org/cis-benchmarks" target="_blank" rel="noopener noreferrer">CIS Benchmarks</a></th>
+                  <td>Consensus-based secure-configuration recommendations for operating systems, cloud services, and other technologies.</td>
+                  <td>Learn why secure baselines, least privilege, patching, and configuration review matter. A benchmark is guidance; test settings before applying them and document approved exceptions.</td>
+                </tr>
+                <tr>
+                  <th scope="row"><a href="https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final" target="_blank" rel="noopener noreferrer">NIST SP 800-53</a></th>
+                  <td>A broad catalog of security and privacy controls used by organizations and systems with different risk profiles.</td>
+                  <td>Recognize control families such as access control, audit, configuration management, incident response, and system protection. The organization selects and tailors controls; do not treat the catalog as a checklist that applies identically to every product.</td>
+                </tr>
+                <tr>
+                  <th scope="row"><a href="https://pages.nist.gov/800-63-4/sp800-63b.html" target="_blank" rel="noopener noreferrer">NIST SP 800-63B</a></th>
+                  <td>Guidance for digital identity authentication and authenticator management.</td>
+                  <td>Understand authentication factors, phishing-resistant options, account recovery, and why authentication is different from authorization. Use current organizational policy and platform guidance rather than inventing password rules.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p><strong>Networking connection:</strong> network segmentation, firewall rules, protected management access, and logging support many controls, but no single network design makes a system compliant.</p>
+        </section>
+
+        <section id="level-2">
+          <p class="eyebrow">CAREER PATH · LEVEL 2</p>
+          <h2>3. Application and API security</h2>
+          <p><strong>Learning goal:</strong> translate risk categories into requirements and negative tests for web and API behavior. Use vulnerability lists as a map of common failure modes, not a complete audit or a guarantee of security.</p>
+          <div class="table-wrap">
+            <table class="standards-table">
+              <thead><tr><th>Reference</th><th>How it fits Level 2</th><th>What to practice</th></tr></thead>
+              <tbody>
+                <tr>
+                  <th scope="row"><a href="https://owasp.org/www-project-top-ten/" target="_blank" rel="noopener noreferrer">OWASP Top 10</a></th>
+                  <td>Awareness categories for important web-application risks.</td>
+                  <td>Connect broken access control, injection, misconfiguration, vulnerable components, and other categories to concrete design and test cases. It is not an exhaustive security standard.</td>
+                </tr>
+                <tr>
+                  <th scope="row"><a href="https://owasp.org/www-project-api-security/" target="_blank" rel="noopener noreferrer">OWASP API Security Top 10</a></th>
+                  <td>Awareness categories focused on API risks.</td>
+                  <td>Practice object-, property-, and function-level authorization; authentication; rate limits; inventory; and safe dependency use. Test with multiple roles and tenants using synthetic data.</td>
+                </tr>
+                <tr>
+                  <th scope="row"><a href="https://owasp.org/www-project-application-security-verification-standard/" target="_blank" rel="noopener noreferrer">OWASP Application Security Verification Standard (ASVS)</a></th>
+                  <td>A structured set of verifiable security requirements for web applications.</td>
+                  <td>Use its applicable requirements to make reviews and tests specific. Choose a suitable scope and verification level with the team; do not claim conformance based on a few passing checks.</td>
+                </tr>
+                <tr>
+                  <th scope="row"><a href="https://cwe.mitre.org/" target="_blank" rel="noopener noreferrer">MITRE CWE</a></th>
+                  <td>A community-developed classification of software weakness types.</td>
+                  <td>Use weakness names to describe root causes precisely and connect findings to secure coding and regression tests; a CWE identifier alone does not describe exploitability or risk.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p>Privacy and sector rules such as GDPR, HIPAA, and payment requirements may constrain an application at any level. Applicability depends on the product, data, organization, and jurisdiction; they are not automatically triggered by using a particular technology.</p>
+        </section>
+
+        <section id="level-3">
+          <p class="eyebrow">CAREER PATH · LEVEL 3</p>
+          <h2>4. Product security and organizational assurance</h2>
+          <p><strong>Learning goal:</strong> help teams turn obligations into lifecycle controls, owners, evidence, and sustained vulnerability response. This is where secure-development frameworks, management-system standards, customer assurance, and domain-specific obligations meet engineering practice.</p>
+          <div class="table-wrap">
+            <table class="standards-table">
+              <thead><tr><th>Reference</th><th>What it is</th><th>What to know as an engineer</th></tr></thead>
+              <tbody>
+                <tr>
+                  <th scope="row"><a href="https://csrc.nist.gov/Projects/ssdf" target="_blank" rel="noopener noreferrer">NIST Secure Software Development Framework (SSDF)</a></th>
+                  <td>Software-development practices published as NIST SP 800-218.</td>
+                  <td>Connect team preparation, software protection, secure releases, and vulnerability response to actual workflows, tests, and release evidence. The SSDF is guidance, not a certification.</td>
+                </tr>
+                <tr>
+                  <th scope="row"><a href="https://www.iso.org/standard/27001" target="_blank" rel="noopener noreferrer">ISO/IEC 27001:2022</a> and <a href="https://www.iso.org/standard/75652.html" target="_blank" rel="noopener noreferrer">ISO/IEC 27002</a></th>
+                  <td>27001 specifies requirements for an information security management system (ISMS); 27002 provides information-security control guidance.</td>
+                  <td>Expect risk ownership, defined processes, access control, supplier and incident practices, internal audit, and continual improvement. Certification applies to the organization's system and scope; it does not mean every application is vulnerability-free. The full standard text may require purchase.</td>
+                </tr>
+                <tr>
+                  <th scope="row"><a href="https://www.aicpa-cima.com/resources/landing/system-and-organization-controls-soc-suite-of-services" target="_blank" rel="noopener noreferrer">SOC 2</a></th>
+                  <td>An independent CPA attestation engagement using the AICPA Trust Services Criteria; it is not a government regulation or a certification.</td>
+                  <td>Product teams often supply evidence for access reviews, secure changes, vulnerability handling, incidents, and vendors. Type I evaluates control design at a point in time; Type II also evaluates operation over a period. Follow the audit scope and evidence requests.</td>
+                </tr>
+                <tr>
+                  <th scope="row"><a href="https://www.pcisecuritystandards.org/document_library/" target="_blank" rel="noopener noreferrer">PCI DSS</a></th>
+                  <td>Industry security requirements for entities and systems in scope for payment account data.</td>
+                  <td>Determine whether a system stores, processes, transmits, or can affect the security of account data. Scope and segmentation matter. Coordinate interpretation and evidence with the organization's PCI lead or qualified assessor.</td>
+                </tr>
+                <tr>
+                  <th scope="row"><a href="https://eur-lex.europa.eu/eli/reg/2016/679/oj" target="_blank" rel="noopener noreferrer">GDPR</a></th>
+                  <td>A European Union regulation on processing personal data, where its territorial and material scope applies.</td>
+                  <td>Know the engineering implications of data minimization, purpose and retention limits, privacy by design and default, access controls, data-subject requests, and breach-response processes. Privacy and legal teams determine applicability and obligations.</td>
+                </tr>
+                <tr>
+                  <th scope="row"><a href="https://www.hhs.gov/hipaa/for-professionals/security/index.html" target="_blank" rel="noopener noreferrer">HIPAA Security Rule</a></th>
+                  <td>U.S. requirements for protecting electronic protected health information (ePHI) held by covered entities and business associates, where the rule applies.</td>
+                  <td>Understand the administrative, physical, and technical safeguard areas, including access, audit, integrity, authentication, and transmission protections. The organization determines whether it is in scope.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="level-4">
+          <p class="eyebrow">CAREER PATH · LEVEL 4</p>
+          <h2>5. AI application security and governance</h2>
+          <p><strong>Learning goal:</strong> manage AI-specific risks across models, prompts, retrieval, tools, identities, datasets, and providers while retaining the software and privacy controls from earlier levels.</p>
+          <div class="table-wrap">
+            <table class="standards-table">
+              <thead><tr><th>Reference</th><th>What it is</th><th>What to know as an engineer</th></tr></thead>
+              <tbody>
+                <tr>
+                  <th scope="row"><a href="https://www.nist.gov/itl/ai-risk-management-framework" target="_blank" rel="noopener noreferrer">NIST AI Risk Management Framework (AI RMF)</a></th>
+                  <td>Voluntary guidance for managing risks from the design through use of AI systems.</td>
+                  <td>Learn Govern, Map, Measure, and Manage. Keep system boundaries, intended uses, evaluations, limitations, human oversight, and monitoring connected. NIST notes that AI RMF 1.0 is under revision; check the official page for current material.</td>
+                </tr>
+                <tr>
+                  <th scope="row"><a href="https://www.iso.org/standard/42001" target="_blank" rel="noopener noreferrer">ISO/IEC 42001:2023</a> and <a href="https://www.iso.org/standard/77304.html" target="_blank" rel="noopener noreferrer">ISO/IEC 23894:2023</a></th>
+                  <td>42001 specifies an AI management system; 23894 provides guidance on AI risk management.</td>
+                  <td>Understand organizational roles, impact and risk assessment, lifecycle controls, documentation, monitoring, and improvement. A management-system certification is about the organization's system and scope—not proof that a particular model cannot fail.</td>
+                </tr>
+                <tr>
+                  <th scope="row"><a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj" target="_blank" rel="noopener noreferrer">EU Artificial Intelligence Act</a></th>
+                  <td>An EU regulation that establishes obligations based on AI system risk, intended use, and the role of providers, deployers, and other parties.</td>
+                  <td>For an AI feature, capture its intended purpose, users, data flows, human oversight, logging, and system role early. Applicability and duties are context-dependent and phase in over time; verify the current official timeline with the organization's legal and compliance teams.</td>
+                </tr>
+                <tr>
+                  <th scope="row"><a href="https://genai.owasp.org/llm-top-10/" target="_blank" rel="noopener noreferrer">OWASP Top 10 for LLM Applications</a></th>
+                  <td>A risk-awareness resource for generative-AI applications.</td>
+                  <td>Use it to develop test cases for prompt injection, sensitive-data disclosure, insecure output handling, excessive agency, and other LLM-specific risks. It is not a regulation or a complete threat model.</td>
+                </tr>
+                <tr>
+                  <th scope="row"><a href="https://atlas.mitre.org/" target="_blank" rel="noopener noreferrer">MITRE ATLAS</a> and <a href="https://cloudsecurityalliance.org/csai-foundation" target="_blank" rel="noopener noreferrer">CSA MAESTRO resources</a></th>
+                  <td>ATLAS catalogs adversary tactics and techniques against AI systems; MAESTRO is CSA's seven-layer threat-modeling approach for agentic AI.</td>
+                  <td>Use ATLAS for adversary-informed scenarios and MAESTRO to structure threats across agentic-system layers. Neither is a certification, a law, or a substitute for system-specific analysis.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p>Level 4 builds on Levels 1–3; AI does not replace ordinary identity, data-protection, secure-development, and incident-response requirements.</p>
+        </section>
+
+        <section id="threat-frameworks">
+          <h2>6. Cross-cutting threat frameworks are not compliance</h2>
+          <p>These tools help teams reason about threats and tests. Use them alongside applicable laws, contracts, standards, and organizational policies—not in place of them.</p>
+          <ul>
+            <li><a href="https://owasp.org/www-project-top-ten/" target="_blank" rel="noopener noreferrer">OWASP Top 10</a> and the <a href="https://owasp.org/www-project-api-security/" target="_blank" rel="noopener noreferrer">OWASP API Security Top 10</a> are awareness lists for web and API risk, not complete compliance checklists.</li>
+            <li><a href="https://genai.owasp.org/llm-top-10/" target="_blank" rel="noopener noreferrer">OWASP Top 10 for LLM Applications</a> highlights generative-AI application risks; it does not replace a system-specific threat model.</li>
+            <li><a href="https://attack.mitre.org/" target="_blank" rel="noopener noreferrer">MITRE ATT&amp;CK</a> organizes observed adversary tactics and techniques for enterprise environments.</li>
+            <li><a href="https://atlas.mitre.org/" target="_blank" rel="noopener noreferrer">MITRE ATLAS</a> organizes adversary tactics and techniques targeting AI-enabled systems.</li>
+            <li><a href="https://learn.microsoft.com/en-us/azure/security/develop/threat-modeling-tool-threats" target="_blank" rel="noopener noreferrer">STRIDE</a> is a threat-modeling mnemonic: spoofing, tampering, repudiation, information disclosure, denial of service, and elevation of privilege.</li>
+            <li><a href="https://cloudsecurityalliance.org/csai-foundation" target="_blank" rel="noopener noreferrer">Cloud Security Alliance AI security resources</a> — use the CSA's current hub for MAESTRO (Multi-Agent Environment, Security, Threat, Risk, and Outcome), a seven-layer threat-modeling approach for agentic AI systems; it is not a compliance standard.</li>
+          </ul>
+        </section>
+
+        <section id="engineer">
+          <h2>7. What an application and product security engineer should do</h2>
+          <ol>
+            <li>Ask which customer, legal, privacy, contractual, or payment-data requirements actually apply to this product and its deployment.</li>
+            <li>Translate each applicable requirement into a named owner, product control, test, and evidence source.</li>
+            <li>Build security into design and delivery: authorization tests, threat models, dependency and secret checks, secure release controls, and monitored response paths.</li>
+            <li>For APIs, verify object-level and tenant-level authorization, data minimization, rate limits, and audit events.</li>
+            <li>For AI, document intended use and data flows; test retrieval isolation, output handling, tool permissions, human review, model changes, and incident paths.</li>
+            <li>Keep evidence accurate and scoped. Don't claim “compliant” or “certified” based only on a scan, framework mapping, or a control working in one test.</li>
+          </ol>
+          <div class="callout"><strong>A USEFUL CAREER HABIT</strong><p>Learn how to read a requirement, find the engineering control behind it, write a test for that control, and explain what evidence demonstrates it. You do not need to memorize every clause or act as the organization's lawyer or auditor.</p></div>
+        </section>
+
+        <section id="resources">
+          <h2>8. Free learning resources</h2>
+          <ul class="resource-list">
+            <li><a href="https://csrc.nist.gov/Projects/ssdf" target="_blank" rel="noopener noreferrer">NIST SSDF</a> — start here for secure software lifecycle practices.</li>
+            <li><a href="https://www.nist.gov/cyberframework" target="_blank" rel="noopener noreferrer">NIST CSF 2.0</a> — learn the shared language for organizational cyber-risk outcomes.</li>
+            <li><a href="https://owaspsamm.org/" target="_blank" rel="noopener noreferrer">OWASP SAMM</a> — explore a model for improving software assurance activities.</li>
+            <li><a href="https://www.nist.gov/itl/ai-risk-management-framework" target="_blank" rel="noopener noreferrer">NIST AI RMF Playbook</a> — use the official AI RMF page to reach the current playbook and resources.</li>
+            <li><a href="https://www.pcisecuritystandards.org/document_library/" target="_blank" rel="noopener noreferrer">PCI Security Standards Council document library</a> and the <a href="https://eur-lex.europa.eu/eli/reg/2016/679/oj" target="_blank" rel="noopener noreferrer">official GDPR text</a> — consult primary sources when those scopes apply.</li>
+          </ul>
+          <p>Some standards' full texts and audit criteria are copyrighted or available only through paid sources. Use official summaries and your organization's approved copies; don't rely on unofficial reproductions.</p>
+        </section>
+        <div class="next-guide"><a href="product-security.html">← Product security</a><br><a href="ai-application-security.html">AI application security →</a></div>
+      </article>
+    </div>
+  </main>
+  <footer class="site-footer"><a class="brand" href="index.html"><span class="brand-mark">F</span> FIELDNOTES</a><span>Career toolkit · Security engineering</span><a href="#top">Back to top ↑</a></footer>
+</body>
+</html>

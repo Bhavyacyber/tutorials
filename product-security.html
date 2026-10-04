@@ -5,13 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Learn product security across the full software lifecycle: requirements, design, development, testing, deployment, and operations.">
   <title>Product Security — Cybersecurity Foundations</title>
-  <link rel="stylesheet" href="styles-v2.css">
+  <link rel="stylesheet" href="styles-v2.css?v=20261004-4">
 </head>
 <body id="top">
   <header class="site-header">
-    <a class="brand" href="index.html"><span class="brand-mark">F</span> FIELDNOTES <span class="brand-divider">/</span> CYBERSECURITY</a>
+    <a class="brand" href="index.html"><span class="brand-mark">F</span> FIELDNOTES <span class="brand-divider">/</span> <span class="brand-name">CYBERSECURITY</span></a>
     <div class="header-context"><span>LEVEL 3 PRODUCT SECURITY</span><span>SECURE LIFECYCLE</span></div>
-    <a class="header-link" href="index.html#curriculum">All learning paths <span aria-hidden="true">↗</span></a>
+    <nav class="header-nav" aria-label="Main navigation">
+      <a class="header-link" href="index.html#curriculum">Learning paths <span aria-hidden="true">↗</span></a>
+      <a class="standards-tab" href="compliance.html" aria-label="Standards and compliance"><span class="standards-full-label">Standards &amp; compliance</span><span class="standards-short-label">Standards</span></a>
+    </nav>
   </header>
   <main>
     <section class="guide-hero">
@@ -28,11 +31,22 @@
           <li><a href="#architecture">Architecture and threat modeling</a></li><li><a href="#design">Secure design</a></li>
           <li><a href="#development">Development and review</a></li><li><a href="#testing">SAST, SCA, DAST, and API testing</a></li>
           <li><a href="#release">Deployment and release</a></li><li><a href="#operations">Monitoring and vulnerability management</a></li>
-          <li><a href="#measure">Measures and prioritization</a></li><li><a href="#practice">Practice and recap</a></li>
+          <li><a href="#measure">Measures and prioritization</a></li><li><a href="#practice">Practice and recap</a></li><li><a href="#resources">Further resources</a></li>
         </ol>
       </nav>
       <article class="guide-content">
         <p>A scanner can identify signals, but a product security program decides what matters, who owns the response, and how fixes become lasting improvements. Product security is a shared engineering responsibility supported by clear security requirements, useful tooling, and operational feedback.</p>
+        <aside class="beginner-guide" aria-labelledby="product-security-simple">
+          <p class="eyebrow">START WITH THE IDEA</p>
+          <h2 id="product-security-simple">Security is part of making and maintaining the product</h2>
+          <p>Think of building a house: safety is easier to plan into the design than to bolt on after people move in. Product teams do the same with software: understand risks early, build safeguards, test them, release carefully, watch how the product behaves, and improve it when something changes.</p>
+          <p><strong>By the end, you should be able to:</strong></p>
+          <ul class="learning-goals"><li>Describe security work from requirements through operations.</li><li>Turn a broad security goal into a testable requirement.</li><li>Explain how teams triage, fix, and verify a vulnerability.</li></ul>
+        </aside>
+        <figure class="guide-illustration">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Software_Development_Lifecycle_Diagram.png" alt="Diagram of stages in the software development lifecycle" loading="lazy" decoding="async">
+          <figcaption>Security work follows the product through its development lifecycle. Image: “Software Development Lifecycle Diagram” by Shawn Rider, <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>, via <a href="https://commons.wikimedia.org/wiki/File:Software_Development_Lifecycle_Diagram.png" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a>.</figcaption>
+        </figure>
 
         <section id="lifecycle">
           <h2>1. The product security lifecycle</h2>
@@ -111,7 +125,22 @@
           <div class="lab"><strong>FOLLOW ONE FINDING TO CLOSURE</strong><p>Use a sample dependency advisory or a deliberately introduced issue in a local training project. Record how it is validated, prioritized, assigned, fixed, regression-tested, and monitored. Do not introduce a vulnerable change into a production system.</p></div>
           <div class="checkpoint"><strong>CHECK YOUR UNDERSTANDING</strong><ul><li>How does a testable security requirement differ from a general goal?</li><li>When should a threat model be revisited?</li><li>What does SCA tell you, and what still needs human assessment?</li><li>Why does DAST coverage depend on authentication and route discovery?</li><li>What information should a risk exception include?</li><li>How can monitoring feedback improve design and development?</li></ul></div>
         </section>
-        <div class="next-guide"><a href="index.html#level-3">← Return to Level 3 learning path</a></div>
+        <section id="resources">
+          <h2>Free learning path and practice</h2>
+          <h3>Learn how teams build security in</h3>
+          <ul class="resource-list">
+            <li><a href="https://csrc.nist.gov/Projects/ssdf" target="_blank" rel="noopener noreferrer">NIST Secure Software Development Framework</a> — a practical vocabulary for preparing teams, protecting software, producing secure releases, and responding to vulnerabilities.</li>
+            <li><a href="https://owaspsamm.org/" target="_blank" rel="noopener noreferrer">OWASP SAMM</a> — a free model for assessing and improving an organization's software-security practices.</li>
+            <li><a href="https://www.cisa.gov/securebydesign" target="_blank" rel="noopener noreferrer">CISA Secure by Design</a> — guidance for making secure defaults and product responsibility part of development.</li>
+          </ul>
+          <h3>Build practical experience</h3>
+          <ul class="resource-list">
+            <li><a href="https://tryhackme.com/path/outline/webfundamentals" target="_blank" rel="noopener noreferrer">TryHackMe: Web Fundamentals</a> and <a href="https://tryhackme.com/room/owasptop10" target="_blank" rel="noopener noreferrer">OWASP Top 10</a> — useful AppSec practice to build before taking on broader product-security ownership.</li>
+            <li><a href="https://academy.hackthebox.com/catalogue" target="_blank" rel="noopener noreferrer">HTB Academy catalogue</a> — search for web-application, secure-coding, and vulnerability-management modules; content and access change over time.</li>
+          </ul>
+          <p class="resource-note">For your career goal, focus on turning requirements into tests, tracking owners and evidence, and verifying fixes—not memorizing control IDs. Continue with the <a href="compliance.html">standards and compliance guide</a>.</p>
+        </section>
+        <div class="next-guide"><a href="compliance.html">Next: Standards and compliance →</a><br><a href="index.html#level-3">← Return to Level 3 learning path</a></div>
       </article>
     </div>
   </main>

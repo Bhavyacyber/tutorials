@@ -5,13 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="A defensive guide to LLM, RAG, AI agent, and AI infrastructure security, including red teaming and security engineering.">
   <title>AI Application Security — Cybersecurity Foundations</title>
-  <link rel="stylesheet" href="styles-v2.css">
+  <link rel="stylesheet" href="styles-v2.css?v=20261004-4">
 </head>
 <body id="top">
   <header class="site-header">
-    <a class="brand" href="index.html"><span class="brand-mark">F</span> FIELDNOTES <span class="brand-divider">/</span> CYBERSECURITY</a>
+    <a class="brand" href="index.html"><span class="brand-mark">F</span> FIELDNOTES <span class="brand-divider">/</span> <span class="brand-name">CYBERSECURITY</span></a>
     <div class="header-context"><span>LEVEL 4 AI SECURITY</span><span>LLM · RAG · AGENTS</span></div>
-    <a class="header-link" href="index.html#curriculum">All learning paths <span aria-hidden="true">↗</span></a>
+    <nav class="header-nav" aria-label="Main navigation">
+      <a class="header-link" href="index.html#curriculum">Learning paths <span aria-hidden="true">↗</span></a>
+      <a class="standards-tab" href="compliance.html" aria-label="Standards and compliance"><span class="standards-full-label">Standards &amp; compliance</span><span class="standards-short-label">Standards</span></a>
+    </nav>
   </header>
   <main>
     <section class="guide-hero">
@@ -27,11 +30,22 @@
           <li><a href="#system">Map the AI system</a></li><li><a href="#llm">LLM security</a></li>
           <li><a href="#rag">RAG security</a></li><li><a href="#agents">AI agent security</a></li>
           <li><a href="#infrastructure">AI infrastructure</a></li><li><a href="#redteam">AI red teaming</a></li>
-          <li><a href="#engineering">AI security engineering</a></li><li><a href="#practice">Practice and recap</a></li>
+          <li><a href="#engineering">AI security engineering</a></li><li><a href="#practice">Practice and recap</a></li><li><a href="#resources">Further resources</a></li>
         </ol>
       </nav>
       <article class="guide-content">
         <p>AI application security covers the model and the surrounding product: prompts, retrieval, tools, identity, data stores, APIs, and operational controls. A model can produce convincing text, but its output is not a policy decision. Keep sensitive authorization and safety-critical actions under deterministic controls that can be reviewed and tested.</p>
+        <aside class="beginner-guide" aria-labelledby="ai-security-simple">
+          <p class="eyebrow">START WITH THE IDEA</p>
+          <h2 id="ai-security-simple">An AI feature is a whole system, not just a model</h2>
+          <p>Imagine a helpful librarian who can search private folders and use office tools. You still decide which folders the librarian may access, check that a result belongs to the person asking, and approve important actions. In an AI product, the application—not the model's answer—must enforce those permissions.</p>
+          <p><strong>By the end, you should be able to:</strong></p>
+          <ul class="learning-goals"><li>Trace how prompts, documents, models, and tools interact.</li><li>Explain why retrieved content and model output must be treated as untrusted.</li><li>Identify where authorization and human approval belong.</li></ul>
+        </aside>
+        <figure class="guide-illustration">
+          <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/1/14/RAG_diagram.svg/960px-RAG_diagram.svg.png" alt="Diagram of retrieval-augmented generation: a question retrieves documents that provide context to a language model" loading="lazy" decoding="async">
+          <figcaption>This is one common retrieval-augmented generation (RAG) pattern; real systems have additional identity, storage, and policy controls. Image: “RAG diagram” by Turtlecrown, <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>, via <a href="https://commons.wikimedia.org/wiki/File:RAG_diagram.svg" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a>.</figcaption>
+        </figure>
 
         <section id="system">
           <h2>1. Map the AI system and its trust boundaries</h2>
@@ -113,6 +127,22 @@
           <div class="lab"><strong>RAG TENANT-ISOLATION REVIEW</strong><p>In a local demo with synthetic documents, create two users and distinct private documents. Ask ordinary and adversarially phrased questions from each account. Verify retrieval filters, cache partitioning, citations, logs, and denial behavior. Record a regression test for any boundary failure.</p></div>
           <div class="lab"><strong>AGENT PERMISSION DESIGN</strong><p>Choose a low-risk agent task such as drafting a calendar entry without submitting it. List its tools, identities, data access, and possible side effects. Design a permission broker, argument validation, approval step, rate limit, and audit record. Test that hostile content in a retrieved document cannot authorize an action.</p></div>
           <div class="checkpoint"><strong>CHECK YOUR UNDERSTANDING</strong><ul><li>Why is a prompt instruction not a security boundary?</li><li>Where should RAG document authorization be enforced?</li><li>What changes when an LLM can call tools?</li><li>How should identity be propagated to downstream actions?</li><li>What does AI red teaming measure in addition to attack success?</li><li>How can a finding become a durable engineering control?</li></ul></div>
+        </section>
+        <section id="resources">
+          <h2>Free learning path and practice</h2>
+          <h3>Learn the AI-security landscape</h3>
+          <ul class="resource-list">
+            <li><a href="https://genai.owasp.org/" target="_blank" rel="noopener noreferrer">OWASP GenAI Security Project</a> and its <a href="https://genai.owasp.org/llm-top-10/" target="_blank" rel="noopener noreferrer">Top 10 for LLM Applications</a> — a free risk map for LLM-enabled products.</li>
+            <li><a href="https://www.nist.gov/itl/ai-risk-management-framework" target="_blank" rel="noopener noreferrer">NIST AI Risk Management Framework</a> — voluntary guidance for governing, mapping, measuring, and managing AI risk.</li>
+            <li><a href="https://atlas.mitre.org/" target="_blank" rel="noopener noreferrer">MITRE ATLAS</a> — adversary tactics and techniques for AI-enabled systems.</li>
+            <li><a href="https://cloudsecurityalliance.org/csai-foundation" target="_blank" rel="noopener noreferrer">Cloud Security Alliance AI security resources</a> — current AI governance and security material; MAESTRO (Multi-Agent Environment, Security, Threat, Risk, and Outcome) is a seven-layer threat-modeling approach for agentic systems.</li>
+          </ul>
+          <h3>Practice safely</h3>
+          <ul class="resource-list">
+            <li><a href="https://tryhackme.com/hacktivities" target="_blank" rel="noopener noreferrer">TryHackMe rooms catalogue</a> and <a href="https://academy.hackthebox.com/catalogue" target="_blank" rel="noopener noreferrer">HTB Academy catalogue</a> — search for current AI, LLM, and agent-security labs. These catalogs change quickly; if no dedicated room is available, adapt the guide's RAG and agent exercises to a local demo with synthetic data.</li>
+            <li><a href="https://learn.microsoft.com/en-us/security/ai-red-team/" target="_blank" rel="noopener noreferrer">Microsoft Learn: AI red teaming</a> — free guidance on planning and performing AI red-team assessments.</li>
+          </ul>
+          <p class="resource-note">AI threat frameworks and laws are not interchangeable. The <a href="compliance.html">standards and compliance guide</a> maps AI risk frameworks, management standards, and regulation.</p>
         </section>
         <div class="next-guide"><a href="index.html#level-4">← Return to Level 4 learning path</a></div>
       </article>

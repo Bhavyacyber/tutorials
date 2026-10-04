@@ -5,13 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Learn the CIA triad, threats, vulnerabilities, risk, cryptography, IAM, controls, and threat modeling.">
   <title>Security — Cybersecurity Foundations</title>
-  <link rel="stylesheet" href="styles-v2.css">
+  <link rel="stylesheet" href="styles-v2.css?v=20261004-4">
 </head>
 <body id="top">
   <header class="site-header">
-    <a class="brand" href="index.html"><span class="brand-mark">F</span> FIELDNOTES <span class="brand-divider">/</span> CYBERSECURITY</a>
+    <a class="brand" href="index.html"><span class="brand-mark">F</span> FIELDNOTES <span class="brand-divider">/</span> <span class="brand-name">CYBERSECURITY</span></a>
     <div class="header-context"><span>LEVEL 1 FOUNDATION</span><span>SECURITY</span></div>
-    <a class="header-link" href="index.html#curriculum">All learning paths <span aria-hidden="true">↗</span></a>
+    <nav class="header-nav" aria-label="Main navigation">
+      <a class="header-link" href="index.html#curriculum">Learning paths <span aria-hidden="true">↗</span></a>
+      <a class="standards-tab" href="compliance.html" aria-label="Standards and compliance"><span class="standards-full-label">Standards &amp; compliance</span><span class="standards-short-label">Standards</span></a>
+    </nav>
   </header>
   <main>
     <section class="guide-hero">
@@ -23,10 +26,21 @@
     <div class="guide-layout">
       <nav class="guide-toc" aria-label="On this page">
         <h2>IN THIS GUIDE</h2>
-        <ol><li><a href="#cia">The CIA triad</a></li><li><a href="#threats">Threats and vulnerabilities</a></li><li><a href="#risk">Risk</a></li><li><a href="#crypto">Cryptography</a></li><li><a href="#iam">Identity and access</a></li><li><a href="#controls">Security controls</a></li><li><a href="#modeling">Threat modeling</a></li><li><a href="#practice">Practice and recap</a></li></ol>
+        <ol><li><a href="#cia">The CIA triad</a></li><li><a href="#threats">Threats and vulnerabilities</a></li><li><a href="#risk">Risk</a></li><li><a href="#crypto">Cryptography</a></li><li><a href="#iam">Identity and access</a></li><li><a href="#controls">Security controls</a></li><li><a href="#modeling">Threat modeling</a></li><li><a href="#practice">Practice and recap</a></li><li><a href="#resources">Further resources</a></li></ol>
       </nav>
       <article class="guide-content">
         <p>Cybersecurity is the practice of protecting systems and information from unwanted access, change, disruption, or loss. Good security is not one product or setting: it is a set of safeguards matched to the people, information, and systems involved.</p>
+        <aside class="beginner-guide" aria-labelledby="security-simple">
+          <p class="eyebrow">START WITH THE IDEA</p>
+          <h2 id="security-simple">Security protects three things</h2>
+          <p>Think about a family photo album. <strong>Confidentiality:</strong> only the right people can see it. <strong>Integrity:</strong> nobody changes or deletes the photos without permission. <strong>Availability:</strong> the family can still access them when needed. These are the CIA triad; security controls help protect them from realistic risks.</p>
+          <p><strong>By the end, you should be able to:</strong></p>
+          <ul class="learning-goals"><li>Use confidentiality, integrity, and availability to describe security goals.</li><li>Distinguish a threat, a vulnerability, a risk, and a control.</li><li>Sketch a simple threat model for a system you use.</li></ul>
+        </aside>
+        <figure class="guide-illustration">
+          <img src="assets/images/cia-triad.png" alt="Triangle diagram connecting confidentiality, integrity, and availability" loading="lazy" decoding="async">
+          <figcaption>The CIA triad groups three core information-security goals. Image: “The Information Security triad: CIA” by John M. Kennedy T., <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 3.0</a>, via <a href="https://commons.wikimedia.org/wiki/File:CIAJMK1209.png" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a>.</figcaption>
+        </figure>
         <section id="cia">
           <h2>1. The CIA triad</h2>
           <p>The <strong>CIA triad</strong> is a simple model for security objectives:</p>
@@ -70,6 +84,21 @@
           <h2>Practice and recap</h2>
           <div class="lab"><strong>MINI THREAT MODEL</strong><p>Choose a system you own or are responsible for, such as a personal laptop. Write down one important asset, two plausible threats, the impact of each, one existing safeguard, and one proportionate improvement. Keep personal or sensitive details out of public notes.</p></div>
           <div class="checkpoint"><strong>CHECK YOUR UNDERSTANDING</strong><ul><li>Which part of the CIA triad is affected by accidental deletion?</li><li>How are a threat and a vulnerability different?</li><li>Why isn't encryption the same as hashing?</li><li>Give one preventive, one detective, and one corrective control.</li><li>What is the value of revisiting a threat model?</li></ul></div>
+        </section>
+        <section id="resources">
+          <h2>Free learning path and practice</h2>
+          <h3>Build a security foundation</h3>
+          <ul class="resource-list">
+            <li><a href="https://www.nist.gov/cyberframework" target="_blank" rel="noopener noreferrer">NIST Cybersecurity Framework 2.0</a> — a free way to learn how organizations describe and manage cybersecurity risk.</li>
+            <li><a href="https://attack.mitre.org/" target="_blank" rel="noopener noreferrer">MITRE ATT&amp;CK</a> — explore real-world adversary tactics and techniques; use it to inform defensive questions, not as a compliance checklist.</li>
+            <li><a href="https://learn.microsoft.com/en-us/azure/security/develop/threat-modeling-tool-threats" target="_blank" rel="noopener noreferrer">Microsoft: STRIDE threat categories</a> — a practical starting point for asking what could go wrong in a design.</li>
+          </ul>
+          <h3>Practice with training environments</h3>
+          <ul class="resource-list">
+            <li><a href="https://tryhackme.com/room/introductory" target="_blank" rel="noopener noreferrer">TryHackMe: Introduction to Cyber Security</a> and <a href="https://tryhackme.com/room/principlesofsecurity" target="_blank" rel="noopener noreferrer">Principles of Security</a> — guided beginner rooms.</li>
+            <li><a href="https://academy.hackthebox.com/catalogue" target="_blank" rel="noopener noreferrer">HTB Academy catalogue</a> — search for introductory information-security and risk-management modules; check current access requirements.</li>
+          </ul>
+          <p class="resource-note">MITRE ATT&amp;CK, STRIDE, and NIST CSF serve different purposes. The <a href="compliance.html">standards and compliance guide</a> explains how to distinguish frameworks, laws, and audit requirements.</p>
         </section>
         <div class="next-guide"><a href="index.html#curriculum">← Return to all learning paths</a></div>
       </article>

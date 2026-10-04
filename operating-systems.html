@@ -5,13 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Understand Linux, Windows, macOS, processes, services, permissions, authentication, and logs.">
   <title>Operating systems — Cybersecurity Foundations</title>
-  <link rel="stylesheet" href="styles-v2.css">
+  <link rel="stylesheet" href="styles-v2.css?v=20261004-4">
 </head>
 <body id="top">
   <header class="site-header">
-    <a class="brand" href="index.html"><span class="brand-mark">F</span> FIELDNOTES <span class="brand-divider">/</span> CYBERSECURITY</a>
+    <a class="brand" href="index.html"><span class="brand-mark">F</span> FIELDNOTES <span class="brand-divider">/</span> <span class="brand-name">CYBERSECURITY</span></a>
     <div class="header-context"><span>LEVEL 1 FOUNDATION</span><span>OPERATING SYSTEMS</span></div>
-    <a class="header-link" href="index.html#curriculum">All learning paths <span aria-hidden="true">↗</span></a>
+    <nav class="header-nav" aria-label="Main navigation">
+      <a class="header-link" href="index.html#curriculum">Learning paths <span aria-hidden="true">↗</span></a>
+      <a class="standards-tab" href="compliance.html" aria-label="Standards and compliance"><span class="standards-full-label">Standards &amp; compliance</span><span class="standards-short-label">Standards</span></a>
+    </nav>
   </header>
   <main>
     <section class="guide-hero">
@@ -23,10 +26,21 @@
     <div class="guide-layout">
       <nav class="guide-toc" aria-label="On this page">
         <h2>IN THIS GUIDE</h2>
-        <ol><li><a href="#role">What an OS does</a></li><li><a href="#families">Linux, Windows, macOS</a></li><li><a href="#processes">Processes and services</a></li><li><a href="#permissions">Permissions</a></li><li><a href="#authentication">Authentication</a></li><li><a href="#logs">Logs and events</a></li><li><a href="#practice">Practice and recap</a></li></ol>
+        <ol><li><a href="#role">What an OS does</a></li><li><a href="#families">Linux, Windows, macOS</a></li><li><a href="#processes">Processes and services</a></li><li><a href="#permissions">Permissions</a></li><li><a href="#authentication">Authentication</a></li><li><a href="#logs">Logs and events</a></li><li><a href="#practice">Practice and recap</a></li><li><a href="#resources">Further resources</a></li></ol>
       </nav>
       <article class="guide-content">
         <p>An <strong>operating system (OS)</strong> coordinates hardware and provides common services to applications. It manages memory, storage, devices, networking, users, and running programs. Security depends in part on how the OS separates users and processes and records what happens.</p>
+        <aside class="beginner-guide" aria-labelledby="operating-systems-simple">
+          <p class="eyebrow">START WITH THE IDEA</p>
+          <h2 id="operating-systems-simple">The operating system is the device's manager</h2>
+          <p>Imagine a busy building. The OS assigns rooms and resources, checks who has a key, starts shared services, and keeps a record of important events. Applications are like workers using the building: each should get only the access it needs. A process is a running program; a service is a program that works in the background.</p>
+          <p><strong>By the end, you should be able to:</strong></p>
+          <ul class="learning-goals"><li>Tell the difference between an operating system, a process, and a service.</li><li>Explain why accounts and permissions limit what software can do.</li><li>Find ordinary system activity in a built-in log viewer.</li></ul>
+        </aside>
+        <figure class="guide-illustration">
+          <img src="assets/images/linux-server.jpeg" alt="A compact computer used as a Linux server" loading="lazy" decoding="async">
+          <figcaption>A small computer can run an operating system and provide services to other devices. Photo by jm3, <a href="https://creativecommons.org/licenses/by-sa/2.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 2.0</a>, via <a href="https://commons.wikimedia.org/wiki/File:Custom_Miniature_Linux_Server_(2005).jpeg" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a>.</figcaption>
+        </figure>
         <section id="role">
           <h2>1. What an operating system does</h2>
           <p>The OS kernel manages privileged operations and access to hardware. Applications usually run with less privilege and ask the OS for services. This separation helps contain mistakes and limit what a program can do, though vulnerabilities or excessive permissions can weaken it.</p>
@@ -65,6 +79,22 @@
           <h2>Practice and recap</h2>
           <div class="checkpoint"><strong>CHECK YOUR UNDERSTANDING</strong><ul><li>How does a process differ from a service?</li><li>What is the difference between authentication and authorization?</li><li>Why is least privilege useful?</li><li>What context would you gather before interpreting a log entry?</li></ul></div>
           <p>As a personal baseline, confirm your device receives automatic security updates, review which accounts have administrator access, and know where to find its built-in security and event tools.</p>
+        </section>
+        <section id="resources">
+          <h2>Free learning path and practice</h2>
+          <h3>Learn the foundations</h3>
+          <ul class="resource-list">
+            <li><a href="https://ubuntu.com/tutorials/command-line-for-beginners" target="_blank" rel="noopener noreferrer">Ubuntu: The Linux command line for beginners</a> — a free, hands-on introduction to the shell.</li>
+            <li><a href="https://learn.microsoft.com/en-us/windows/security/" target="_blank" rel="noopener noreferrer">Microsoft Learn: Windows security</a> — free documentation on built-in Windows security features.</li>
+            <li><a href="https://support.apple.com/guide/security/welcome/web" target="_blank" rel="noopener noreferrer">Apple Platform Security</a> — free reference material for Apple platform protections.</li>
+          </ul>
+          <h3>Practice in guided labs</h3>
+          <ul class="resource-list">
+            <li><a href="https://tryhackme.com/room/linuxfundamentalspart1" target="_blank" rel="noopener noreferrer">TryHackMe: Linux Fundamentals Part 1</a> and <a href="https://tryhackme.com/room/windowsfundamentals1" target="_blank" rel="noopener noreferrer">Windows Fundamentals 1</a> — introductory, guided rooms.</li>
+            <li><a href="https://academy.hackthebox.com/catalogue" target="_blank" rel="noopener noreferrer">HTB Academy catalogue</a> — search for Linux and Windows fundamentals modules to practice command-line and operating-system basics.</li>
+          </ul>
+          <p class="resource-note">Use disposable training environments for labs; don't change permissions or terminate services on a device you depend on.</p>
+          <p><a href="compliance.html">See the standards and compliance guide</a> for system-hardening and identity topics used in product security work.</p>
         </section>
         <div class="next-guide"><a href="security.html">Next: Security →</a></div>
       </article>

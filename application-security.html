@@ -3,22 +3,25 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="A practical Level 2 guide to web and API security, common vulnerabilities, and safe application testing.">
+  <meta name="description" content="A practical Level 2 guide to web, API, and mobile application security, common vulnerabilities, and safe testing.">
   <title>Application Security — Cybersecurity Foundations</title>
-  <link rel="stylesheet" href="styles-v2.css">
+  <link rel="stylesheet" href="styles-v2.css?v=20261004-5">
 </head>
 <body id="top">
   <header class="site-header">
-    <a class="brand" href="index.html"><span class="brand-mark">F</span> FIELDNOTES <span class="brand-divider">/</span> CYBERSECURITY</a>
-    <div class="header-context"><span>LEVEL 2 APPLICATION SECURITY</span><span>WEB AND API</span></div>
-    <a class="header-link" href="index.html#curriculum">All learning paths <span aria-hidden="true">↗</span></a>
+    <a class="brand" href="index.html"><span class="brand-mark">F</span> FIELDNOTES <span class="brand-divider">/</span> <span class="brand-name">CYBERSECURITY</span></a>
+    <div class="header-context"><span>LEVEL 2 APPLICATION SECURITY</span><span>WEB · API · MOBILE</span></div>
+    <nav class="header-nav" aria-label="Main navigation">
+      <a class="header-link" href="index.html#curriculum">Learning paths <span aria-hidden="true">↗</span></a>
+      <a class="standards-tab" href="compliance.html" aria-label="Standards and compliance"><span class="standards-full-label">Standards &amp; compliance</span><span class="standards-short-label">Standards</span></a>
+    </nav>
   </header>
   <main>
     <section class="guide-hero">
       <div class="breadcrumbs"><a href="index.html">Home</a> / Level 2 / Application Security</div>
-      <p class="eyebrow">04 — SECURING THE APPLICATION LAYER</p>
+      <p class="eyebrow">04 — SECURING WEB, API, AND MOBILE APPLICATIONS</p>
       <h1>Application security</h1>
-      <p>Trace browser requests through web services and data stores. Learn how identity, trust boundaries, and unsafe input create risk—and how to design, test, and operate applications more safely.</p>
+      <p>Trace requests from browsers and mobile apps through APIs and data stores. Learn how identity, platform features, trust boundaries, and unsafe input create risk—and how to design, test, and operate applications more safely.</p>
     </section>
     <div class="guide-layout">
       <nav class="guide-toc" aria-label="On this page">
@@ -27,11 +30,23 @@
           <li><a href="#architecture">Web architecture</a></li><li><a href="#http">HTTP and REST</a></li>
           <li><a href="#identity">Authentication and authorization</a></li><li><a href="#browser">Browser security</a></li>
           <li><a href="#data">SQL and injection</a></li><li><a href="#vulnerabilities">Common vulnerabilities</a></li>
-          <li><a href="#owasp">OWASP risk maps</a></li><li><a href="#tools">Tools and workflow</a></li><li><a href="#practice">Safe practice and recap</a></li>
+          <li><a href="#owasp">OWASP risk maps</a></li><li><a href="#mobile">Mobile app security</a></li>
+          <li><a href="#tools">Tools and workflow</a></li><li><a href="#practice">Safe practice and recap</a></li><li><a href="#resources">Further resources</a></li>
         </ol>
       </nav>
       <article class="guide-content">
         <p>Application security (AppSec) reduces weaknesses in software, its configuration, and the way it is used. The same feature can cross several boundaries: a browser sends a request, an API applies identity and policy, application code queries a database, and the response returns to a user. Think about each boundary and what must be trusted there.</p>
+        <aside class="beginner-guide" aria-labelledby="application-security-simple">
+          <p class="eyebrow">START WITH THE IDEA</p>
+          <h2 id="application-security-simple">Follow one request from start to finish</h2>
+          <p>When you view an order online, a browser or mobile app asks a service for it. The server must check who you are, whether you may see that specific order, and how to safely fetch its data. A client app is not a security guard: the server must make and enforce the important decisions every time.</p>
+          <p><strong>By the end, you should be able to:</strong></p>
+          <ul class="learning-goals"><li>Trace data from a web or mobile client through an API to a data store.</li><li>Explain why login and permission checks are different.</li><li>Recognize common web, API, and mobile input-handling and access-control risks.</li></ul>
+        </aside>
+        <figure class="guide-illustration">
+          <img src="assets/images/web-stack.jpg" alt="Diagram of a simple web stack showing a client, web server, and application components" loading="lazy" decoding="async">
+          <figcaption>A web request passes through application components before reaching data. Image: “Network Architecture Diagram - Simple Web Stack” by Ricardo Hincapie Trujillo, <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>, via <a href="https://commons.wikimedia.org/wiki/File:Network_Architecture_Diagram_-_Simple_Web_Stack.pdf" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a>.</figcaption>
+        </figure>
 
         <section id="architecture">
           <h2>1. Web architecture and trust boundaries</h2>
@@ -98,17 +113,62 @@ cursor.execute("SELECT id, name FROM users WHERE email = ?", (email,))</code></p
           <div class="callout"><strong>TURN CATEGORIES INTO TESTS</strong><p>For every endpoint, identify the caller, object, action, fields, and resource cost. Then define a positive case and at least one unauthorized or malformed case.</p></div>
         </section>
 
+        <section id="mobile">
+          <h2>8. Mobile application security</h2>
+          <p>A mobile app is a client running on a device the user controls. It stores data locally, uses operating-system features, communicates with remote APIs, and may receive links or content from other apps. Apply the same server-side authorization rules as for a website, then assess the extra device, platform, and distribution boundaries.</p>
+          <h3>Protect data on the device</h3>
+          <ul>
+            <li><strong>Choose storage by sensitivity:</strong> keep secrets out of source code, preferences, ordinary files, logs, and backups. Store only what the app needs; use Android Keystore or Apple Keychain for cryptographic keys and appropriate protected credentials.</li>
+            <li><strong>Protect local data:</strong> consider device lock state, platform data-protection options, backup and restore behavior, shared storage, screenshots, clipboard, notifications, and cached content. Encryption helps only when keys and access are managed correctly.</li>
+            <li><strong>Handle tokens safely:</strong> use short-lived, revocable tokens and platform-supported secure storage. Never ship an app-wide client secret: secrets embedded in a distributed app can be extracted.</li>
+          </ul>
+          <h3>Use platform features carefully</h3>
+          <ul>
+            <li><strong>Permissions:</strong> request the minimum access needed, as late as practical, with a clear user-facing reason. Handle denial and revocation safely.</li>
+            <li><strong>Deep links and inter-app communication:</strong> validate URLs and input received through intents, URL schemes, universal links, extensions, and exported components. Do not let an untrusted app invoke sensitive actions without authorization.</li>
+            <li><strong>WebViews:</strong> allow only intended content and origins, disable unnecessary capabilities, avoid exposing native bridges to untrusted pages, and treat JavaScript messages as untrusted input.</li>
+            <li><strong>Biometrics:</strong> use platform authentication APIs to gate an appropriate local action or key. A biometric prompt is not a replacement for server-side identity, authorization, or secure account recovery.</li>
+          </ul>
+          <h3>Secure communication and release</h3>
+          <p>Use platform TLS validation and modern networking libraries; never accept every certificate or hostname. Certificate pinning can reduce some interception risks but adds operational and recovery complexity, so design key rotation and backup pins before adopting it. Obfuscation or root/jailbreak detection may raise the cost of tampering but cannot make a client trustworthy or replace server-side controls.</p>
+          <p>For each release, review third-party SDKs and permissions, protect signing keys, verify build provenance where available, remove debug features, and plan updates for supported versions. Minimize analytics and crash-report data so diagnostics do not become a second path for leaking sensitive information.</p>
+          <div class="callout"><strong>TEST THE WHOLE FLOW</strong><p>Trace sensitive data from entry to display, local storage, backups, logs, network requests, third-party SDKs, and deletion. Check both an ordinary device and realistic loss, logout, permission-denial, and account-recovery scenarios.</p></div>
+        </section>
+
         <section id="tools">
-          <h2>8. Tools and a safe workflow</h2>
-          <ul><li><strong>Burp Suite:</strong> intercept and inspect HTTP traffic, replay requests, and organize findings. Use the browser proxy only with systems and accounts you control or are authorized to assess.</li><li><strong>OWASP ZAP:</strong> proxy and passively inspect traffic; its active scanner sends attack-like requests, so run it only against an explicitly authorized test target.</li><li><strong>Nmap:</strong> discover hosts and services on a lab network. Keep scans to owned or expressly authorized ranges and use conservative settings.</li><li><strong>Wireshark:</strong> inspect packet captures to understand protocols and troubleshoot. Prefer your own lab traffic; captures can contain credentials and personal data.</li><li><strong>Postman:</strong> exercise API requests, environments, and collections. Keep secrets out of shared collections and source control.</li><li><strong>Git:</strong> review code history and changes, and collaborate on fixes. Do not commit credentials; rotate any secret that was exposed.</li><li><strong>Python:</strong> automate parsing, local test clients, and defensive checks. Keep scripts bounded, explicit about targets, and safe by default.</li></ul>
+          <h2>9. Tools and a safe workflow</h2>
+          <ul><li><strong>Burp Suite:</strong> intercept and inspect HTTP traffic, replay requests, and organize findings. Use the browser proxy only with systems and accounts you control or are authorized to assess.</li><li><strong>OWASP ZAP:</strong> proxy and passively inspect traffic; its active scanner sends attack-like requests, so run it only against an explicitly authorized test target.</li><li><strong>OWASP MASTG tools:</strong> use platform emulators, debuggers, and inspection tools to test a lab app against the Mobile Application Security Testing Guide. Tool recommendations can change; check the current guide.</li><li><strong>MobSF:</strong> use a local or approved instance to perform static and dynamic analysis on test apps; treat automated findings as leads that need validation.</li><li><strong>Git and Python:</strong> review code and automate bounded defensive checks. Never commit credentials or point scripts at systems outside your authorization.</li></ul>
           <p>A useful workflow is to understand the feature and its trust boundaries, form a specific security question, reproduce it in a local or approved staging environment with test data, record minimal evidence, fix the root cause, and verify the fix with regression cases. A scanner finding needs human validation; a clean scan is not proof of safety.</p>
         </section>
 
         <section id="practice">
-          <h2>Safe practice and recap</h2>
+          <h2>10. Safe practice and recap</h2>
           <div class="lab"><strong>LOCAL API AUTHORIZATION REVIEW</strong><p>Use a deliberately vulnerable training app running locally or a small API you own. Create two test users and two sample records. Capture a request for one record, then check whether the server correctly denies the other user access. Do not test public targets or real user data. Record the expected rule, observed behavior, and a server-side fix.</p></div>
           <div class="lab"><strong>SECURE REQUEST DESIGN</strong><p>Sketch a password-protected profile update. Mark the cookie or token, CSRF defense, input validation, object and field authorization, database parameterization, and audit event. For each item, write one test that would fail if the safeguard were missing.</p></div>
-          <div class="checkpoint"><strong>CHECK YOUR UNDERSTANDING</strong><ul><li>Why does HTTPS not provide authorization?</li><li>How do authentication and authorization differ?</li><li>Why is a JWT payload not necessarily secret?</li><li>What does CORS control, and what does it not control?</li><li>How do parameterized queries prevent SQL injection?</li><li>What check prevents BOLA when an object ID changes?</li><li>Why should active scanning be restricted to authorized systems?</li></ul></div>
+          <div class="lab"><strong>MOBILE DATA-FLOW REVIEW</strong><p>Using a deliberately vulnerable training app or your own local demo with synthetic data, trace one sensitive value through device storage, a network request, logs, and deletion. Review permissions, deep links, backup behavior, and server authorization. Record one test for each boundary. Do not inspect apps or devices you do not own or have permission to assess.</p></div>
+          <div class="checkpoint"><strong>CHECK YOUR UNDERSTANDING</strong><ul><li>Why does HTTPS not provide authorization?</li><li>How do authentication and authorization differ?</li><li>Why is a JWT payload not necessarily secret?</li><li>What does CORS control, and what does it not control?</li><li>How do parameterized queries prevent SQL injection?</li><li>What check prevents BOLA when an object ID changes?</li><li>Why should a mobile app treat local storage and deep-link input as untrusted?</li><li>Why is obfuscation not a substitute for server-side authorization?</li><li>Why should active scanning be restricted to authorized systems?</li></ul></div>
+        </section>
+        <section id="resources">
+          <h2>Free learning paths and practice</h2>
+          <h3>Learn with a structured web-security course</h3>
+          <ul class="resource-list">
+            <li><a href="https://portswigger.net/web-security" target="_blank" rel="noopener noreferrer">PortSwigger Web Security Academy</a> — free lessons and interactive labs, organized by vulnerability class and difficulty.</li>
+            <li><a href="https://owasp.org/www-project-top-ten/" target="_blank" rel="noopener noreferrer">OWASP Top 10</a> and the <a href="https://owasp.org/www-project-api-security/" target="_blank" rel="noopener noreferrer">OWASP API Security Project</a> — use these as risk-awareness maps alongside the hands-on course, not as a complete test plan.</li>
+          </ul>
+          <h3>Practice in guided labs</h3>
+          <ul class="resource-list">
+            <li><a href="https://tryhackme.com/room/owasptop10" target="_blank" rel="noopener noreferrer">TryHackMe: OWASP Top 10</a> and the <a href="https://tryhackme.com/path/outline/webfundamentals" target="_blank" rel="noopener noreferrer">Web Fundamentals path</a> — practice web concepts and common flaws in training labs.</li>
+            <li><a href="https://academy.hackthebox.com/catalogue" target="_blank" rel="noopener noreferrer">HTB Academy catalogue</a> — search for “Web Requests” and “Introduction to Web Applications” for request analysis and web-app foundations.</li>
+          </ul>
+          <h3>Mobile app security</h3>
+          <ul class="resource-list">
+            <li><a href="https://mas.owasp.org/MASVS/" target="_blank" rel="noopener noreferrer">OWASP MASVS</a> — mobile-app security control groups for storage, cryptography, authentication, networking, platform use, code, resilience, and privacy.</li>
+            <li><a href="https://mas.owasp.org/MASTG/" target="_blank" rel="noopener noreferrer">OWASP MASTG</a> — free testing guidance, techniques, tools, and demos for verifying mobile controls.</li>
+            <li><a href="https://developer.android.com/privacy-and-security/security-tips" target="_blank" rel="noopener noreferrer">Android security tips</a> and <a href="https://developer.apple.com/documentation/security" target="_blank" rel="noopener noreferrer">Apple security documentation</a> — platform-owner guidance for secure mobile development.</li>
+            <li><a href="https://github.com/MobSF/Mobile-Security-Framework-MobSF" target="_blank" rel="noopener noreferrer">MobSF</a> — an open-source mobile application security testing framework. Run it only on apps and environments you are authorized to assess.</li>
+            <li><a href="https://tryhackme.com/hacktivities" target="_blank" rel="noopener noreferrer">TryHackMe rooms</a> and <a href="https://academy.hackthebox.com/catalogue" target="_blank" rel="noopener noreferrer">HTB Academy catalogue</a> — search for current Android, iOS, or mobile-app analysis labs. Catalogues and access tiers change; use the OWASP MASTG demos if no dedicated room is available.</li>
+          </ul>
+          <p class="resource-note">Only use the labs or applications explicitly provided for practice. Mobile checks complement—not replace—API authorization and server-side testing. The <a href="compliance.html">standards and compliance guide</a> explains how OWASP verification resources relate to engineering and audits.</p>
         </section>
         <div class="next-guide"><a href="index.html#level-2">← Return to Level 2 learning path</a></div>
       </article>

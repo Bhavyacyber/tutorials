@@ -10,6 +10,7 @@ A beginner-friendly, static tutorial site for cybersecurity foundations, applica
 - [Application security](application-security.html): web architecture, HTTP, REST, APIs, identity, OWASP risks, and safe security testing with common tools.
 - [Product security](product-security.html): security across the product lifecycle, from requirements and design to deployment, monitoring, and vulnerability management.
 - [AI application security](ai-application-security.html): LLM, RAG, agent, and AI infrastructure risks, with AI red teaming and security engineering practices.
+- [Standards and compliance](compliance.html): practical guidance on NIST, ISO, SOC 2, PCI DSS, GDPR, AI governance, and threat frameworks for security engineers.
 
 Start at [index.html](index.html). The lessons include safe exercises intended for systems you own or are authorized to use.
 

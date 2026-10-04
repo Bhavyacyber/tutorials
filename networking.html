@@ -5,13 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Learn TCP/IP, DNS, HTTP, TLS, routing, and firewalls with safe beginner exercises.">
   <title>Networking — Cybersecurity Foundations</title>
-  <link rel="stylesheet" href="styles-v2.css">
+  <link rel="stylesheet" href="styles-v2.css?v=20261004-4">
 </head>
 <body id="top">
   <header class="site-header">
-    <a class="brand" href="index.html"><span class="brand-mark">F</span> FIELDNOTES <span class="brand-divider">/</span> CYBERSECURITY</a>
+    <a class="brand" href="index.html"><span class="brand-mark">F</span> FIELDNOTES <span class="brand-divider">/</span> <span class="brand-name">CYBERSECURITY</span></a>
     <div class="header-context"><span>LEVEL 1 FOUNDATION</span><span>NETWORKING</span></div>
-    <a class="header-link" href="index.html#curriculum">All learning paths <span aria-hidden="true">↗</span></a>
+    <nav class="header-nav" aria-label="Main navigation">
+      <a class="header-link" href="index.html#curriculum">Learning paths <span aria-hidden="true">↗</span></a>
+      <a class="standards-tab" href="compliance.html" aria-label="Standards and compliance"><span class="standards-full-label">Standards &amp; compliance</span><span class="standards-short-label">Standards</span></a>
+    </nav>
   </header>
   <main>
     <section class="guide-hero">
@@ -23,10 +26,21 @@
     <div class="guide-layout">
       <nav class="guide-toc" aria-label="On this page">
         <h2>IN THIS GUIDE</h2>
-        <ol><li><a href="#tcpip">TCP/IP and ports</a></li><li><a href="#dns">DNS</a></li><li><a href="#http">HTTP</a></li><li><a href="#tls">TLS</a></li><li><a href="#routing">Routing</a></li><li><a href="#firewalls">Firewalls</a></li><li><a href="#practice">Practice and recap</a></li></ol>
+        <ol><li><a href="#tcpip">TCP/IP and ports</a></li><li><a href="#dns">DNS</a></li><li><a href="#http">HTTP</a></li><li><a href="#tls">TLS</a></li><li><a href="#routing">Routing</a></li><li><a href="#firewalls">Firewalls</a></li><li><a href="#practice">Practice and recap</a></li><li><a href="#resources">Further resources</a></li></ol>
       </nav>
       <article class="guide-content">
         <p>A network is a set of connected devices that exchange data using agreed rules called <strong>protocols</strong>. When you open a website, several protocols work together: names are looked up, packets are routed, and a connection carries a request and response.</p>
+        <aside class="beginner-guide" aria-labelledby="networking-simple">
+          <p class="eyebrow">START WITH THE IDEA</p>
+          <h2 id="networking-simple">Think of the internet as a delivery network</h2>
+          <p>DNS is like looking up a place in a directory. An IP address identifies the destination, and a port points to the service there. Protocols are the rules for the journey: routing moves data between networks, TLS protects a connection, and HTTP carries a web conversation.</p>
+          <p><strong>By the end, you should be able to:</strong></p>
+          <ul class="learning-goals"><li>Explain what DNS, an IP address, and a port each do.</li><li>Describe how HTTPS uses TLS to protect HTTP traffic.</li><li>Recognize where routers and firewalls fit in the path.</li></ul>
+        </aside>
+        <figure class="guide-illustration">
+          <img src="assets/images/network-dmz.png" alt="Network diagram showing a firewall separating the internet from a web server and an internal network" loading="lazy" decoding="async">
+          <figcaption>A network is divided into zones, with a firewall controlling traffic between them. Image: “DMZ network diagram 1 firewall” by Pbroks13, public domain, via <a href="https://commons.wikimedia.org/wiki/File:DMZ_network_diagram_1_firewall.svg" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a>.</figcaption>
+        </figure>
         <section id="tcpip">
           <h2>1. TCP/IP and ports</h2>
           <p><strong>IP (Internet Protocol)</strong> addresses and moves packets between networks. IPv4 addresses look like <code>192.0.2.10</code>; IPv6 addresses are longer and written in hexadecimal. An IP address identifies a network interface at a point in time, not necessarily a person or a permanent device.</p>
@@ -66,6 +80,21 @@
           <h2>Practice and recap</h2>
           <div class="lab"><strong>PUT THE PIECES TOGETHER</strong><p>On your own device, open a familiar HTTPS website. Describe the sequence: DNS resolves a name; IP routing moves packets; TCP or another transport carries data; TLS protects the connection; HTTP exchanges requests and responses; firewalls apply their configured rules.</p></div>
           <div class="checkpoint"><strong>CHECK YOUR UNDERSTANDING</strong><ul><li>What does a port identify, and how is it different from an IP address?</li><li>Why does a browser use both DNS and TLS?</li><li>What does HTTPS protect—and what does it not guarantee?</li><li>Why can a missing hop in a route trace be normal?</li></ul></div>
+        </section>
+        <section id="resources">
+          <h2>Free learning path and practice</h2>
+          <h3>Learn the foundations</h3>
+          <ul class="resource-list">
+            <li><a href="https://www.netacad.com/courses/networking-basics" target="_blank" rel="noopener noreferrer">Cisco Networking Academy: Networking Basics</a> — a free, structured introduction to networking.</li>
+            <li><a href="https://www.cloudflare.com/learning/" target="_blank" rel="noopener noreferrer">Cloudflare Learning Center</a> — free plain-language explainers to revisit as you work through the guide.</li>
+          </ul>
+          <h3>Practice in guided labs</h3>
+          <ul class="resource-list">
+            <li><a href="https://tryhackme.com/room/osimodel" target="_blank" rel="noopener noreferrer">TryHackMe: OSI Model</a>, <a href="https://tryhackme.com/room/networkservices" target="_blank" rel="noopener noreferrer">Network Services</a>, and <a href="https://tryhackme.com/room/howthewebworks" target="_blank" rel="noopener noreferrer">How the Web Works</a> — guided practice for network layers, services, and web traffic.</li>
+            <li><a href="https://academy.hackthebox.com/catalogue" target="_blank" rel="noopener noreferrer">HTB Academy catalogue</a> — search for “Introduction to Networking” and network-enumeration modules; check current access requirements.</li>
+          </ul>
+          <p class="resource-note">Start with the free course, then use training labs only within their provided scope. Platform room names, availability, and free access can change.</p>
+          <p><a href="compliance.html">See the standards and compliance guide</a> for the networking and infrastructure controls most relevant to product security.</p>
         </section>
         <div class="next-guide"><a href="operating-systems.html">Next: Operating systems →</a></div>
       </article>
