@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A level-by-level technology roadmap for security engineering, with practical Linux, Bash, Python, SQL, HTTP, and Git cheat sheets.">
+  <title>Technologies and cheat sheets — Cybersecurity Foundations</title>
+  <link rel="stylesheet" href="styles-v2.css?v=20261004-11">
+</head>
+<body id="top">
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="Fieldnotes home"><span class="brand-mark">F</span> FIELDNOTES <span class="brand-divider">/</span> <span class="brand-name">CYBERSECURITY</span></a>
+    <div class="header-context"><span>CAREER TOOLKIT</span><span>TECHNOLOGIES &amp; CHEAT SHEETS</span></div>
+    <nav class="header-nav" aria-label="Main navigation">
+      <a class="header-link" href="index.html#curriculum">Learning paths <span aria-hidden="true">↗</span></a>
+      <a class="standards-tab" href="compliance.html" aria-label="Standards and compliance"><span class="standards-full-label">Standards &amp; compliance</span><span class="standards-short-label">Standards</span></a>
+      <a class="technology-tab" href="technologies.html" aria-current="page" aria-label="Technologies and cheat sheets"><span class="technology-full-label">Technologies &amp; cheat sheets</span><span class="technology-short-label">Cheat sheets</span></a>
+    </nav>
+  </header>
+  <main>
+    <section class="guide-hero">
+      <div class="breadcrumbs"><a href="index.html">Home</a> / Career toolkit / Technologies and cheat sheets</div>
+      <p class="eyebrow">A PRACTICAL, LEVEL-BY-LEVEL ROADMAP</p>
+      <h1>Technologies &amp; cheat sheets</h1>
+      <p>Learn the tools that help you understand, build, test, and secure products. Start with the foundations, then add technologies as your work moves from application security to product and AI security.</p>
+    </section>
+    <div class="guide-layout">
+      <nav class="guide-toc" aria-label="On this page">
+        <h2>IN THIS GUIDE</h2>
+        <ol>
+          <li><a href="#how-to-use">How to use the roadmap</a></li>
+          <li><a href="#level-1">Level 1: Foundations</a></li>
+          <li><a href="#level-2">Level 2: Applications</a></li>
+          <li><a href="#level-3">Level 3: Product security</a></li>
+          <li><a href="#level-4">Level 4: AI security</a></li>
+          <li><a href="#linux">Linux</a></li>
+          <li><a href="#bash">Bash</a></li>
+          <li><a href="#python">Python</a></li>
+          <li><a href="#sql">SQL</a></li>
+          <li><a href="#http">HTTP and cURL</a></li>
+          <li><a href="#git">Git</a></li>
+        </ol>
+      </nav>
+      <article class="guide-content">
+        <aside class="beginner-guide" id="how-to-use" aria-labelledby="roadmap-simple">
+          <p class="eyebrow">START WITH THE IDEA</p>
+          <h2 id="roadmap-simple">Learn technologies to solve real security problems</h2>
+          <p>You do not need to master every tool before moving on. Learn enough to understand how a system works, ask useful questions, reproduce behavior in an authorized lab, and explain how to make it safer. Choose one small project at each level and practice the relevant tools on it.</p>
+        </aside>
+
+        <section id="level-1">
+          <p class="eyebrow">CAREER PATH · LEVEL 1</p>
+          <h2>Foundations: computers, networks, and operating systems</h2>
+          <p>Build comfort with the environment applications run in and the traffic they exchange. Focus on reading output and explaining what it means before automating it.</p>
+          <ul class="technology-list">
+            <li><strong>Operating systems:</strong> Linux command line and filesystem basics; Windows users, processes, services, PowerShell, Event Viewer; basic macOS Terminal and Activity Monitor.</li>
+            <li><strong>Shells:</strong> Bash for Linux/macOS environments and PowerShell for Windows administration. Learn navigation, pipes, quoting, environment variables, and safe redirection.</li>
+            <li><strong>Networking:</strong> IP addresses, ports, DNS, routing, HTTP/HTTPS, TLS certificates, and firewall rules. Use <code>ip</code>, <code>ss</code>, <code>dig</code>/<code>nslookup</code>, and <code>curl</code> to inspect your own systems and ordinary public services.</li>
+            <li><strong>Virtual labs:</strong> use a disposable virtual machine or local container to experiment without changing your everyday device.</li>
+            <li><strong>Version control:</strong> basic Git: inspect a diff, make a branch, and understand how changes are recorded.</li>
+          </ul>
+          <p><strong>Checkpoint:</strong> follow one request from DNS lookup to an HTTPS response and find a related event in your own system's logs.</p>
+          <h3>Further resources</h3>
+          <ul class="resource-list">
+            <li><a href="https://ubuntu.com/tutorials/command-line-for-beginners" target="_blank" rel="noopener noreferrer">Ubuntu: The Linux command line for beginners</a> — guided command-line practice.</li>
+            <li><a href="https://learn.microsoft.com/powershell/" target="_blank" rel="noopener noreferrer">Microsoft Learn: PowerShell</a> — documentation and learning paths for Windows administration.</li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview" target="_blank" rel="noopener noreferrer">MDN: An overview of HTTP</a> — request, response, and client/server basics.</li>
+            <li><a href="https://git-scm.com/book/en/v2" target="_blank" rel="noopener noreferrer">Pro Git</a> — free book covering Git fundamentals and workflows.</li>
+          </ul>
+        </section>
+
+        <section id="level-2">
+          <p class="eyebrow">CAREER PATH · LEVEL 2</p>
+          <h2>Application security: web, API, and mobile</h2>
+          <p>Understand how the client, server, identity provider, API, and data store interact. You do not need to be an expert developer in every language, but you should be able to read common application patterns and follow data across boundaries.</p>
+          <ul class="technology-list">
+            <li><strong>Web basics:</strong> HTML, CSS, JavaScript, browser developer tools, same-origin rules, cookies, CORS, and Content Security Policy.</li>
+            <li><strong>Web and APIs:</strong> HTTP methods/status codes/headers, REST-style APIs, JSON, OpenAPI descriptions, sessions, OAuth 2.0/OIDC, and JWT validation.</li>
+            <li><strong>Programming:</strong> learn one server-side language well enough to read routes, validation, authorization, database calls, and tests. Python is a practical starting point; recognize JavaScript/TypeScript, Java/Kotlin, or C# where relevant to a target stack.</li>
+            <li><strong>Databases:</strong> relational tables and SQL, parameterized queries, transactions, and basic access-control concepts.</li>
+            <li><strong>Web testing:</strong> browser developer tools, Burp Suite Community Edition or OWASP ZAP, Postman or an equivalent API client. Practice only on local apps or explicitly authorized labs.</li>
+            <li><strong>Android:</strong> Android Studio, emulator, ADB basics, app permissions, intents/deep links, Keystore, and secure network configuration.</li>
+            <li><strong>iOS:</strong> Xcode and Simulator basics, entitlements, URL schemes/universal links, Keychain, and platform data protection. Familiarize yourself with Swift syntax when assessing iOS code.</li>
+            <li><strong>Mobile testing:</strong> OWASP MASVS/MASTG concepts and a local MobSF setup for authorized test apps; validate scanner findings manually.</li>
+          </ul>
+          <p><strong>Checkpoint:</strong> draw a data flow for a feature, identify which server checks ownership, and show how the same authorization rule applies to web and mobile clients.</p>
+          <p><a href="application-security.html">Open the application security guide →</a></p>
+          <h3>Further resources</h3>
+          <ul class="resource-list">
+            <li><a href="https://developer.mozilla.org/en-US/docs/Learn_web_development" target="_blank" rel="noopener noreferrer">MDN Learn web development</a> — structured web and browser fundamentals.</li>
+            <li><a href="https://spec.openapis.org/oas/latest.html" target="_blank" rel="noopener noreferrer">OpenAPI Specification</a> — a standard format for describing HTTP APIs.</li>
+            <li><a href="https://mas.owasp.org/MASVS/" target="_blank" rel="noopener noreferrer">OWASP MASVS</a> and <a href="https://mas.owasp.org/MASTG/" target="_blank" rel="noopener noreferrer">MASTG</a> — mobile security requirements and testing guidance.</li>
+            <li><a href="https://developer.android.com/" target="_blank" rel="noopener noreferrer">Android Developers</a> and <a href="https://developer.apple.com/documentation/" target="_blank" rel="noopener noreferrer">Apple Developer Documentation</a> — official platform development and security references.</li>
+            <li><a href="https://portswigger.net/web-security" target="_blank" rel="noopener noreferrer">PortSwigger Web Security Academy</a> — free web security lessons and authorized practice labs.</li>
+          </ul>
+        </section>
+
+        <section id="level-3">
+          <p class="eyebrow">CAREER PATH · LEVEL 3</p>
+          <h2>Product security: secure delivery and operations</h2>
+          <p>Move from testing individual features to helping teams prevent recurring issues across design, development, release, and operations.</p>
+          <ul class="technology-list">
+            <li><strong>Software delivery:</strong> Git branching and review, CI/CD concepts, protected build/release workflows, and one pipeline such as GitHub Actions, GitLab CI, or Azure Pipelines.</li>
+            <li><strong>Security automation:</strong> SAST, software composition analysis (SCA), secret detection, DAST, API testing, dependency advisories, and false-positive triage.</li>
+            <li><strong>Supply chain:</strong> package managers and lockfiles, dependency provenance, SBOM formats such as CycloneDX or SPDX, artifact signing concepts, and build integrity.</li>
+            <li><strong>Cloud security (supporting depth):</strong> learn cloud IAM and least privilege, security groups/network boundaries, storage permissions, secrets and KMS, logging/audit trails, container security, serverless basics, cloud APIs, and workload identity. Aim to secure applications deployed in cloud environments, not to become a dedicated cloud security specialist.</li>
+            <li><strong>Observability:</strong> application logs, metrics, traces, audit events, alerting, and <a href="soc-fundamentals.html">SIEM/SOC fundamentals</a>. Avoid collecting secrets and unnecessary personal data.</li>
+            <li><strong>Team practices:</strong> threat-model diagrams, security requirements as tests, vulnerability tracking, risk ownership, exception review, and evidence collection.</li>
+          </ul>
+          <p><strong>Checkpoint:</strong> add a security check to a sample CI workflow, assign an owner to a finding, and verify the fix with a regression test. For a cloud-hosted demo, trace one request across identity, network, storage, secrets, and audit logs.</p>
+          <p><a href="cloud-security.html">Open the supporting Cloud Security tutorial →</a></p>
+          <p><a href="product-security.html">Open the product security guide →</a> · <a href="compliance.html">Review standards and assurance topics →</a></p>
+          <h3>Further resources</h3>
+          <ul class="resource-list">
+            <li><a href="https://csrc.nist.gov/Projects/ssdf" target="_blank" rel="noopener noreferrer">NIST Secure Software Development Framework</a> — practices for reducing software vulnerabilities.</li>
+            <li><a href="https://owaspsamm.org/" target="_blank" rel="noopener noreferrer">OWASP Software Assurance Maturity Model</a> — a framework for assessing and improving software security programs.</li>
+            <li><a href="https://docs.github.com/en/actions" target="_blank" rel="noopener noreferrer">GitHub Actions documentation</a> — workflows, automation, and CI/CD security controls.</li>
+            <li><a href="https://cyclonedx.org/specification/" target="_blank" rel="noopener noreferrer">CycloneDX specification</a> and <a href="https://spdx.dev/" target="_blank" rel="noopener noreferrer">SPDX</a> — widely used software bill of materials formats.</li>
+            <li><a href="https://docs.docker.com/" target="_blank" rel="noopener noreferrer">Docker Docs</a> and <a href="https://kubernetes.io/docs/home/" target="_blank" rel="noopener noreferrer">Kubernetes documentation</a> — container and orchestration fundamentals.</li>
+            <li><a href="https://docs.aws.amazon.com/wellarchitected/latest/security-pillar/welcome.html" target="_blank" rel="noopener noreferrer">AWS Well-Architected Security Pillar</a> and <a href="https://learn.microsoft.com/en-us/security/" target="_blank" rel="noopener noreferrer">Microsoft Security documentation</a> — practical cloud security principles and controls.</li>
+          </ul>
+        </section>
+
+        <section id="level-4">
+          <p class="eyebrow">CAREER PATH · LEVEL 4</p>
+          <h2>AI application security: models, retrieval, and agents</h2>
+          <p>Build on application and product security. Treat an AI feature as a system of services, data, models, and permissions—not as a prompt alone.</p>
+          <ul class="technology-list">
+            <li><strong>Programming and data:</strong> Python, JSON, HTTP APIs, asynchronous jobs, logging, testing, and dependency management.</li>
+            <li><strong>Model interfaces:</strong> hosted model APIs, model/version configuration, token and latency limits, structured outputs, and provider data-handling settings.</li>
+            <li><strong>RAG:</strong> embedding and chunking concepts, retrieval pipelines, vector databases, document ACLs, tenant isolation, source provenance, and deletion/retention behavior.</li>
+            <li><strong>Agents and tools:</strong> tool/function calling, identity propagation, scoped credentials, approval gates, rate limits, audit logs, and protocols such as MCP where used.</li>
+            <li><strong>AI testing:</strong> versioned evaluation datasets, prompt-injection and data-leakage tests, output validation, tool authorization, multi-tenant tests, and regression evaluation after model or prompt changes.</li>
+            <li><strong>AI operations:</strong> AI gateways, model and prompt inventories, cost/abuse monitoring, secrets management, data minimization, and incident response for exposed data or unsafe actions.</li>
+            <li><strong>AI governance (supporting depth):</strong> learn AI risk assessment, AI asset inventory, data governance, model/vendor risk, privacy, policy, lifecycle governance, and AI incident management. Use NIST AI RMF, ISO/IEC 42001, and EU AI Act concepts to collaborate with governance and compliance teams; technical AI application security remains the specialization.</li>
+          </ul>
+          <p><strong>Checkpoint:</strong> build a local RAG demo with synthetic documents for two users and prove that retrieval, caches, and citations do not cross user boundaries. Then record the AI use case, data sources, model/provider, key risks, and incident owner in a lightweight inventory.</p>
+          <p><a href="ai-governance.html">Open the supporting AI Governance and Risk tutorial →</a></p>
+          <p><a href="ai-application-security.html">Open the AI application security guide →</a></p>
+          <h3>Further resources</h3>
+          <ul class="resource-list">
+            <li><a href="https://genai.owasp.org/llm-top-10/" target="_blank" rel="noopener noreferrer">OWASP Top 10 for LLM Applications</a> — risks and mitigations for AI-enabled applications.</li>
+            <li><a href="https://www.nist.gov/itl/ai-risk-management-framework" target="_blank" rel="noopener noreferrer">NIST AI Risk Management Framework</a> — guidance for identifying and managing AI risks.</li>
+            <li><a href="https://modelcontextprotocol.io/specification/" target="_blank" rel="noopener noreferrer">Model Context Protocol specification</a> — protocol concepts for connecting AI applications with tools and data.</li>
+            <li><a href="https://learn.microsoft.com/en-us/azure/search/retrieval-augmented-generation-overview" target="_blank" rel="noopener noreferrer">Microsoft Learn: Retrieval-augmented generation</a> — an architectural overview of RAG pipelines.</li>
+            <li><a href="https://docs.python.org/3/tutorial/" target="_blank" rel="noopener noreferrer">The Python Tutorial</a> — a practical programming foundation for AI application work.</li>
+            <li><a href="compliance.html#level-4">Standards and compliance guide: AI governance</a> — NIST AI RMF, ISO/IEC 42001, EU AI Act, and related security frameworks.</li>
+          </ul>
+        </section>
+
+        <section id="linux">
+          <h2>Linux command-line cheat sheet</h2>
+          <p>Useful for navigating files, identifying processes, and reading logs on a Linux system you own or administer.</p>
+          <pre><code># Where am I? What is here?
+pwd
+ls -lah
+cd /path/to/project
+
+# Read and search files
+less app.log
+head -n 20 app.log
+tail -n 50 app.log
+grep -n "ERROR" app.log
+find . -type f -name "*.log"
+
+# Inspect processes and listening network sockets
+ps aux
+ss -lnt
+
+# Inspect service logs (systemd-based Linux)
+journalctl -u my-service --since "1 hour ago"
+
+# File permissions: inspect first; avoid broad permission changes
+stat app.conf
+id</code></pre>
+          <p class="resource-note">Use <code>sudo</code> only when needed and only for commands you understand. Avoid recursive ownership or permission changes as a troubleshooting shortcut.</p>
+          <h3>Further resources</h3>
+          <ul class="resource-list">
+            <li><a href="https://ubuntu.com/tutorials/command-line-for-beginners" target="_blank" rel="noopener noreferrer">Ubuntu command-line tutorial</a> — beginner-friendly guided exercises.</li>
+            <li><a href="https://man7.org/linux/man-pages/" target="_blank" rel="noopener noreferrer">Linux man-pages project</a> — reference documentation for Linux commands and system calls.</li>
+          </ul>
+          <h3>Watch Linux playlists</h3>
+          <ul class="resource-list">
+            <li><a href="https://www.youtube.com/playlist?list=PLb6_5TlmcSxE" target="_blank" rel="noopener noreferrer">Learn Linux TV: System Administration</a> — structured Linux learning from a channel with approximately 1.12M subscribers.</li>
+            <li><a href="https://www.youtube.com/playlist?list=PLT98CRl2KxKHVD7tCyn8heKS-RJdnlbHg" target="_blank" rel="noopener noreferrer">Learn Linux TV: Linux Security</a> — a security-focused follow-up.</li>
+          </ul>
+        </section>
+
+        <section id="bash">
+          <h2>Bash cheat sheet</h2>
+          <p>Quote paths and variables so spaces and special characters are handled as intended. Try commands in a disposable directory first.</p>
+          <pre><code># Variables and safe quoting
+project_dir="$HOME/security-lab"
+printf 'Working in: %s\n' "$project_dir"
+mkdir -p "$project_dir"
+
+# Redirect output; append instead of overwriting when appropriate
+command --help > "$project_dir/help.txt"
+printf '%s\n' "note" >> "$project_dir/notes.txt"
+
+# Filter a local text file
+grep -n "WARN" "$project_dir/app.log" | sort
+
+# Read lines safely from a file
+while IFS= read -r line; do
+  printf '%s\n' "$line"
+done < "$project_dir/notes.txt"
+
+# Check the previous command's status
+if command -v git >/dev/null 2>&1; then
+  printf '%s\n' "Git is installed"
+fi</code></pre>
+          <p class="resource-note">Redirection with <code>&gt;</code> replaces a file. Review the target path before writing; don't paste destructive commands you don't understand.</p>
+          <h3>Further resources</h3>
+          <ul class="resource-list">
+            <li><a href="https://www.gnu.org/software/bash/manual/" target="_blank" rel="noopener noreferrer">GNU Bash Reference Manual</a> — official Bash language and shell reference.</li>
+            <li><a href="https://www.shellcheck.net/wiki/" target="_blank" rel="noopener noreferrer">ShellCheck Wiki</a> — explanations of common shell scripting mistakes and safer patterns.</li>
+          </ul>
+          <h3>Watch Bash playlists</h3>
+          <ul class="resource-list">
+            <li><a href="https://www.youtube.com/playlist?list=PLT98CRl2KxKGj-VKtApD8-zCqSaN2mD4w" target="_blank" rel="noopener noreferrer">Learn Linux TV: Bash Scripting on Linux</a> — focused shell-scripting instruction from a channel with approximately 1.12M subscribers.</li>
+          </ul>
+        </section>
+
+        <section id="python">
+          <h2>Python cheat sheet</h2>
+          <p>Use Python for small local analysis and repeatable defensive checks. This example uses only the standard library and reads a file without executing its contents.</p>
+          <pre><code>from pathlib import Path
+import hashlib
+import json
+
+log_path = Path("app.log")
+for line_number, line in enumerate(
+    log_path.read_text(encoding="utf-8").splitlines(), start=1
+):
+    if "ERROR" in line:
+        print(f"{line_number}: {line}")
+
+# Parse JSON as data; don't eval() untrusted text.
+record = json.loads('{"event": "login", "success": true}')
+print(record["event"], record["success"])
+
+# Calculate a file digest to compare file contents.
+digest = hashlib.sha256(log_path.read_bytes()).hexdigest()
+print(digest)</code></pre>
+          <p class="resource-note">Check file size and input format before processing untrusted files. Use a virtual environment for third-party packages, and never run unknown scripts with administrator privileges.</p>
+          <h3>Further resources</h3>
+          <ul class="resource-list">
+            <li><a href="https://docs.python.org/3/tutorial/" target="_blank" rel="noopener noreferrer">The Python Tutorial</a> — official introduction to Python programming.</li>
+            <li><a href="https://docs.python.org/3/library/" target="_blank" rel="noopener noreferrer">Python Standard Library</a> — reference for modules including <code>pathlib</code>, <code>json</code>, and <code>hashlib</code>.</li>
+          </ul>
+          <h3>Watch Python playlists</h3>
+          <ul class="resource-list">
+            <li><a href="https://www.youtube.com/playlist?list=PLT98CRl2KxKGIazPd2nQEPbG7sQpT8LEj" target="_blank" rel="noopener noreferrer">Learn Linux TV: Programming in Python</a> — beginner-friendly instruction from a channel with approximately 1.12M subscribers; practice with local, synthetic data.</li>
+          </ul>
+        </section>
+
+        <section id="sql">
+          <h2>SQL cheat sheet</h2>
+          <p>These read-only examples use a generic relational SQL style. Always scope queries deliberately before working with real data.</p>
+          <pre><code>-- Inspect a small sample
+SELECT id, email, created_at
+FROM users
+WHERE status = 'active'
+ORDER BY created_at DESC
+LIMIT 20;
+
+-- Count records by status
+SELECT status, COUNT(*) AS total
+FROM users
+GROUP BY status
+ORDER BY total DESC;
+
+-- Safe application pattern: bind values; do not concatenate input
+-- Python sqlite3 example:
+cursor.execute(
+    "SELECT id, email FROM users WHERE email = ?",
+    (email_address,)
+)</code></pre>
+          <p class="resource-note">SQL placeholder syntax differs between database drivers. Use parameterized queries in application code. Before an <code>UPDATE</code> or <code>DELETE</code>, verify the <code>WHERE</code> condition with a <code>SELECT</code> and use a transaction when appropriate.</p>
+          <h3>Further resources</h3>
+          <ul class="resource-list">
+            <li><a href="https://www.postgresql.org/docs/current/tutorial.html" target="_blank" rel="noopener noreferrer">PostgreSQL Tutorial</a> — interactive introduction to relational database concepts and SQL.</li>
+            <li><a href="https://docs.python.org/3/library/sqlite3.html#how-to-use-placeholders-to-bind-values-in-sql-queries" target="_blank" rel="noopener noreferrer">Python sqlite3: binding values</a> — examples of safe parameterized SQL queries.</li>
+          </ul>
+          <h3>Watch SQL playlists</h3>
+          <ul class="resource-list">
+            <li><a href="https://www.youtube.com/playlist?list=PLNcg_FV9n7qZY_2eAtUzEUulNjTJREhQe" target="_blank" rel="noopener noreferrer">Data with Baraa: SQL Ultimate Course</a> — a structured SQL course from a channel with approximately 500K subscribers; use a local practice database and synthetic records.</li>
+          </ul>
+        </section>
+
+        <section id="http">
+          <h2>HTTP and cURL cheat sheet</h2>
+          <p>Use these examples to inspect ordinary endpoints you own or are authorized to access. Avoid putting real credentials into shell history.</p>
+          <pre><code># Fetch response headers and body
+curl --include https://example.com/
+
+# Ask for headers only
+curl --head https://example.com/
+
+# Send JSON to your local development API
+curl --request POST http://localhost:8000/api/items \
+  --header "Content-Type: application/json" \
+  --data '{"name":"sample"}'
+
+# Inspect a local endpoint's response code and total time
+curl --silent --show-error --output /dev/null \
+  --write-out "HTTP %{http_code} in %{time_total}s\n" \
+  http://localhost:8000/</code></pre>
+          <p class="resource-note">Use a test account and synthetic data for API practice. Don't send scans, fuzzing payloads, or state-changing requests to systems without explicit authorization.</p>
+          <h3>Further resources</h3>
+          <ul class="resource-list">
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP" target="_blank" rel="noopener noreferrer">MDN HTTP reference</a> — concepts, headers, methods, status codes, and guides.</li>
+            <li><a href="https://curl.se/docs/" target="_blank" rel="noopener noreferrer">curl documentation</a> — official command reference, tutorials, and security guidance.</li>
+          </ul>
+          <h3>Watch HTTP and API playlists</h3>
+          <ul class="resource-list">
+            <li><a href="https://www.youtube.com/playlist?list=PLoX0sUafNGbFcyjCwB0N7x_Zxw7T1-I9Y" target="_blank" rel="noopener noreferrer">PortSwigger: Web Security Academy</a> — official web and API security lessons from the team behind the free interactive labs; specialist instruction rather than a largest-subscriber pick.</li>
+          </ul>
+        </section>
+
+        <section id="git">
+          <h2>Git cheat sheet</h2>
+          <p>Git helps you inspect and track code changes. Review what will be committed before sharing it.</p>
+          <pre><code># Inspect repository and working changes
+git status
+git diff
+
+# Create a branch and stage a specific file
+git switch -c docs/security-notes
+git add path/to/file.html
+git diff --cached
+
+# Save and inspect history
+git commit -m "Add security learning notes"
+git log --oneline -5
+
+# Find accidentally tracked secrets before sharing
+git status --short</code></pre>
+          <p class="resource-note">Never commit passwords, API tokens, private keys, or real user data. If a secret is exposed, remove it from active use and rotate it; deleting it from the latest commit may not remove it from repository history.</p>
+          <h3>Further resources</h3>
+          <ul class="resource-list">
+            <li><a href="https://git-scm.com/book/en/v2" target="_blank" rel="noopener noreferrer">Pro Git</a> — free, comprehensive book covering Git from the basics onward.</li>
+            <li><a href="https://git-scm.com/docs" target="_blank" rel="noopener noreferrer">Git reference documentation</a> — official command reference and manuals.</li>
+            <li><a href="https://docs.github.com/en/code-security/secret-scanning/introduction/about-secret-scanning" target="_blank" rel="noopener noreferrer">GitHub: About secret scanning</a> — how secret detection can help identify exposed credentials.</li>
+          </ul>
+          <h3>Watch Git playlists</h3>
+          <ul class="resource-list">
+            <li><a href="https://www.youtube.com/playlist?list=PL0lo9MOBetEFcp4SCWinBdpml9B2U25-f" target="_blank" rel="noopener noreferrer">GitHub: GitHub for Beginners</a> — workflow instruction from a channel with approximately 692K subscribers; practice branching and review in a test repository.</li>
+          </ul>
+        </section>
+
+        <div class="next-guide"><a href="index.html#curriculum">← Return to all learning levels</a></div>
+      </article>
+    </div>
+  </main>
+  <footer class="site-footer"><a class="brand" href="index.html"><span class="brand-mark">F</span> FIELDNOTES</a><span>Career toolkit · Technologies and cheat sheets</span><a href="#top">Back to top ↑</a></footer>
+</body>
+</html>

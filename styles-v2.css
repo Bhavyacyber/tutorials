@@ -95,7 +95,12 @@ h1 span { color: var(--teal); }
 }
 .career-title span { color: var(--teal); }
 .career-positioning > p:last-child { margin: 0; color: var(--muted); font-size: 12px; }
+.focus-heading { margin: 28px 0 12px; color: #e4eef3; font-family: var(--display); font-size: 21px; }
+.focus-table-wrap { margin: 0 0 24px; }
+.focus-table { min-width: 720px; }
+.focus-table td:nth-child(2) { white-space: nowrap; color: var(--teal); font-weight: 700; }
 .career-grid .path-card { min-height: 260px; }
+.career-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
 .guide-hero { padding: 55px max(7.2%, calc((100% - 1120px) / 2)) 48px; background: var(--navy); color: white; }
 .breadcrumbs { margin-bottom: 25px; color: #9eacbd; font-size: 11px; }
@@ -176,9 +181,11 @@ h1 span { color: var(--teal); }
   .practice-band { margin: 0 6% 45px; padding: 20px; }
   .site-footer { padding: 16px 6%; flex-wrap: wrap; }
   .guide-hero { padding: 38px 7% 35px; }
-  .guide-layout { padding: 30px 7% 55px; grid-template-columns: 1fr; gap: 25px; }
+  .guide-layout { padding: 30px 7% 55px; grid-template-columns: minmax(0, 1fr); gap: 25px; }
   .guide-toc { position: static; }
-  .guide-toc ol { display: grid; grid-template-columns: 1fr 1fr; column-gap: 16px; }
+  .guide-toc ol { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 16px; }
+  .guide-toc li { min-width: 0; overflow-wrap: anywhere; }
+  .guide-toc a { overflow-wrap: anywhere; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -253,8 +260,20 @@ body {
   text-decoration: none;
   white-space: nowrap;
 }
+.technology-tab {
+  padding: 9px 13px;
+  border: 1px solid #344b58;
+  border-radius: 999px;
+  color: #c4d2da;
+  font-family: var(--mono);
+  font-size: 10px;
+  text-decoration: none;
+  white-space: nowrap;
+}
 .standards-short-label { display: none; }
-.standards-tab:hover, .standards-tab[aria-current="page"] {
+.technology-short-label { display: none; }
+.standards-tab:hover, .standards-tab[aria-current="page"],
+.technology-tab:hover, .technology-tab[aria-current="page"] {
   border-color: rgba(120, 220, 255, .62);
   color: var(--teal);
   background: rgba(75, 194, 239, .1);
@@ -389,9 +408,11 @@ h1 { font-weight: 600; }
   .header-context { display: none; }
   .header-nav { gap: 0; }
   .header-link { display: none; }
-  .standards-tab { padding: 8px 10px; font-size: 9px; }
+  .standards-tab, .technology-tab { padding: 8px 9px; font-size: 9px; }
   .standards-full-label { display: none; }
   .standards-short-label { display: inline; }
+  .technology-full-label { display: none; }
+  .technology-short-label { display: inline; }
   .site-header .brand-divider, .site-header .brand-name { display: none; }
   .hero { margin-top: -70px; padding: 125px 7% 48px; }
   .hero::after { top: 20%; right: -40%; width: 90vw; height: 90vw; }
@@ -407,9 +428,17 @@ h1 { font-weight: 600; }
   .header-context { display: none; }
   .header-nav { gap: 4px; }
   .header-link { font-size: 10px; }
-  .standards-tab { padding: 8px 10px; font-size: 9px; }
+  .standards-tab, .technology-tab { padding: 8px 10px; font-size: 9px; }
   .standards-full-label { display: none; }
   .standards-short-label { display: inline; }
+  .technology-full-label { display: none; }
+  .technology-short-label { display: inline; }
+}
+
+@media (min-width: 901px) and (max-width: 1100px) {
+  .header-context { display: none; }
+  .header-nav { gap: 6px; }
+  .header-link { font-size: 10px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

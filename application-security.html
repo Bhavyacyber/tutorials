@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="A practical Level 2 guide to web, API, and mobile application security, common vulnerabilities, and safe testing.">
   <title>Application Security — Cybersecurity Foundations</title>
-  <link rel="stylesheet" href="styles-v2.css?v=20261004-5">
+  <link rel="stylesheet" href="styles-v2.css?v=20261004-10">
 </head>
 <body id="top">
   <header class="site-header">
@@ -14,6 +14,7 @@
     <nav class="header-nav" aria-label="Main navigation">
       <a class="header-link" href="index.html#curriculum">Learning paths <span aria-hidden="true">↗</span></a>
       <a class="standards-tab" href="compliance.html" aria-label="Standards and compliance"><span class="standards-full-label">Standards &amp; compliance</span><span class="standards-short-label">Standards</span></a>
+      <a class="technology-tab" href="technologies.html" aria-label="Technologies and cheat sheets"><span class="technology-full-label">Technologies &amp; cheat sheets</span><span class="technology-short-label">Cheat sheets</span></a>
     </nav>
   </header>
   <main>
@@ -153,12 +154,14 @@ cursor.execute("SELECT id, name FROM users WHERE email = ?", (email,))</code></p
           <h3>Learn with a structured web-security course</h3>
           <ul class="resource-list">
             <li><a href="https://portswigger.net/web-security" target="_blank" rel="noopener noreferrer">PortSwigger Web Security Academy</a> — free lessons and interactive labs, organized by vulnerability class and difficulty.</li>
+            <li><a href="https://ctf.hacker101.com/" target="_blank" rel="noopener noreferrer">Hacker101 CTF</a> — free, intentionally vulnerable web challenges from HackerOne's training initiative. Use the provided CTF targets only.</li>
+            <li><a href="https://www.hackerone.com/hackers" target="_blank" rel="noopener noreferrer">HackerOne for hackers</a> — learn how vulnerability disclosure and bug bounty programs work. A live program is not a practice lab: test only assets and techniques explicitly authorized by that program's current scope and rules.</li>
             <li><a href="https://owasp.org/www-project-top-ten/" target="_blank" rel="noopener noreferrer">OWASP Top 10</a> and the <a href="https://owasp.org/www-project-api-security/" target="_blank" rel="noopener noreferrer">OWASP API Security Project</a> — use these as risk-awareness maps alongside the hands-on course, not as a complete test plan.</li>
           </ul>
           <h3>Practice in guided labs</h3>
           <ul class="resource-list">
             <li><a href="https://tryhackme.com/room/owasptop10" target="_blank" rel="noopener noreferrer">TryHackMe: OWASP Top 10</a> and the <a href="https://tryhackme.com/path/outline/webfundamentals" target="_blank" rel="noopener noreferrer">Web Fundamentals path</a> — practice web concepts and common flaws in training labs.</li>
-            <li><a href="https://academy.hackthebox.com/catalogue" target="_blank" rel="noopener noreferrer">HTB Academy catalogue</a> — search for “Web Requests” and “Introduction to Web Applications” for request analysis and web-app foundations.</li>
+            <li><a href="https://academy.hackthebox.com/catalogue" target="_blank" rel="noopener noreferrer">HTB Academy catalogue</a> — browse free and other available modules such as “Web Requests” and “Introduction to Web Applications”; check current access requirements.</li>
           </ul>
           <h3>Mobile app security</h3>
           <ul class="resource-list">
@@ -168,6 +171,13 @@ cursor.execute("SELECT id, name FROM users WHERE email = ?", (email,))</code></p
             <li><a href="https://github.com/MobSF/Mobile-Security-Framework-MobSF" target="_blank" rel="noopener noreferrer">MobSF</a> — an open-source mobile application security testing framework. Run it only on apps and environments you are authorized to assess.</li>
             <li><a href="https://tryhackme.com/hacktivities" target="_blank" rel="noopener noreferrer">TryHackMe rooms</a> and <a href="https://academy.hackthebox.com/catalogue" target="_blank" rel="noopener noreferrer">HTB Academy catalogue</a> — search for current Android, iOS, or mobile-app analysis labs. Catalogues and access tiers change; use the OWASP MASTG demos if no dedicated room is available.</li>
           </ul>
+          <h3>Watch application-security playlists</h3>
+          <ul class="resource-list">
+            <li><a href="https://www.youtube.com/playlist?list=PLoX0sUafNGbFcyjCwB0N7x_Zxw7T1-I9Y" target="_blank" rel="noopener noreferrer">PortSwigger: Web Security Academy</a> — official, topic-matched lessons from the team behind the free interactive Academy labs.</li>
+            <li><a href="https://www.youtube.com/playlist?list=PLoX0sUafNGbH9bmbIANk3D50FNUmuJIF3" target="_blank" rel="noopener noreferrer">PortSwigger: Burp Suite Essentials</a> — practical tool instruction to complement the labs.</li>
+            <li><a href="https://www.youtube.com/@PortSwiggerTV" target="_blank" rel="noopener noreferrer">PortSwigger TV channel</a> — specialist AppSec instruction; its audience is smaller than broad technology channels, but it is the authoritative source for its own Academy and Burp Suite content.</li>
+          </ul>
+          <p class="resource-note">PortSwigger is selected for direct relevance, not for having the largest subscriber count. Subscriber counts and video views change; use the free Academy labs for hands-on practice.</p>
           <p class="resource-note">Only use the labs or applications explicitly provided for practice. Mobile checks complement—not replace—API authorization and server-side testing. The <a href="compliance.html">standards and compliance guide</a> explains how OWASP verification resources relate to engineering and audits.</p>
         </section>
         <div class="next-guide"><a href="index.html#level-2">← Return to Level 2 learning path</a></div>

@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A practical introduction to AI governance and risk for application security engineers, covering inventories, data, vendors, lifecycle controls, incidents, and standards.">
+  <title>AI Governance and Risk — Cybersecurity Foundations</title>
+  <link rel="stylesheet" href="styles-v2.css?v=20261004-12">
+</head>
+<body id="top">
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-mark">F</span> FIELDNOTES <span class="brand-divider">/</span> <span class="brand-name">CYBERSECURITY</span></a>
+    <div class="header-context"><span>SUPPORTING DOMAIN</span><span>AI GOVERNANCE</span></div>
+    <nav class="header-nav" aria-label="Main navigation">
+      <a class="header-link" href="index.html#curriculum">Learning paths <span aria-hidden="true">↗</span></a>
+      <a class="standards-tab" href="compliance.html" aria-label="Standards and compliance"><span class="standards-full-label">Standards &amp; compliance</span><span class="standards-short-label">Standards</span></a>
+      <a class="technology-tab" href="technologies.html" aria-label="Technologies and cheat sheets"><span class="technology-full-label">Technologies &amp; cheat sheets</span><span class="technology-short-label">Cheat sheets</span></a>
+    </nav>
+  </header>
+  <main>
+    <section class="guide-hero">
+      <div class="breadcrumbs"><a href="index.html">Home</a> / Level 4 supporting domain / AI Governance</div>
+      <p class="eyebrow">SUPPORTING DEPTH · MANAGING AI RISK RESPONSIBLY</p>
+      <h1>AI governance and risk</h1>
+      <p>AI governance helps an organization understand where AI is used, what risks it creates, who is accountable, and how decisions are reviewed throughout the system lifecycle. Learn enough to connect technical AI security work with risk, privacy, product, legal, and compliance teams—without shifting your primary specialization away from security engineering.</p>
+    </section>
+    <div class="guide-layout">
+      <nav class="guide-toc" aria-label="On this page">
+        <h2>IN THIS GUIDE</h2>
+        <ol>
+          <li><a href="#meaning">What AI governance means</a></li>
+          <li><a href="#inventory">Use-case inventory and ownership</a></li>
+          <li><a href="#risk">Risk and impact assessment</a></li>
+          <li><a href="#data">Data, privacy, and quality</a></li>
+          <li><a href="#vendor">Model and vendor risk</a></li>
+          <li><a href="#lifecycle">Lifecycle controls</a></li>
+          <li><a href="#incidents">Monitoring and incidents</a></li>
+          <li><a href="#frameworks">Frameworks and regulation</a></li>
+          <li><a href="#practice">Practice and recap</a></li>
+          <li><a href="#resources">Further resources</a></li>
+        </ol>
+      </nav>
+      <article class="guide-content">
+        <aside class="beginner-guide" aria-labelledby="governance-simple">
+          <p class="eyebrow">START WITH THE IDEA</p>
+          <h2 id="governance-simple">Governance makes AI use visible, owned, and reviewable</h2>
+          <p>Imagine a company adding an AI assistant that summarizes customer support records. Governance asks who approved the use, what records it may access, whether the provider retains inputs, who checks the output, how errors are reported, and what would cause the feature to be paused. Security engineering implements and tests many of the technical safeguards that make those decisions real.</p>
+          <p><strong>By the end, you should be able to:</strong></p>
+          <ul class="learning-goals">
+            <li>Describe an AI use case, its owner, purpose, data, model/provider, and users.</li>
+            <li>Identify risks and controls across development, deployment, and operation.</li>
+            <li>Explain how governance frameworks guide decisions but do not replace technical testing or legal advice.</li>
+          </ul>
+        </aside>
+
+        <section id="meaning">
+          <h2>1. What AI governance means</h2>
+          <p>AI governance is the set of responsibilities, policies, decision processes, and evidence used to manage AI systems throughout their lifecycle. It helps organizations decide which uses are acceptable, how risks are assessed, who approves deployment, how people are affected, and when a system needs review or retirement.</p>
+          <p>Governance is not a single document or a claim that an AI system is “safe.” It connects product intent and organizational accountability to engineering controls, measurement, oversight, and response.</p>
+          <pre><code>Use case → Inventory → Risk assessment → Controls and owners
+    → Evaluation and approval → Monitoring → Review or retirement
+              ↖ changes, incidents, and new evidence ↙</code></pre>
+          <p>For an application security engineer, governance is a supporting skill: translate requirements into testable controls, surface technical limitations, and provide reliable evidence to the people accountable for risk decisions.</p>
+        </section>
+
+        <section id="inventory">
+          <h2>2. AI use-case inventory and ownership</h2>
+          <p>An inventory helps teams discover AI systems and avoid “shadow AI”—tools or model integrations used without the right visibility and review. It can begin as a simple register and grow to match the organization's risk and obligations.</p>
+          <p>For each use case, record enough information to locate the system and route decisions:</p>
+          <ul>
+            <li>Purpose, intended users, affected people, business owner, and technical owner.</li>
+            <li>System type: hosted model, internal model, retrieval-augmented generation (RAG), agent, or third-party AI feature.</li>
+            <li>Data inputs and outputs, sensitivity, source, retention, access rules, and cross-border or tenant boundaries where applicable.</li>
+            <li>Model/provider, relevant versions, integrations, tools/actions, dependencies, and deployment environment.</li>
+            <li>Risk assessment status, applicable reviews, key mitigations, evaluation evidence, approval conditions, and next review date.</li>
+          </ul>
+          <p>Keep the inventory proportionate. Do not collect sensitive prompts or full datasets merely to fill in a register; record useful metadata and use approved systems for any sensitive evidence.</p>
+        </section>
+
+        <section id="risk">
+          <h2>3. AI risk and impact assessment</h2>
+          <p>Risk assessment asks what could go wrong, who might be affected, how severe the effects could be, and what controls reduce the chance or impact. Consider the intended use and plausible misuse—not only model accuracy.</p>
+          <ul>
+            <li><strong>Security:</strong> prompt injection, data leakage, unauthorized tool calls, compromised dependencies, abuse, and denial of service.</li>
+            <li><strong>Privacy and data protection:</strong> collection, purpose, access, retention, deletion, sensitive data, and unintended inference.</li>
+            <li><strong>Reliability and safety:</strong> incorrect or inconsistent outputs, failures under unusual inputs, overreliance, and impacts of automated actions.</li>
+            <li><strong>Fairness and user impact:</strong> who benefits or is disadvantaged, accessibility, meaningful human review, and ways to contest important outcomes.</li>
+            <li><strong>Transparency and accountability:</strong> how people know AI is involved, who owns decisions, and how limitations and incidents are communicated.</li>
+            <li><strong>Legal and contractual obligations:</strong> use context, jurisdiction, data rights, sector rules, procurement terms, and provider commitments.</li>
+          </ul>
+          <p>Rate risks using your organization's process, state assumptions, assign owners, and record residual risk and review dates. A framework helps structure thought; it does not determine legal applicability or make an inherently unacceptable use acceptable.</p>
+        </section>
+
+        <section id="data">
+          <h2>4. AI data governance, privacy, and quality</h2>
+          <p>AI systems may use prompts, uploaded files, training or fine-tuning data, retrieved documents, telemetry, and generated outputs. Track these data flows just as you would for any application, and pay special attention to what crosses a model-provider or tenant boundary.</p>
+          <ul>
+            <li>Define what data the feature needs; minimize collection and exclude secrets or personal data that are not necessary.</li>
+            <li>Confirm user authorization before retrieval and tool access. Enforce access in application code and data services, not by asking a model to respect instructions.</li>
+            <li>Record where data is processed, how long it is kept, whether it is used for provider training, and how deletion requests are handled.</li>
+            <li>Protect datasets and prompts in logs, evaluation tools, analytics, and support workflows; restrict access and retention.</li>
+            <li>Document relevant data provenance, quality limitations, consent or usage rights, and known gaps.</li>
+            <li>Test for cross-user and cross-tenant disclosure, including retrieval, caches, citations, and generated summaries.</li>
+          </ul>
+          <p>Privacy and security are related but distinct. A technically secure system can still use data in a way that is unexpected, excessive, or inconsistent with its approved purpose.</p>
+        </section>
+
+        <section id="vendor">
+          <h2>5. Model and vendor risk</h2>
+          <p>Using an external model or AI service introduces dependencies beyond ordinary uptime. Review what the provider promises, what the product actually configures, and which risks remain with your organization.</p>
+          <ul>
+            <li>Understand input/output retention, training use, data location, subprocessors, deletion, and breach notification terms.</li>
+            <li>Review service availability, version changes, model deprecation, rate limits, and incident communication.</li>
+            <li>Identify the provider's security documentation, independent assurance, access controls, and support for audit or investigation.</li>
+            <li>Record how model or API changes are evaluated before rollout, including regressions in safety, quality, privacy, and security.</li>
+            <li>Plan for outages, provider changes, account compromise, and a way to disable or replace the dependency.</li>
+          </ul>
+          <p>Vendor questionnaires are evidence inputs, not guarantees. Validate important claims against contracts, architecture, configuration, and tests, with procurement and legal teams as appropriate.</p>
+        </section>
+
+        <section id="lifecycle">
+          <h2>6. Lifecycle governance and controls</h2>
+          <p>AI governance continues after an initial approval. Changes to prompts, models, datasets, retrieval sources, tools, user groups, and deployment context can change risk and should trigger review based on defined thresholds.</p>
+          <ol>
+            <li><strong>Propose:</strong> state the intended use, users, expected benefit, affected people, and alternatives.</li>
+            <li><strong>Assess:</strong> inventory the system, map data and dependencies, assess risks, and identify applicable policy or legal reviews.</li>
+            <li><strong>Design:</strong> assign control owners for access, privacy, security, human oversight, evaluation, and fallback behavior.</li>
+            <li><strong>Evaluate:</strong> test realistic tasks, misuse cases, subgroup or context limitations where relevant, security boundaries, and failure modes.</li>
+            <li><strong>Approve and deploy:</strong> record accountable decisions, conditions, monitoring expectations, rollback criteria, and user communications.</li>
+            <li><strong>Monitor and change:</strong> review incidents, metrics, provider/model changes, complaints, and new evidence; reassess or retire when necessary.</li>
+          </ol>
+          <p>For AI security specifically, ensure that a model cannot independently grant access. Enforce authorization in the application, limit tool permissions, validate outputs, require confirmation for consequential actions, and retain proportionate audit evidence.</p>
+        </section>
+
+        <section id="incidents">
+          <h2>7. Monitoring, incidents, and accountability</h2>
+          <p>AI incidents can include personal or confidential data exposure, unsafe or unauthorized actions, misleading outputs with material impact, harmful bias, model/provider compromise, or sustained service abuse. The response process should make it clear who can contain, investigate, communicate, and decide whether service resumes.</p>
+          <ul>
+            <li>Define escalation routes spanning product, security, privacy, legal, safety, and operations teams as appropriate.</li>
+            <li>Monitor security and service indicators without collecting excessive prompt or personal data.</li>
+            <li>Preserve enough version, configuration, and event information to investigate while applying retention and access limits.</li>
+            <li>Prepare containment actions: disable a tool, revoke a credential, restrict a data source, roll back a model/prompt, or pause the feature.</li>
+            <li>Use incidents and near misses to improve the risk assessment, controls, tests, and user guidance.</li>
+          </ul>
+          <p>Accountability must be assigned to people and organizational roles. A model, checklist, or governance framework cannot take responsibility for a deployment decision.</p>
+        </section>
+
+        <section id="frameworks">
+          <h2>8. Frameworks and regulation: useful context, not a substitute for advice</h2>
+          <p>Frameworks offer ways to organize risk and management practices. Regulations impose obligations when they apply. Applicability depends on the system, intended use, organization, geography, sector, and role; confirm decisions with qualified legal and compliance professionals.</p>
+          <ul>
+            <li><strong>NIST AI Risk Management Framework (AI RMF):</strong> organizes risk work around Govern, Map, Measure, and Manage. It is voluntary guidance, not a law.</li>
+            <li><strong>ISO/IEC 42001:</strong> specifies requirements for an AI management system within a defined organizational scope. Certification, where sought, concerns that management system and scope; it does not prove a model cannot fail.</li>
+            <li><strong>ISO/IEC 23894:</strong> provides guidance for managing AI-related risk.</li>
+            <li><strong>EU Artificial Intelligence Act:</strong> establishes obligations based on system risk, intended purpose, and organizational roles, with application dates and duties that phase in. Check the current official text and timeline.</li>
+            <li><strong>OWASP Top 10 for LLM Applications and MITRE ATLAS:</strong> security awareness and adversary resources useful for testing; neither is a regulation or a complete governance system.</li>
+          </ul>
+          <p>For the security-engineering path, learn enough of these resources to explain how technical findings map to risks, owners, controls, and evidence. See the <a href="compliance.html#level-4">standards and compliance guide</a> for an overview.</p>
+        </section>
+
+        <section id="practice">
+          <h2>9. Practice and recap</h2>
+          <div class="lab"><strong>CREATE A SMALL AI USE-CASE RECORD</strong><p>Use a fictional support assistant. Record its intended purpose, users, owner, model/provider, data sources, tools, affected people, key risks, mitigations, evaluation evidence, monitoring owner, and review date. Use synthetic information only.</p></div>
+          <div class="lab"><strong>RUN A LIGHTWEIGHT RISK REVIEW</strong><p>For the fictional assistant, consider accidental cross-customer retrieval, prompt injection in an uploaded document, provider retention, incorrect advice, and tool misuse. For each, state an impact, preventive/detective control, test or evidence, and accountable owner. Do not submit real customer data to public model services.</p></div>
+          <div class="lab"><strong>USE A FREE GOVERNANCE PLAYBOOK</strong><p>Open the NIST AI RMF Playbook in the resources below. Choose one relevant outcome under Govern, Map, Measure, or Manage; write how it applies to the fictional assistant, the evidence you would collect, and who should own the decision. Treat the playbook as voluntary guidance, not a certification checklist.</p></div>
+          <div class="checkpoint"><strong>CHECK YOUR UNDERSTANDING</strong><ul><li>Why keep an inventory of AI use cases and owners?</li><li>What should trigger a new risk review?</li><li>Why are provider assurances not enough by themselves?</li><li>How do AI governance and technical AI application security complement each other?</li><li>Which decisions need accountable human owners?</li></ul></div>
+          <p>Continue with the <a href="ai-application-security.html">AI Application Security guide</a> for technical controls, or visit the <a href="technologies.html#level-4">Level 4 technology roadmap</a>.</p>
+        </section>
+
+        <section id="resources">
+          <h2>Further resources</h2>
+          <h3>Free practical resources</h3>
+          <ul class="resource-list">
+            <li><a href="https://www.nist.gov/itl/ai-risk-management-framework" target="_blank" rel="noopener noreferrer">NIST AI Risk Management Framework</a> — voluntary guidance for managing AI risks across the lifecycle.</li>
+            <li><a href="https://airc.nist.gov/airmf-resources/playbook/" target="_blank" rel="noopener noreferrer">NIST AI RMF Playbook</a> — free suggested actions and questions organized around the AI RMF functions; adapt relevant items to a use case instead of treating it as a checklist.</li>
+            <li><a href="https://airc.nist.gov/AI_RMF_Knowledge_Base/AI_RMF" target="_blank" rel="noopener noreferrer">NIST AI RMF Core and Profiles</a> — browse the outcomes, then use the fictional use-case exercise above to turn one outcome into owners and evidence.</li>
+            <li><a href="https://www.iso.org/standard/42001" target="_blank" rel="noopener noreferrer">ISO/IEC 42001</a> and <a href="https://www.iso.org/standard/77304.html" target="_blank" rel="noopener noreferrer">ISO/IEC 23894</a> — AI management-system requirements and AI risk-management guidance.</li>
+            <li><a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj" target="_blank" rel="noopener noreferrer">EU Artificial Intelligence Act (official legal text)</a> — consult the current text and seek qualified advice on applicability.</li>
+            <li><a href="https://genai.owasp.org/llm-top-10/" target="_blank" rel="noopener noreferrer">OWASP Top 10 for LLM Applications</a> and <a href="https://atlas.mitre.org/" target="_blank" rel="noopener noreferrer">MITRE ATLAS</a> — security risk and adversary references to complement governance work.</li>
+          </ul>
+          <h3>Watch AI governance playlists and talks</h3>
+          <ul class="resource-list">
+            <li><a href="https://www.youtube.com/playlist?list=PLOspHqNVtKABEKVgWGrf6_x6OQYnYnCiM" target="_blank" rel="noopener noreferrer">IBM Technology: AI Ethics and Governance Explained</a> — accessible introductory material from a channel with approximately 1.81M subscribers.</li>
+          </ul>
+          <p class="resource-note">Subscriber counts are approximate and change over time; video view counts vary. This playlist is an introduction, not compliance training; use the official NIST AI RMF, ISO, and legal references above for authoritative requirements.</p>
+          <p class="resource-note">This tutorial is educational, not legal advice, a compliance assessment, or a certification checklist. Laws and standards can change; verify current requirements with qualified professionals.</p>
+        </section>
+        <div class="next-guide"><a href="index.html#level-4">← Return to the learning paths</a></div>
+      </article>
+    </div>
+  </main>
+  <footer class="site-footer"><a class="brand" href="index.html"><span class="brand-mark">F</span> FIELDNOTES</a><span>Supporting domain · AI Governance and Risk</span><a href="#top">Back to top ↑</a></footer>
+</body>
+</html>

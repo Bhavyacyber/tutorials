@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="An awareness-level introduction to security operations centers, defensive monitoring, alert triage, incident escalation, and application security handoffs.">
+  <title>SOC Fundamentals — Cybersecurity Foundations</title>
+  <link rel="stylesheet" href="styles-v2.css?v=20261004-12">
+</head>
+<body id="top">
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-mark">F</span> FIELDNOTES <span class="brand-divider">/</span> <span class="brand-name">CYBERSECURITY</span></a>
+    <div class="header-context"><span>SUPPORTING AWARENESS</span><span>SOC FUNDAMENTALS</span></div>
+    <nav class="header-nav" aria-label="Main navigation">
+      <a class="header-link" href="index.html#curriculum">Learning paths <span aria-hidden="true">↗</span></a>
+      <a class="standards-tab" href="compliance.html" aria-label="Standards and compliance"><span class="standards-full-label">Standards &amp; compliance</span><span class="standards-short-label">Standards</span></a>
+      <a class="technology-tab" href="technologies.html" aria-label="Technologies and cheat sheets"><span class="technology-full-label">Technologies &amp; cheat sheets</span><span class="technology-short-label">Cheat sheets</span></a>
+    </nav>
+  </header>
+  <main>
+    <section class="guide-hero">
+      <div class="breadcrumbs"><a href="index.html">Home</a> / Supporting awareness / SOC Fundamentals</div>
+      <p class="eyebrow">AWARENESS LEVEL · WORKING WITH DEFENSIVE OPERATIONS</p>
+      <h1>SOC fundamentals</h1>
+      <p>Understand how security operations teams use telemetry, alerts, triage, and incident response to investigate suspicious activity. For an application and product security engineer, this is collaboration knowledge—not a requirement to specialize in SOC operations.</p>
+    </section>
+    <div class="guide-layout">
+      <nav class="guide-toc" aria-label="On this page">
+        <h2>IN THIS GUIDE</h2>
+        <ol>
+          <li><a href="#what-is-soc">What a SOC does</a></li>
+          <li><a href="#telemetry">Telemetry and logs</a></li>
+          <li><a href="#alert">From signal to alert</a></li>
+          <li><a href="#triage">Triage and escalation</a></li>
+          <li><a href="#incident">Incident response</a></li>
+          <li><a href="#appsec">AppSec and SOC collaboration</a></li>
+          <li><a href="#practice">Practice and recap</a></li>
+          <li><a href="#resources">Further resources</a></li>
+        </ol>
+      </nav>
+      <article class="guide-content">
+        <aside class="beginner-guide" aria-labelledby="soc-simple">
+          <p class="eyebrow">START WITH THE IDEA</p>
+          <h2 id="soc-simple">A SOC turns security signals into informed action</h2>
+          <p>Think of a building alarm: a sensor reports an event, someone checks whether it is expected, gathers context, and contacts the right responder. A Security Operations Center (SOC) does similar work with computer and application activity. An alert is a reason to investigate, not proof that an attack happened.</p>
+          <p><strong>By the end, you should be able to:</strong></p>
+          <ul class="learning-goals">
+            <li>Explain the difference between telemetry, an alert, and a confirmed incident.</li>
+            <li>Describe the basic steps for validating and escalating a security signal.</li>
+            <li>Know what useful application context to share with an operations team.</li>
+          </ul>
+        </aside>
+
+        <section id="what-is-soc">
+          <h2>1. What a SOC does</h2>
+          <p>A SOC (Security Operations Center) monitors security-relevant activity, investigates signals, coordinates response, and helps an organization learn from incidents. Teams may be internal, outsourced, centralized, distributed, or shared with service providers.</p>
+          <p>Common SOC functions include:</p>
+          <ul>
+            <li>Collecting and correlating security telemetry from endpoints, identities, networks, cloud platforms, and applications.</li>
+            <li>Reviewing alerts, validating suspicious activity, and requesting context from system owners.</li>
+            <li>Escalating confirmed or high-risk events to incident responders and business owners.</li>
+            <li>Helping contain threats, preserve evidence, restore service, and improve detection and prevention.</li>
+          </ul>
+          <p>Tools such as Security Information and Event Management (SIEM) platforms help centralize and search events. They do not replace clear ownership, useful data, trained analysts, or a response process.</p>
+        </section>
+
+        <section id="telemetry">
+          <h2>2. Telemetry and logs</h2>
+          <p><strong>Telemetry</strong> is information about events and system behavior. Logs are one type. Useful defensive telemetry can include identity sign-ins, application authorization decisions, cloud audit events, endpoint detections, network connections, and deployment changes.</p>
+          <p>Logs are most useful when they answer who did what, to which resource, when, from where, and with what outcome. Use consistent timestamps and stable identifiers so teams can connect events across services.</p>
+          <ul>
+            <li>Record security-relevant events such as authentication failures, permission changes, sensitive exports, and administrative actions.</li>
+            <li>Include enough context to investigate while avoiding passwords, tokens, private keys, and unnecessary personal or sensitive data.</li>
+            <li>Protect log integrity and access; define retention based on investigation needs, privacy obligations, and policy.</li>
+            <li>Know which team owns each source, whether events are collected, and what gaps or delays exist.</li>
+          </ul>
+          <p>A missing event is not evidence that nothing happened. Telemetry coverage, clocks, delivery failures, and retention all affect what investigators can conclude.</p>
+        </section>
+
+        <section id="alert">
+          <h2>3. From signal to alert</h2>
+          <p>A detection rule or analytic turns one or more signals into an alert. A rule might flag repeated login failures followed by a successful sign-in, unusual access to a sensitive endpoint, or an unexpected change to a cloud permission.</p>
+          <p>Alerts need context. Analysts may look at the affected account and service, related events, known maintenance, normal behavior, exposure, and the possible impact. A high alert score is a prioritization aid—not a confirmed incident or a statement of certainty.</p>
+          <p>Good detection balances usefulness and noise. Application teams can help by documenting expected behavior, making important events observable, providing safe test cases, and notifying operations teams about planned high-impact changes.</p>
+        </section>
+
+        <section id="triage">
+          <h2>4. Triage, validation, and escalation</h2>
+          <p>Triage is a structured first assessment. Follow your organization's playbooks and authorization boundaries; do not take disruptive actions against production systems without the right approval.</p>
+          <ol>
+            <li><strong>Confirm the signal:</strong> identify the event, time range, source, affected identity/resource, and detection rule.</li>
+            <li><strong>Gather context:</strong> review related events, recent changes, known maintenance, expected behavior, and telemetry gaps.</li>
+            <li><strong>Assess scope and impact:</strong> determine which users, data, services, and environments may be involved; record what is known and unknown.</li>
+            <li><strong>Follow the playbook:</strong> preserve evidence and perform approved containment steps; escalate when severity, uncertainty, or policy requires it.</li>
+            <li><strong>Document and hand off:</strong> provide a concise timeline, evidence sources, actions taken, remaining questions, and the next owner.</li>
+          </ol>
+          <p>Use established severity and escalation criteria. Avoid declaring an event harmless solely because one query found no evidence; state the scope and limits of the investigation.</p>
+        </section>
+
+        <section id="incident">
+          <h2>5. Incident response and learning</h2>
+          <p>An incident is an event—or set of events—that meets an organization's criteria for a security incident. Response often includes preparation, detection and analysis, containment, eradication, recovery, and lessons learned. Teams may carry these activities out iteratively rather than as a strict sequence.</p>
+          <ul>
+            <li>Know how to contact the incident lead and where to report a suspected issue.</li>
+            <li>Follow evidence-handling and communication rules; preserve relevant data and limit access to it.</li>
+            <li>Contain using approved actions such as disabling a credential or restricting a feature, with owners coordinating service impact.</li>
+            <li>Verify recovery and monitor for recurrence; rotate exposed credentials and address root causes.</li>
+            <li>Update tests, detections, runbooks, architecture, and owner guidance based on findings.</li>
+          </ul>
+          <p>Not every suspicious event becomes an incident. Prompt, factual reporting helps the right team determine what happened.</p>
+        </section>
+
+        <section id="appsec">
+          <h2>6. AppSec and SOC: make the handoff useful</h2>
+          <p>Application and product security teams improve the systems that SOC teams monitor. They can help define high-value events, explain normal workflows, validate application findings, and translate incident lessons into design or code fixes.</p>
+          <ul>
+            <li>Document service owners, environment names, important identities, data classifications, and escalation contacts.</li>
+            <li>Design audit events that distinguish successful and denied actions without logging sensitive payloads.</li>
+            <li>Share API routes, trust boundaries, deployment changes, and known limitations that affect an investigation.</li>
+            <li>Agree how researchers and analysts report suspected vulnerabilities, including what evidence is safe to share.</li>
+            <li>Turn recurring incidents into regression tests, safer defaults, improved authorization, or clearer runbooks.</li>
+          </ul>
+          <p>For example, a SOC alert about repeated access-denied responses is easier to investigate when the application records a stable request ID, actor identifier, target resource type, result, and service version—without recording credentials or full private records.</p>
+        </section>
+
+        <section id="practice">
+          <h2>7. Practice and recap</h2>
+          <div class="lab"><strong>TRIAGE SYNTHETIC EVENTS</strong><p>Use fictional records: a user signs in from a new location, requests several denied admin actions, then downloads an unusually large report. Write down what you know, what you would check next, likely benign explanations, possible impact, and who should be contacted. Do not investigate real accounts or systems without authorization.</p></div>
+          <div class="lab"><strong>IMPROVE AN APPLICATION HANDOFF</strong><p>For a sample API, propose three audit events that help an investigator understand authentication, authorization, and sensitive changes. Exclude passwords, tokens, and sensitive request bodies. Specify an owner and retention/access expectations for each event.</p></div>
+          <div class="lab"><strong>ANALYZE A BLUE-TEAM LAB</strong><p>Choose a beginner investigation in a training platform listed below. Write a short timeline, cite the provided evidence, separate observations from assumptions, and explain what you would escalate. Use only the lab's supplied data and environment.</p></div>
+          <div class="checkpoint"><strong>CHECK YOUR UNDERSTANDING</strong><ul><li>How do telemetry, an alert, and an incident differ?</li><li>Why can an alert be a false positive?</li><li>What information makes an incident handoff useful?</li><li>Why should logs avoid secrets and unnecessary personal data?</li><li>How can an application security fix improve detection and response?</li></ul></div>
+        </section>
+
+        <section id="resources">
+          <h2>Further resources</h2>
+          <h3>Free or free-tier defensive practice</h3>
+          <ul class="resource-list">
+            <li><a href="https://csrc.nist.gov/pubs/sp/800/61/r3/final" target="_blank" rel="noopener noreferrer">NIST SP 800-61 Rev. 3: Incident Response Recommendations and Considerations for Cybersecurity Risk Management</a> — incident-response guidance aligned with cybersecurity risk management.</li>
+            <li><a href="https://www.cisa.gov/resources-tools/resources/federal-government-cybersecurity-incident-and-vulnerability-response-playbooks" target="_blank" rel="noopener noreferrer">CISA incident and vulnerability response playbooks</a> — structured playbook examples; adapt to your organization's process.</li>
+            <li><a href="https://attack.mitre.org/" target="_blank" rel="noopener noreferrer">MITRE ATT&amp;CK</a> — a knowledge base of adversary tactics and techniques useful for defensive detection discussions.</li>
+            <li><a href="https://www.cisa.gov/known-exploited-vulnerabilities-catalog" target="_blank" rel="noopener noreferrer">CISA Known Exploited Vulnerabilities Catalog</a> — a resource for prioritizing known exploited vulnerabilities.</li>
+            <li><a href="https://cyberdefenders.org/blueteam-ctf-challenges/" target="_blank" rel="noopener noreferrer">CyberDefenders Blue Team Labs</a> — hands-on defensive investigations using provided artifacts; check each challenge's current access requirements.</li>
+            <li><a href="https://tryhackme.com/hacktivities" target="_blank" rel="noopener noreferrer">TryHackMe rooms catalogue</a> and <a href="https://academy.hackthebox.com/catalogue" target="_blank" rel="noopener noreferrer">HTB Academy catalogue</a> — search for current SOC, incident-response, log-analysis, and defensive-security exercises. Free availability changes by room or module.</li>
+            <li><a href="operating-systems.html#logs">Operating Systems guide: Logs and events</a> and <a href="product-security.html#operations">Product Security guide: Monitoring and vulnerability management</a> — related learning on event sources and operational ownership.</li>
+          </ul>
+          <h3>Watch SOC and blue-team playlists</h3>
+          <ul class="resource-list">
+            <li><a href="https://www.youtube.com/playlist?list=PLlv3b9B16ZacikAtT8NDXpNbGqU8vU4CE" target="_blank" rel="noopener noreferrer">13Cubed: Digital Forensics</a> — practitioner-focused investigation and evidence analysis from a specialist channel with approximately 69.6K subscribers.</li>
+            <li><a href="https://www.youtube.com/playlist?list=PLlv3b9B16ZadqDQH0lTRO4kqn2P1g9Mve" target="_blank" rel="noopener noreferrer">13Cubed: Introduction to Windows Forensics</a> — a focused supplement for host investigations.</li>
+          </ul>
+          <p class="resource-note">13Cubed is a specialist source chosen for practical DFIR relevance rather than maximum audience size; it is not a complete beginner SOC course. Subscriber counts and video views change.</p>
+          <p class="resource-note">This guide introduces collaboration concepts; it is not an incident-response procedure. Follow your organization's current policies, legal requirements, and approved runbooks.</p>
+        </section>
+        <div class="next-guide"><a href="index.html#career-path">← Return to the depth guide</a></div>
+      </article>
+    </div>
+  </main>
+  <footer class="site-footer"><a class="brand" href="index.html"><span class="brand-mark">F</span> FIELDNOTES</a><span>Supporting awareness · SOC Fundamentals</span><a href="#top">Back to top ↑</a></footer>
+</body>
+</html>

@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A practical beginner guide to cloud security for application and product security engineers, covering IAM, networks, storage, secrets, workloads, and monitoring.">
+  <title>Cloud Security — Cybersecurity Foundations</title>
+  <link rel="stylesheet" href="styles-v2.css?v=20261004-12">
+</head>
+<body id="top">
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-mark">F</span> FIELDNOTES <span class="brand-divider">/</span> <span class="brand-name">CYBERSECURITY</span></a>
+    <div class="header-context"><span>SUPPORTING DOMAIN</span><span>CLOUD SECURITY</span></div>
+    <nav class="header-nav" aria-label="Main navigation">
+      <a class="header-link" href="index.html#curriculum">Learning paths <span aria-hidden="true">↗</span></a>
+      <a class="standards-tab" href="compliance.html" aria-label="Standards and compliance"><span class="standards-full-label">Standards &amp; compliance</span><span class="standards-short-label">Standards</span></a>
+      <a class="technology-tab" href="technologies.html" aria-label="Technologies and cheat sheets"><span class="technology-full-label">Technologies &amp; cheat sheets</span><span class="technology-short-label">Cheat sheets</span></a>
+    </nav>
+  </header>
+  <main>
+    <section class="guide-hero">
+      <div class="breadcrumbs"><a href="index.html">Home</a> / Level 3 supporting domain / Cloud Security</div>
+      <p class="eyebrow">SUPPORTING DEPTH · SECURING APPLICATION INFRASTRUCTURE</p>
+      <h1>Cloud security</h1>
+      <p>Learn enough cloud security to protect modern applications and AI products: identities, networks, storage, secrets, workloads, and audit trails. This is practical infrastructure knowledge that supports your Application and Product Security focus—not a second cloud-engineering specialization.</p>
+    </section>
+    <div class="guide-layout">
+      <nav class="guide-toc" aria-label="On this page">
+        <h2>IN THIS GUIDE</h2>
+        <ol>
+          <li><a href="#cloud-model">What cloud security means</a></li>
+          <li><a href="#shared-responsibility">Shared responsibility</a></li>
+          <li><a href="#identity">Identity and access</a></li>
+          <li><a href="#network">Network boundaries</a></li>
+          <li><a href="#data">Storage, keys, and secrets</a></li>
+          <li><a href="#workloads">Workloads and delivery</a></li>
+          <li><a href="#monitoring">Logging and response</a></li>
+          <li><a href="#practice">Practice and recap</a></li>
+          <li><a href="#resources">Further resources</a></li>
+        </ol>
+      </nav>
+      <article class="guide-content">
+        <aside class="beginner-guide" aria-labelledby="cloud-simple">
+          <p class="eyebrow">START WITH THE IDEA</p>
+          <h2 id="cloud-simple">The cloud is someone else's computers, configured by your identities</h2>
+          <p>A cloud provider operates the physical facilities and core platform. Your organization still chooses who can sign in, which services can talk to each other, where data is stored, and what gets logged. A mistaken permission or public storage setting can expose an otherwise well-written application.</p>
+          <p><strong>By the end, you should be able to:</strong></p>
+          <ul class="learning-goals">
+            <li>Trace an application request through cloud identities, network paths, services, and data stores.</li>
+            <li>Recognize common configuration risks and ask for evidence of least privilege.</li>
+            <li>Apply the same authorization and data-protection expectations to cloud-hosted apps as to local apps.</li>
+          </ul>
+        </aside>
+
+        <section id="cloud-model">
+          <h2>1. What cloud security means</h2>
+          <p>Cloud security is the practice of protecting identities, workloads, data, and operations hosted on cloud platforms. The same security goals still apply—confidentiality, integrity, and availability—but controls are configured through provider accounts, APIs, policies, and managed services.</p>
+          <p>A useful mental model is a request path: a user authenticates to an application; the application runs as a workload identity; that identity calls a database or model API; and audit events record important actions. For each step, ask <strong>who is acting, what can they reach, what data moves, and where is the evidence?</strong></p>
+          <pre><code>User → Web/API → Workload identity → Cloud service
+       ↓                ↓                 ↓
+   User auth       Network policy     Data permissions
+                         ↓
+                 Audit logs and alerts</code></pre>
+          <p>Cloud controls do not replace secure application design. A public endpoint can still have broken authorization; a private database can still return another tenant's records if application checks are missing.</p>
+        </section>
+
+        <section id="shared-responsibility">
+          <h2>2. Shared responsibility</h2>
+          <p>Security responsibilities are split between the cloud provider and the customer. The split changes with the service: using a managed database delegates more platform maintenance than running a database on a virtual machine, but it does not delegate your data permissions or application authorization.</p>
+          <ul>
+            <li><strong>Provider responsibilities</strong> commonly include physical facilities, hardware, and security of the underlying cloud platform.</li>
+            <li><strong>Customer responsibilities</strong> commonly include account security, identity policies, data classification, application code, configuration, and access to customer-managed resources.</li>
+            <li><strong>Shared responsibilities</strong> often include vulnerability management, incident handling, service configuration, and secure use of managed features.</li>
+          </ul>
+          <p>Always check the provider's responsibility model for the specific service and contract. “The provider is secure” does not mean every customer configuration is safe.</p>
+        </section>
+
+        <section id="identity">
+          <h2>3. Identity and access: start here</h2>
+          <p>Identity and Access Management (IAM) determines which people and workloads can perform which actions on which resources. A leaked identity credential or overly broad role can turn a small application flaw into account-wide access.</p>
+          <ul>
+            <li>Use individual identities, multifactor authentication, and centralized sign-in for human administrators.</li>
+            <li>Give each application or job a workload identity; avoid long-lived access keys embedded in source code, images, or configuration files.</li>
+            <li>Apply least privilege: grant only the actions and resources required, and separate read, write, deploy, and administration duties.</li>
+            <li>Review trust relationships and role assumptions. Check who can become a privileged identity, not only the policy attached to it.</li>
+            <li>Use short-lived credentials where available; define an owner, rotation or expiry process, and response steps for credentials that may be exposed.</li>
+          </ul>
+          <p><strong>Application security connection:</strong> cloud IAM controls what a service identity can do in the platform; application authorization controls what a user can do to application data. A secure system needs both.</p>
+        </section>
+
+        <section id="network">
+          <h2>4. Network boundaries</h2>
+          <p>Cloud networks let teams define address spaces, routes, private subnets, gateways, and traffic rules. A network boundary can reduce exposure, but it is not a substitute for authentication, authorization, or encryption.</p>
+          <ul>
+            <li>Know which services must be reachable from the public internet and which should remain private.</li>
+            <li>Restrict inbound and outbound paths to the required protocols, sources, and destinations. Avoid broad rules that expose management services.</li>
+            <li>Separate environments and sensitive services where practical; document approved paths between them.</li>
+            <li>Use TLS for service-to-service traffic when appropriate and validate certificates and endpoint identity.</li>
+            <li>Review private endpoints, DNS, egress controls, and firewall/security-group rules together; a single permissive route can change the effective exposure.</li>
+          </ul>
+          <p>For a cloud-hosted API, draw the path from client to load balancer, service, database, and any external model/API. Mark which hop is public, which identity is used, and what happens if a component is compromised.</p>
+        </section>
+
+        <section id="data">
+          <h2>5. Storage, encryption keys, and secrets</h2>
+          <p>Cloud storage and managed databases make it easy to create durable data stores—and easy to misconfigure access. Know what data is stored, who can read or change it, how long it is retained, and how deletion is verified.</p>
+          <ul>
+            <li>Keep storage private by default; grant access to specific identities and resources, not anonymous users or entire accounts.</li>
+            <li>Separate data by environment and tenant. Enforce tenant authorization in the application even when the underlying store is private.</li>
+            <li>Use encryption in transit and at rest according to sensitivity and obligations. Understand who controls the keys and how access, rotation, backup, and recovery work.</li>
+            <li>Store credentials in an appropriate secret-management service. Limit who and what can retrieve each secret; avoid putting secret values in logs or build output.</li>
+            <li>Set retention, backup, restore, and deletion processes. Backups also need access controls, encryption, and tested recovery.</li>
+          </ul>
+          <p>Encryption does not fix an authorization flaw: a service that is allowed to read every tenant's data can still disclose it after decrypting it.</p>
+        </section>
+
+        <section id="workloads">
+          <h2>6. Workloads, containers, serverless, and delivery</h2>
+          <p>Cloud workloads may run on virtual machines, containers, Kubernetes, or serverless platforms. The operational details differ, but the security questions are familiar: what code is running, under which identity, with what privileges, and how is it updated?</p>
+          <ul>
+            <li>Use supported base images and runtimes; keep dependencies patched and remove unused software and sample credentials.</li>
+            <li>Run with non-administrator privileges where possible. Restrict container capabilities, mounted files, and access to the host or metadata services.</li>
+            <li>Protect CI/CD identities and deployment workflows. Scope permissions to the repository, environment, and action; require review for sensitive changes.</li>
+            <li>Review infrastructure-as-code like application code: changes to IAM, network exposure, storage, and secrets deserve careful review and tests.</li>
+            <li>Use workload identity and managed platform features safely; do not assume a serverless function is automatically isolated or least-privileged.</li>
+            <li>Maintain an inventory of services, owners, environments, dependencies, and externally exposed endpoints.</li>
+          </ul>
+          <p><strong>AI product connection:</strong> an AI feature may combine an API, model provider, vector store, object storage, and tool integrations. Apply identity and network boundaries at each connection, and prevent retrieved or generated content from granting new permissions.</p>
+        </section>
+
+        <section id="monitoring">
+          <h2>7. Logging, detection, and incident response</h2>
+          <p>Cloud audit logs can show changes to identities, policies, networks, storage, and workloads. Application logs add user and business context. Together, they help teams investigate what happened—but only if collection, access, time settings, and retention are planned.</p>
+          <ul>
+            <li>Enable appropriate audit events for administrative and data-access actions.</li>
+            <li>Protect log integrity and restrict access; separate log administrators from the identities being monitored where feasible.</li>
+            <li>Do not log passwords, access tokens, private keys, or unnecessary personal data.</li>
+            <li>Alert on meaningful events such as unexpected privilege changes, unusual public exposure, or suspicious credential use.</li>
+            <li>Practice how to identify affected resources, contain a compromised identity, preserve evidence, restore service, and rotate credentials.</li>
+          </ul>
+          <p>A dashboard is not a response process by itself. Assign owners and rehearse the steps for a realistic incident.</p>
+        </section>
+
+        <section id="practice">
+          <h2>8. Practice and recap</h2>
+          <div class="lab"><strong>MAP A CLOUD-HOSTED APP</strong><p>Use a fictional or authorized demo architecture. Draw a browser, API, workload identity, storage/database, secrets service, and audit log. For every arrow, label the identity, data, and network path. Mark public endpoints and the controls that limit access.</p></div>
+          <div class="lab"><strong>REVIEW A SAFE CONFIGURATION EXERCISE</strong><p>In a provider's free learning environment or a local IaC example, review one role policy, one storage policy, and one network rule. Identify excessive permissions and write a least-privilege alternative. Do not change production resources or expose real data.</p></div>
+          <div class="checkpoint"><strong>CHECK YOUR UNDERSTANDING</strong><ul><li>Which security responsibilities stay with the customer when using a managed service?</li><li>How are workload identity and a user's application permissions different?</li><li>Why does a private network not replace authorization checks?</li><li>What happens if a deployment credential is exposed?</li><li>Can your team detect and investigate an unexpected storage-policy change?</li></ul></div>
+          <p>Continue with the <a href="product-security.html">Product Security guide</a> for secure delivery and operations, and the <a href="technologies.html#level-3">Level 3 technology roadmap</a> for cloud tools and infrastructure concepts.</p>
+        </section>
+
+        <section id="resources">
+          <h2>Further resources</h2>
+          <h3>Free learning and hands-on labs (check cloud usage costs)</h3>
+          <ul class="resource-list">
+            <li><a href="https://docs.aws.amazon.com/wellarchitected/latest/security-pillar/welcome.html" target="_blank" rel="noopener noreferrer">AWS Well-Architected Framework: Security Pillar</a> — identity, detection, infrastructure protection, data protection, and incident response guidance.</li>
+            <li><a href="https://learn.microsoft.com/en-us/security/" target="_blank" rel="noopener noreferrer">Microsoft Security documentation</a> — security architecture, identity, cloud, and product guidance.</li>
+            <li><a href="https://cloud.google.com/architecture/framework/security" target="_blank" rel="noopener noreferrer">Google Cloud Architecture Framework: Security</a> — security principles and cloud design practices.</li>
+            <li><a href="https://www.cisa.gov/resources-tools/resources/cloud-security-technical-reference-architecture" target="_blank" rel="noopener noreferrer">CISA Cloud Security Technical Reference Architecture</a> — public-sector-oriented cloud security architecture and shared responsibility guidance.</li>
+            <li><a href="https://owasp.org/www-project-cloud-native-application-security-top-10/" target="_blank" rel="noopener noreferrer">OWASP Cloud-Native Application Security Top 10</a> — risks to consider across cloud-native application development.</li>
+            <li><a href="https://tryhackme.com/hacktivities" target="_blank" rel="noopener noreferrer">TryHackMe rooms catalogue</a> and <a href="https://academy.hackthebox.com/catalogue" target="_blank" rel="noopener noreferrer">HTB Academy catalogue</a> — search for current cloud fundamentals and cloud security modules; room availability and free access tiers may change.</li>
+            <li><a href="https://github.com/RhinoSecurityLabs/cloudgoat" target="_blank" rel="noopener noreferrer">Rhino Security Labs CloudGoat</a> — intentionally vulnerable AWS scenarios for an isolated lab account. Setup and cloud-provider usage may incur charges; review cleanup steps, budgets, and scenario instructions before starting.</li>
+          </ul>
+          <h3>Watch cloud-security videos</h3>
+          <ul class="resource-list">
+            <li><a href="https://www.youtube.com/@amazonwebservices" target="_blank" rel="noopener noreferrer">Amazon Web Services official channel</a> — approximately 848K subscribers; browse its current security and architecture videos. No single, well-matched AWS security course playlist was verified, so the official AWS Security Learning and documentation links above remain the structured sources.</li>
+          </ul>
+          <p class="resource-note">Subscriber counts are approximate and change over time; video view counts vary. This channel link is not presented as a verified playlist or a complete cloud-security course.</p>
+          <p class="resource-note">Use only purpose-built training targets or cloud accounts you control. Keep labs isolated from work and personal accounts, use synthetic data, set a budget, and delete lab resources when finished. Provider services and control names change; ask your organization's cloud and legal teams about approved architecture and obligations.</p>
+        </section>
+        <div class="next-guide"><a href="index.html#level-3">← Return to the learning paths</a></div>
+      </article>
+    </div>
+  </main>
+  <footer class="site-footer"><a class="brand" href="index.html"><span class="brand-mark">F</span> FIELDNOTES</a><span>Supporting domain · Cloud Security</span><a href="#top">Back to top ↑</a></footer>
+</body>
+</html>
