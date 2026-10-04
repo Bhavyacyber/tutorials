@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A defensive guide to LLM, RAG, AI agent, and AI infrastructure security, including red teaming and security engineering.">
+  <title>AI Application Security — Cybersecurity Foundations</title>
+  <link rel="stylesheet" href="styles-v2.css">
+</head>
+<body id="top">
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-mark">F</span> FIELDNOTES <span class="brand-divider">/</span> CYBERSECURITY</a>
+    <div class="header-context"><span>LEVEL 4 AI SECURITY</span><span>LLM · RAG · AGENTS</span></div>
+    <a class="header-link" href="index.html#curriculum">All learning paths <span aria-hidden="true">↗</span></a>
+  </header>
+  <main>
+    <section class="guide-hero">
+      <div class="breadcrumbs"><a href="index.html">Home</a> / Level 4 / AI Application Security</div>
+      <p class="eyebrow">06 — SECURING AI-POWERED PRODUCTS</p>
+      <h1>AI application security</h1>
+      <p>AI features add new inputs, outputs, data paths, and delegated actions to familiar software systems. Secure them by treating model behavior as untrusted, enforcing authority in ordinary application code, and testing the full system in context.</p>
+    </section>
+    <div class="guide-layout">
+      <nav class="guide-toc" aria-label="On this page">
+        <h2>IN THIS GUIDE</h2>
+        <ol>
+          <li><a href="#system">Map the AI system</a></li><li><a href="#llm">LLM security</a></li>
+          <li><a href="#rag">RAG security</a></li><li><a href="#agents">AI agent security</a></li>
+          <li><a href="#infrastructure">AI infrastructure</a></li><li><a href="#redteam">AI red teaming</a></li>
+          <li><a href="#engineering">AI security engineering</a></li><li><a href="#practice">Practice and recap</a></li>
+        </ol>
+      </nav>
+      <article class="guide-content">
+        <p>AI application security covers the model and the surrounding product: prompts, retrieval, tools, identity, data stores, APIs, and operational controls. A model can produce convincing text, but its output is not a policy decision. Keep sensitive authorization and safety-critical actions under deterministic controls that can be reviewed and tested.</p>
+
+        <section id="system">
+          <h2>1. Map the AI system and its trust boundaries</h2>
+          <p>Start with a data-flow diagram. Include the user interface, orchestration service, model provider or hosted endpoint, system instructions, retrieved content, vector database, tools, agent memory, AI gateway, logs, and downstream applications.</p>
+          <p>For each component, record what data it receives, whose identity it uses, what it can disclose or change, where secrets reside, and which party operates it. Mark boundaries between users, tenants, services, providers, and tools. Identify whether content is trusted, user-controlled, or externally sourced.</p>
+          <div class="callout"><strong>MODEL OUTPUT IS UNTRUSTED INPUT</strong><p>Treat generated text like other untrusted data. Validate it before rendering, querying, routing, or executing actions. The model's confidence or instruction-following does not grant authority.</p></div>
+        </section>
+
+        <section id="llm">
+          <h2>2. LLM security</h2>
+          <ul>
+            <li><strong>Prompt injection:</strong> malicious or conflicting instructions in user input or external content try to change the model's behavior. Separate instructions from data where supported, constrain the task, limit tools and accessible data, and validate actions outside the model. Prompt wording alone is not a reliable security boundary.</li>
+            <li><strong>Jailbreaking:</strong> attempts to bypass intended model behavior or safeguards. Evaluate likely misuse cases and layered controls, but do not assume any prompt filter can guarantee refusal. Restrict harmful capabilities at the application and infrastructure layers.</li>
+            <li><strong>System prompt attacks:</strong> users may try to elicit hidden instructions or infer internal configuration. Avoid placing credentials, private data, or security-critical secrets in prompts. Assume prompts may be exposed; enforce access controls in services.</li>
+            <li><strong>Sensitive information disclosure:</strong> outputs may reveal personal data, secrets, training data, or context from another user. Minimize data sent to models, enforce retrieval permissions, redact sensitive values where appropriate, and test cross-user leakage.</li>
+            <li><strong>Insecure output handling:</strong> generated text may contain unsafe HTML, SQL, shell commands, URLs, or structured fields. Encode for the output context, parse against strict schemas, use parameterized database access, and require explicit policy checks before actions.</li>
+            <li><strong>Excessive agency:</strong> an application gives a model more tools, data, or autonomy than the task needs. Reduce capabilities, require confirmation for consequential actions, set limits, and make actions reversible where possible.</li>
+            <li><strong>Model supply-chain risks:</strong> models, adapters, datasets, plugins, and inference software may be compromised, poisoned, mislabeled, or unexpectedly changed. Track provenance and versions, use trusted sources, scan artifacts, review licenses, and evaluate updates before deployment.</li>
+          </ul>
+          <p>Model behavior can vary with updates, context, and sampling. Define expected behavior through evaluations and product controls rather than relying on a single demonstration.</p>
+        </section>
+
+        <section id="rag">
+          <h2>3. RAG security</h2>
+          <p><strong>Retrieval-augmented generation (RAG)</strong> searches a corpus and supplies relevant documents to a model. Retrieval can expose information even when the model itself is behaving as designed; the application must preserve document permissions end to end.</p>
+          <ul>
+            <li><strong>Document poisoning:</strong> attacker-controlled or compromised documents influence answers or attempt to redirect actions. Authenticate sources, review ingestion, track provenance, and quarantine suspicious content.</li>
+            <li><strong>Retrieval manipulation:</strong> irrelevant or crafted content is made more likely to rank highly. Use robust ingestion and ranking, filter by trusted metadata, monitor retrieval quality, and test adversarially with representative corpora.</li>
+            <li><strong>Data leakage:</strong> retrieved passages may contain confidential data that appears in answers, logs, or caches. Minimize indexed data, classify it, apply retention rules, and test prompts and output paths for leakage.</li>
+            <li><strong>Access-control failures:</strong> authorization must be checked for each document at retrieval time, not only when a user signs in. Enforce tenant and document ACL filters in a trusted service and deny by default if policy evaluation fails.</li>
+            <li><strong>Cross-user data exposure:</strong> shared indexes, caches, conversation history, or asynchronous jobs can mix tenants. Partition or rigorously filter by tenant, bind cache keys to identity and permissions, and test concurrent sessions.</li>
+            <li><strong>Embedding and vector security:</strong> embeddings can encode sensitive information, and vector stores may have weak isolation, metadata filtering, or deletion semantics. Restrict direct access, protect backups, validate metadata filters, control exports, and verify deletion across indexes and replicas.</li>
+          </ul>
+          <p>Do not treat embeddings as anonymous or harmless by default. Apply data governance to source documents, embeddings, metadata, retrieved chunks, and generated answers.</p>
+        </section>
+
+        <section id="agents">
+          <h2>4. AI agent security</h2>
+          <p>An agent combines a model with tools and a loop that can choose actions. This creates a path from untrusted content to real effects. Define the agent's intended scope, then ensure each tool independently checks authority and validates arguments.</p>
+          <ul>
+            <li><strong>Tool abuse and unsafe execution:</strong> an agent can call a tool with dangerous or malformed arguments. Use narrow typed interfaces, strict validation, allowlisted operations, sandboxing, timeouts, and human approval for high-impact actions. Never pass generated text directly to a shell or privileged interpreter.</li>
+            <li><strong>Excessive permissions:</strong> broad service accounts let a compromised workflow affect too many resources. Give each agent and tool minimal, task-specific permissions and scope them to the current user and resource.</li>
+            <li><strong>Agent hijacking and indirect prompt injection:</strong> hostile content in email, documents, web pages, tickets, or tool results can steer later actions. Treat tool results as untrusted data, constrain action selection, and require independent checks before data leaves or state changes.</li>
+            <li><strong>Identity propagation:</strong> downstream services should know whether an action is performed for a user, a service, or an agent. Propagate a verifiable, least-privilege identity and delegation context; do not silently substitute a powerful shared credential.</li>
+            <li><strong>Agent-to-agent trust:</strong> one agent's output is not proof of another agent's authorization or correctness. Authenticate agents, define message schemas and provenance, minimize delegated authority, and validate each handoff.</li>
+          </ul>
+          <p>Use a permissioned action broker between the model and tools. The broker can enforce policy, record decisions, cap operations, and require approval without asking the model to police itself.</p>
+        </section>
+
+        <section id="infrastructure">
+          <h2>5. AI infrastructure</h2>
+          <ul>
+            <li><strong>Model APIs and endpoints:</strong> authenticate callers, authorize model and feature use, set quotas and payload limits, protect transport, and separate development and production. Treat provider responses and errors as external input.</li>
+            <li><strong>Vector databases:</strong> isolate tenants, restrict network and administrative access, protect snapshots and backups, validate filters, and monitor bulk export or unusual query patterns.</li>
+            <li><strong>MCP:</strong> treat Model Context Protocol servers and tools as privileged integrations. Verify server identity and provenance, expose only necessary tools, review requested scopes, validate inputs and outputs, and make user consent and approval meaningful. Keep credentials scoped to the integration and avoid automatically trusting tool descriptions or returned content.</li>
+            <li><strong>AI gateways:</strong> centralize authentication, model routing, quotas, policy enforcement, logging, and data-loss controls where useful. Ensure the gateway cannot be bypassed through alternate endpoints and avoid collecting more prompt data than needed.</li>
+            <li><strong>Secrets:</strong> store provider keys and service credentials in managed secret storage, rotate them, scope them narrowly, and prevent them from entering prompts, source code, client bundles, telemetry, or model-visible context.</li>
+            <li><strong>Authentication and authorization:</strong> authenticate users and services separately, enforce tenant and resource checks in backend services, and pass only scoped credentials to tools. Model responses and prompt instructions must never establish identity or permissions.</li>
+          </ul>
+        </section>
+
+        <section id="redteam">
+          <h2>6. AI red teaming</h2>
+          <p>AI red teaming is a structured, authorized assessment of how an AI-enabled product behaves under misuse, adversarial inputs, and unexpected combinations of features. Scope the system, test accounts, datasets, tools, provider endpoints, and allowed impact before testing.</p>
+          <ol><li>Define product goals, security and safety boundaries, assets, and prohibited outcomes.</li><li>Map attack surfaces: prompts, uploaded and retrieved content, tools, APIs, identity, memory, and integrations.</li><li>Create scenarios for direct and indirect prompt injection, data disclosure, authorization bypass, unsafe output, tool misuse, resource abuse, and supply-chain changes.</li><li>Test with synthetic data and least-privilege accounts in an isolated environment; include multi-user and tenant-boundary cases.</li><li>Record reproducible steps, expected control, actual impact, affected versions, and evidence with sensitive content removed.</li><li>Prioritize and fix findings, then add regression evaluations and verify the mitigations.</li></ol>
+          <p>Measure both attack success and safe task completion. A system that refuses everything may block attacks while failing its purpose; a system that is helpful without authority boundaries may create severe risk.</p>
+          <div class="callout"><strong>KEEP TESTING AUTHORIZED AND CONTAINED</strong><p>Use systems you own or have explicit permission to assess. Avoid real personal data, external targets, destructive tool actions, and tests that could affect other tenants.</p></div>
+        </section>
+
+        <section id="engineering">
+          <h2>7. AI security engineering</h2>
+          <p>Convert red-team findings into controls in the product architecture, not only prompt edits. Keep security properties enforceable even when a model is confused, manipulated, unavailable, or updated.</p>
+          <ul><li>Minimize model context and tool capability; separate instructions from untrusted content where the platform supports it.</li><li>Enforce authorization, quotas, and policy in ordinary backend code at every data and action boundary.</li><li>Validate model output with strict schemas and safe rendering; require confirmation for consequential operations.</li><li>Use tenant-aware retrieval and caching, data minimization, retention limits, and protected observability.</li><li>Maintain model, prompt, dataset, tool, and integration inventories with owners and version history.</li><li>Evaluate model and pipeline changes against a versioned suite of security and quality cases before release.</li><li>Monitor abuse, policy failures, anomalous tool use, and service costs while protecting user privacy.</li><li>Prepare incident response for exposed data, compromised keys, poisoned sources, provider changes, and unsafe agent actions.</li></ul>
+          <p>Document residual risks and operational fallbacks. A graceful fallback should preserve access controls and avoid silently granting broader permissions when a model or policy service is unavailable.</p>
+        </section>
+
+        <section id="practice">
+          <h2>Practice and recap</h2>
+          <div class="lab"><strong>RAG TENANT-ISOLATION REVIEW</strong><p>In a local demo with synthetic documents, create two users and distinct private documents. Ask ordinary and adversarially phrased questions from each account. Verify retrieval filters, cache partitioning, citations, logs, and denial behavior. Record a regression test for any boundary failure.</p></div>
+          <div class="lab"><strong>AGENT PERMISSION DESIGN</strong><p>Choose a low-risk agent task such as drafting a calendar entry without submitting it. List its tools, identities, data access, and possible side effects. Design a permission broker, argument validation, approval step, rate limit, and audit record. Test that hostile content in a retrieved document cannot authorize an action.</p></div>
+          <div class="checkpoint"><strong>CHECK YOUR UNDERSTANDING</strong><ul><li>Why is a prompt instruction not a security boundary?</li><li>Where should RAG document authorization be enforced?</li><li>What changes when an LLM can call tools?</li><li>How should identity be propagated to downstream actions?</li><li>What does AI red teaming measure in addition to attack success?</li><li>How can a finding become a durable engineering control?</li></ul></div>
+        </section>
+        <div class="next-guide"><a href="index.html#level-4">← Return to Level 4 learning path</a></div>
+      </article>
+    </div>
+  </main>
+  <footer class="site-footer"><a class="brand" href="index.html"><span class="brand-mark">F</span> FIELDNOTES</a><span>Level 4 · AI Application Security</span><a href="#top">Back to top ↑</a></footer>
+</body>
+</html>

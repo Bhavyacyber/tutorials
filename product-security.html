@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Learn product security across the full software lifecycle: requirements, design, development, testing, deployment, and operations.">
+  <title>Product Security — Cybersecurity Foundations</title>
+  <link rel="stylesheet" href="styles-v2.css">
+</head>
+<body id="top">
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-mark">F</span> FIELDNOTES <span class="brand-divider">/</span> CYBERSECURITY</a>
+    <div class="header-context"><span>LEVEL 3 PRODUCT SECURITY</span><span>SECURE LIFECYCLE</span></div>
+    <a class="header-link" href="index.html#curriculum">All learning paths <span aria-hidden="true">↗</span></a>
+  </header>
+  <main>
+    <section class="guide-hero">
+      <div class="breadcrumbs"><a href="index.html">Home</a> / Level 3 / Product Security</div>
+      <p class="eyebrow">05 — SECURITY AS A PRODUCT RESPONSIBILITY</p>
+      <h1>Product security</h1>
+      <p>Think beyond finding bugs in a running application. Product security connects customer needs, engineering decisions, release practices, and operational response so that security is part of how a product is built and maintained.</p>
+    </section>
+    <div class="guide-layout">
+      <nav class="guide-toc" aria-label="On this page">
+        <h2>IN THIS GUIDE</h2>
+        <ol>
+          <li><a href="#lifecycle">The product lifecycle</a></li><li><a href="#requirements">Requirements and ownership</a></li>
+          <li><a href="#architecture">Architecture and threat modeling</a></li><li><a href="#design">Secure design</a></li>
+          <li><a href="#development">Development and review</a></li><li><a href="#testing">SAST, SCA, DAST, and API testing</a></li>
+          <li><a href="#release">Deployment and release</a></li><li><a href="#operations">Monitoring and vulnerability management</a></li>
+          <li><a href="#measure">Measures and prioritization</a></li><li><a href="#practice">Practice and recap</a></li>
+        </ol>
+      </nav>
+      <article class="guide-content">
+        <p>A scanner can identify signals, but a product security program decides what matters, who owns the response, and how fixes become lasting improvements. Product security is a shared engineering responsibility supported by clear security requirements, useful tooling, and operational feedback.</p>
+
+        <section id="lifecycle">
+          <h2>1. The product security lifecycle</h2>
+          <p>The stages below form a continuous loop. Teams revisit earlier decisions when features, dependencies, threats, or deployment environments change.</p>
+          <pre><code>Requirements → Architecture → Threat Modeling → Secure Design
+     → Development → Code Review → SAST → SCA → DAST
+     → API Testing → Deployment → Monitoring
+     → Vulnerability Management ↺</code></pre>
+          <p>These are connected practices, not a one-time checklist. Findings from monitoring or incident response may reveal a missing requirement or an architectural assumption that needs to change.</p>
+        </section>
+
+        <section id="requirements">
+          <h2>2. Requirements and ownership</h2>
+          <p>Security requirements turn broad goals into behaviors that can be designed and verified. Derive them from product data, users, abuse cases, applicable obligations, and business impact. Make requirements specific and testable.</p>
+          <ul><li>Define data classification, retention, deletion, and access expectations.</li><li>Specify authentication, authorization, audit, privacy, and recovery behavior for relevant features.</li><li>Set performance and availability expectations for abuse controls such as rate limits.</li><li>Assign owners for product risks, components, findings, and incident decisions.</li></ul>
+          <p>For example, “protect customer records” is hard to verify. A stronger requirement states that each API operation checks tenant membership for the requested record and has tests for cross-tenant denial.</p>
+        </section>
+
+        <section id="architecture">
+          <h2>3. Architecture and threat modeling</h2>
+          <p>Architecture describes components, data flows, trust boundaries, identities, and external dependencies. Threat modeling uses that picture to find plausible ways the design could fail or be misused before implementation makes change expensive.</p>
+          <ol><li>Define scope, system context, important assets, and security assumptions.</li><li>Draw the main components and data flows; mark trust boundaries and privileged operations.</li><li>Identify threats and abuse cases, including misuse by legitimate users and failures in dependencies.</li><li>Assess impact and likelihood in context, including existing controls and uncertainty.</li><li>Choose mitigations, assign owners, and track decisions or accepted risks.</li><li>Revisit the model when architecture, exposure, or threat assumptions change.</li></ol>
+          <p>Useful prompts include: where can an attacker supply data; which component can access a secret; what happens if an identity provider is unavailable; can one tenant affect another; and what happens when an operation is repeated?</p>
+        </section>
+
+        <section id="design">
+          <h2>4. Secure design</h2>
+          <p>Design controls into the system rather than relying on users or reviewers to catch every mistake. Apply least privilege, deny by default, complete mediation of access checks, safe defaults, and separation of duties where appropriate.</p>
+          <ul><li>Keep security-sensitive decisions server-side and centralize policy where that improves consistency.</li><li>Use well-maintained cryptographic and identity libraries; define key ownership, rotation, and recovery.</li><li>Minimize collected data, retained data, exposed fields, and component privileges.</li><li>Design for failure: timeouts, retries, queues, and fallback modes should not bypass controls.</li><li>Make sensitive operations auditable while avoiding secrets and unnecessary personal data in logs.</li><li>Plan secure update, rollback, backup, and recovery paths.</li></ul>
+          <div class="callout"><strong>RECORD THE DECISION</strong><p>For a meaningful risk, capture the context, options considered, chosen control, owner, and conditions that would trigger a review. This helps future maintainers understand why the system works as it does.</p></div>
+        </section>
+
+        <section id="development">
+          <h2>5. Development and code review</h2>
+          <p>Secure development makes the safe path easy and catches issues close to where they are introduced. Use supported languages and frameworks, secure defaults, shared components for recurring controls, and local checks that give fast, actionable feedback.</p>
+          <p>Code review should consider correctness and security context: input handling, output encoding, authorization at object and function levels, secret use, error paths, concurrency, logging, and tests. Reviewers need enough context to understand intended behavior, not just changed lines.</p>
+          <ul><li>Protect branches and require review for sensitive code and configuration.</li><li>Keep secrets out of source; use managed secret storage and rotate exposed credentials.</li><li>Use tests for security invariants, including negative cases and tenant boundaries.</li><li>Keep development, test, and production credentials and data separated.</li><li>Use Git history to understand changes and support traceability, not as a substitute for security review.</li></ul>
+        </section>
+
+        <section id="testing">
+          <h2>6. SAST, SCA, DAST, and API testing</h2>
+          <h3>SAST: static application security testing</h3>
+          <p>SAST analyzes source code or compiled artifacts without running the application. It can identify risky patterns early, such as unsafe input reaching a sensitive operation. Results are signals: validate context, tune noisy rules, and prioritize reachable, consequential issues.</p>
+          <h3>SCA: software composition analysis</h3>
+          <p>SCA inventories direct and transitive dependencies and checks for known vulnerabilities, licenses, and sometimes malicious or outdated packages. A version match alone does not tell the whole risk story. Confirm whether the affected code is present and reachable, assess exploitability and exposure, and plan a supported upgrade or mitigation. Maintain an accurate software bill of materials when required by your process.</p>
+          <h3>DAST: dynamic application security testing</h3>
+          <p>DAST sends requests to a running application and observes responses. It can find configuration and behavior issues that appear only at runtime, but coverage depends on reachable routes, authentication, test data, and scanner configuration. Run it against controlled test environments with explicit scope and safe data.</p>
+          <h3>API testing</h3>
+          <p>Test APIs using the contract and authorization model, not only discovered endpoints. Include unauthenticated, unauthorized, wrong-tenant, wrong-role, invalid-field, oversized-input, repeated-request, and rate-limit cases. Validate schemas and business invariants, and verify that errors do not disclose sensitive internals.</p>
+          <p>Use layered testing: unit and integration tests for invariants, review for code context, automated analysis for breadth, and targeted manual testing for high-risk flows. No one tool establishes that a product is secure.</p>
+        </section>
+
+        <section id="release">
+          <h2>7. Deployment and release</h2>
+          <p>Deployment is part of the security boundary. Protect build and release credentials, restrict who can publish artifacts, and make deployed artifacts traceable to reviewed source. Use reproducible or verifiable build practices where feasible.</p>
+          <ul><li>Separate environments and identities; give deployment jobs only the permissions they need.</li><li>Review infrastructure and security configuration changes alongside code.</li><li>Use TLS, secure headers, network policy, secret management, and hardened service settings as appropriate.</li><li>Gate releases on clear, risk-based criteria with a documented path for urgent fixes and exceptions.</li><li>Use staged rollouts, health checks, rollback plans, and tested backups for high-impact changes.</li><li>Remove debug routes, sample credentials, and unnecessary services from production.</li></ul>
+        </section>
+
+        <section id="operations">
+          <h2>8. Monitoring and vulnerability management</h2>
+          <p>Monitoring helps teams detect abuse, failures, and control gaps. Collect events needed to investigate security-relevant actions, protect log integrity and access, set useful retention, and alert on meaningful signals. Avoid logging passwords, access tokens, or full sensitive records.</p>
+          <p><strong>Vulnerability management</strong> is the process of receiving, triaging, prioritizing, fixing, and verifying security issues across owned code and dependencies. A workable process includes:</p>
+          <ol><li>Intake reports from scanners, researchers, customers, internal teams, and incidents.</li><li>Validate scope, affected versions, exploitability, exposure, and potential impact.</li><li>Assign an owner, severity, target date, and any temporary mitigation.</li><li>Develop and review a fix; coordinate disclosure and customer communication when needed.</li><li>Verify the fix and any backports, then update affected inventories and tests.</li><li>Look for root causes and improve design patterns, tooling, or guidance to prevent recurrence.</li></ol>
+          <p>Define a vulnerability disclosure channel and response expectations. Prioritization should reflect real exposure and impact, not just a scanner score. Track accepted risks with an owner, rationale, expiry or review date, and compensating controls.</p>
+        </section>
+
+        <section id="measure">
+          <h2>9. Measures and prioritization</h2>
+          <p>Metrics should help teams make decisions and improve the system. Useful views can include time to validate and remediate by severity, overdue risk, recurring root causes, dependency age, test coverage for critical controls, and the share of services with current ownership and threat models.</p>
+          <p>Avoid rewarding teams for low finding counts alone; that can discourage reporting. Pair volume with context such as coverage, severity, recurrence, and time to close. Measures are prompts for investigation, not proof of security.</p>
+        </section>
+
+        <section id="practice">
+          <h2>Practice and recap</h2>
+          <div class="lab"><strong>BUILD A MINI PRODUCT SECURITY PLAN</strong><p>Choose a small application you own or a fictional product. Write three testable security requirements, sketch its components and trust boundaries, list three abuse cases, and assign a mitigation owner to each. Then choose one SAST, SCA, DAST, and API test that would provide useful evidence.</p></div>
+          <div class="lab"><strong>FOLLOW ONE FINDING TO CLOSURE</strong><p>Use a sample dependency advisory or a deliberately introduced issue in a local training project. Record how it is validated, prioritized, assigned, fixed, regression-tested, and monitored. Do not introduce a vulnerable change into a production system.</p></div>
+          <div class="checkpoint"><strong>CHECK YOUR UNDERSTANDING</strong><ul><li>How does a testable security requirement differ from a general goal?</li><li>When should a threat model be revisited?</li><li>What does SCA tell you, and what still needs human assessment?</li><li>Why does DAST coverage depend on authentication and route discovery?</li><li>What information should a risk exception include?</li><li>How can monitoring feedback improve design and development?</li></ul></div>
+        </section>
+        <div class="next-guide"><a href="index.html#level-3">← Return to Level 3 learning path</a></div>
+      </article>
+    </div>
+  </main>
+  <footer class="site-footer"><a class="brand" href="index.html"><span class="brand-mark">F</span> FIELDNOTES</a><span>Level 3 · Product Security</span><a href="#top">Back to top ↑</a></footer>
+</body>
+</html>

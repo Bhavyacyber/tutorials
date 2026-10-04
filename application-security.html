@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A practical Level 2 guide to web and API security, common vulnerabilities, and safe application testing.">
+  <title>Application Security — Cybersecurity Foundations</title>
+  <link rel="stylesheet" href="styles-v2.css">
+</head>
+<body id="top">
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-mark">F</span> FIELDNOTES <span class="brand-divider">/</span> CYBERSECURITY</a>
+    <div class="header-context"><span>LEVEL 2 APPLICATION SECURITY</span><span>WEB AND API</span></div>
+    <a class="header-link" href="index.html#curriculum">All learning paths <span aria-hidden="true">↗</span></a>
+  </header>
+  <main>
+    <section class="guide-hero">
+      <div class="breadcrumbs"><a href="index.html">Home</a> / Level 2 / Application Security</div>
+      <p class="eyebrow">04 — SECURING THE APPLICATION LAYER</p>
+      <h1>Application security</h1>
+      <p>Trace browser requests through web services and data stores. Learn how identity, trust boundaries, and unsafe input create risk—and how to design, test, and operate applications more safely.</p>
+    </section>
+    <div class="guide-layout">
+      <nav class="guide-toc" aria-label="On this page">
+        <h2>IN THIS GUIDE</h2>
+        <ol>
+          <li><a href="#architecture">Web architecture</a></li><li><a href="#http">HTTP and REST</a></li>
+          <li><a href="#identity">Authentication and authorization</a></li><li><a href="#browser">Browser security</a></li>
+          <li><a href="#data">SQL and injection</a></li><li><a href="#vulnerabilities">Common vulnerabilities</a></li>
+          <li><a href="#owasp">OWASP risk maps</a></li><li><a href="#tools">Tools and workflow</a></li><li><a href="#practice">Safe practice and recap</a></li>
+        </ol>
+      </nav>
+      <article class="guide-content">
+        <p>Application security (AppSec) reduces weaknesses in software, its configuration, and the way it is used. The same feature can cross several boundaries: a browser sends a request, an API applies identity and policy, application code queries a database, and the response returns to a user. Think about each boundary and what must be trusted there.</p>
+
+        <section id="architecture">
+          <h2>1. Web architecture and trust boundaries</h2>
+          <p>A typical web system has a <strong>client</strong> (browser or mobile app), a web server or gateway, application services, and data stores. Reverse proxies, caches, identity providers, queues, and third-party services may sit between them. A request's route through these components is an attack surface.</p>
+          <p>Keep security decisions on the server. Client-side checks improve usability, but users can alter browser code and send requests directly. Validate inputs at service boundaries, authenticate the caller, authorize each requested object and action, and constrain the service's access to downstream systems.</p>
+          <div class="callout"><strong>FOLLOW THE DATA</strong><p>For each feature, ask where input originates, which components handle it, which identity is attached, what data is read or changed, and who can observe the output.</p></div>
+        </section>
+
+        <section id="http">
+          <h2>2. HTTP, REST, and APIs</h2>
+          <p><strong>HTTP</strong> is a request-response protocol. A request has a method, target, headers, and sometimes a body; a response has a status code, headers, and sometimes a body. HTTPS protects HTTP in transit with TLS, but does not decide whether an action is allowed or whether the endpoint is secure.</p>
+          <ul><li><strong>Methods:</strong> GET retrieves; POST submits or creates; PUT replaces; PATCH partially updates; DELETE requests removal. Servers must still enforce permissions and safe behavior regardless of method.</li><li><strong>Status:</strong> 2xx indicates success, 3xx redirection, 4xx a client-side issue, and 5xx a server-side failure. Avoid leaking stack traces or secrets in error responses.</li><li><strong>Headers:</strong> carry metadata such as content type, cache policy, cookies, and authorization. Treat client-provided headers as untrusted input.</li></ul>
+          <p><strong>REST</strong> is an architectural style often used to build resource-oriented APIs. JSON is a common representation, not a security mechanism. An API exposes operations and data to clients; document its endpoints, schemas, authentication, authorization rules, rate limits, and error behavior. Validate types, size, and allowed values on the server, and version and retire endpoints deliberately.</p>
+          <pre><code>GET /api/v1/orders/4821 HTTP/1.1
+Host: shop.example.test
+Accept: application/json
+Authorization: Bearer &lt;access-token&gt;</code></pre>
+          <p>The identifier in the URL is a reference, not proof that the caller owns that order. The server must check access for this specific object.</p>
+        </section>
+
+        <section id="identity">
+          <h2>3. Authentication, authorization, sessions, and tokens</h2>
+          <p><strong>Authentication</strong> establishes who or what is making a request. <strong>Authorization</strong> decides what that identity may do to a particular resource in the current context. A valid login does not imply permission to every record or operation.</p>
+          <h3>Sessions and cookies</h3>
+          <p>With server-side sessions, the browser holds an opaque session identifier and the server stores session state. Use unpredictable identifiers, rotate them after login or privilege changes, expire them appropriately, and invalidate them on logout and account recovery. Protect session cookies with <code>Secure</code>, <code>HttpOnly</code>, and an appropriate <code>SameSite</code> setting; scope domain and path narrowly.</p>
+          <p>Cookies are automatically sent by browsers to matching sites, which is useful for sessions and relevant to CSRF. Cookie flags reduce exposure, but they do not replace authorization or all CSRF defenses.</p>
+          <h3>JWT and OAuth</h3>
+          <p>A <strong>JWT</strong> is a token format that can carry claims. A signed JWT is generally integrity-protected, not encrypted: its payload may be readable. Validate the expected algorithm, signature, issuer, audience, expiry, and other required claims. Keep lifetimes short and plan revocation and key rotation. Do not trust claims merely because the token decodes.</p>
+          <p><strong>OAuth 2.0</strong> is an authorization framework for delegated access. It lets a client obtain scoped access to a resource with the resource owner's consent. It is not, by itself, a login protocol; OpenID Connect adds an identity layer. Use maintained libraries and established flows, exact redirect URI matching, state and nonce protections where applicable, PKCE for public clients, and narrowly scoped, short-lived tokens. Never put client secrets in browser or mobile code.</p>
+          <h3>Access control</h3>
+          <p>Apply least privilege and deny by default. Check authorization on every request, including background and API routes. Combine roles with object-level and property-level checks: a user may read their own profile but not another user's, and may be allowed to edit a display name but not a billing tier.</p>
+        </section>
+
+        <section id="browser">
+          <h2>4. CORS, CSP, and browser boundaries</h2>
+          <p><strong>CORS</strong> is a browser mechanism that controls whether scripts from one origin can read certain responses from another origin. It is not authentication and does not stop non-browser clients. Allow only required origins, methods, and headers; avoid reflecting arbitrary origins. Credentialed requests require careful origin rules and cannot use a wildcard origin.</p>
+          <p><strong>Content Security Policy (CSP)</strong> is a response policy that restricts sources from which a page may load scripts, styles, images, and other resources. A carefully deployed policy can reduce the impact of XSS. Prefer nonce- or hash-based script policies, begin with report-only evaluation where appropriate, and avoid broad allowances such as unrestricted inline scripts. CSP is defense in depth; output encoding remains essential.</p>
+          <p>For cookie-authenticated state changes, use CSRF tokens or another robust request-origin defense, appropriate SameSite cookies, and avoid state changes on GET. Browsers attach cookies automatically, allowing a malicious site to try to trigger an action in a user's session.</p>
+        </section>
+
+        <section id="data">
+          <h2>5. SQL and injection</h2>
+          <p>Relational databases organize data into tables and use SQL to query and update it. A dangerous pattern is building a query by concatenating untrusted text. <strong>SQL injection</strong> occurs when input is interpreted as part of the query syntax rather than only as data.</p>
+          <p>Use parameterized queries or prepared statements so query structure and values remain separate. Use a database account with only the permissions the application needs. Validate input for business meaning too; escaping strings by hand is not a reliable substitute for parameterization.</p>
+          <pre><code># Python example: bind a value; never format user input into SQL
+cursor.execute("SELECT id, name FROM users WHERE email = ?", (email,))</code></pre>
+          <p>The placeholder syntax varies by database driver. For sorting or table names, which often cannot be bound as values, choose from a fixed allowlist of identifiers.</p>
+        </section>
+
+        <section id="vulnerabilities">
+          <h2>6. Common application vulnerabilities</h2>
+          <h3>Injection, XSS, and CSRF</h3>
+          <ul><li><strong>SQL injection:</strong> attacker-controlled input changes a database query. Parameterize queries, constrain database privileges, and handle errors safely.</li><li><strong>Cross-site scripting (XSS):</strong> untrusted content executes as script in a trusted site's browser context. Use context-aware output encoding, safe templating, and sanitization for intentionally accepted HTML; add CSP as defense in depth.</li><li><strong>Cross-site request forgery (CSRF):</strong> a browser is induced to send an authenticated state-changing request. Use anti-CSRF tokens or suitable origin checks, SameSite cookies, and safe HTTP method semantics.</li></ul>
+          <h3>SSRF, access control, and identity</h3>
+          <ul><li><strong>Server-side request forgery (SSRF):</strong> an application fetches an attacker-chosen destination. Prefer destination allowlists, block internal and metadata networks at egress, validate redirects and resolved addresses, and use network segmentation.</li><li><strong>IDOR/BOLA:</strong> insecure direct object reference / broken object-level authorization lets a caller access another object's data by changing an identifier. Resolve the object within the caller's authorized scope and test ownership and tenant boundaries.</li><li><strong>Authentication flaws:</strong> weak recovery, credential stuffing exposure, missing MFA for high-risk actions, session fixation, or unsafe token handling. Use rate limits, MFA, secure recovery, session rotation, and monitoring.</li><li><strong>Authorization flaws:</strong> missing function-level, object-level, or field-level checks. Enforce policy server-side on every operation and fail closed.</li></ul>
+          <h3>Files, paths, commands, and business rules</h3>
+          <ul><li><strong>File upload:</strong> untrusted files may exploit parsers, exhaust storage, overwrite content, or execute if served unsafely. Enforce size and type limits, inspect content, rename files, store outside executable web paths, and serve with safe content headers and access checks.</li><li><strong>Path traversal:</strong> crafted paths escape an intended directory. Map opaque identifiers to files where possible; canonicalize and enforce containment within a fixed base directory.</li><li><strong>Command injection:</strong> input changes an operating-system command. Avoid shell invocation; use APIs or argument arrays, fixed executables, strict allowlists, and least privilege.</li><li><strong>Business logic flaws:</strong> valid features combine in an unintended way, such as replaying a coupon or skipping a payment step. Define invariants, enforce them on the server, make sensitive operations atomic and idempotent, and test sequences and edge cases.</li><li><strong>API abuse:</strong> excessive requests, expensive queries, scraping, credential attacks, or resource exhaustion. Apply per-identity and per-resource quotas, pagination and payload limits, timeouts, abuse detection, and cost-aware controls.</li></ul>
+        </section>
+
+        <section id="owasp">
+          <h2>7. OWASP risk maps</h2>
+          <p>The <strong>OWASP Top 10</strong> is an awareness list of broad web application risk categories, including broken access control, cryptographic failures, injection, insecure design, security misconfiguration, vulnerable components, authentication failures, integrity failures, logging and monitoring failures, and server-side request forgery. Use the current edition as a conversation and review aid, not as a complete checklist or guarantee of security.</p>
+          <p>The <strong>OWASP API Security Top 10</strong> focuses on API-specific risks. Its themes include broken object-level and function-level authorization, broken authentication, unrestricted resource consumption, sensitive business flows, SSRF, security misconfiguration, inventory management, and unsafe consumption of APIs. Apply these themes to endpoint inventory, data ownership, quotas, and third-party integrations.</p>
+          <div class="callout"><strong>TURN CATEGORIES INTO TESTS</strong><p>For every endpoint, identify the caller, object, action, fields, and resource cost. Then define a positive case and at least one unauthorized or malformed case.</p></div>
+        </section>
+
+        <section id="tools">
+          <h2>8. Tools and a safe workflow</h2>
+          <ul><li><strong>Burp Suite:</strong> intercept and inspect HTTP traffic, replay requests, and organize findings. Use the browser proxy only with systems and accounts you control or are authorized to assess.</li><li><strong>OWASP ZAP:</strong> proxy and passively inspect traffic; its active scanner sends attack-like requests, so run it only against an explicitly authorized test target.</li><li><strong>Nmap:</strong> discover hosts and services on a lab network. Keep scans to owned or expressly authorized ranges and use conservative settings.</li><li><strong>Wireshark:</strong> inspect packet captures to understand protocols and troubleshoot. Prefer your own lab traffic; captures can contain credentials and personal data.</li><li><strong>Postman:</strong> exercise API requests, environments, and collections. Keep secrets out of shared collections and source control.</li><li><strong>Git:</strong> review code history and changes, and collaborate on fixes. Do not commit credentials; rotate any secret that was exposed.</li><li><strong>Python:</strong> automate parsing, local test clients, and defensive checks. Keep scripts bounded, explicit about targets, and safe by default.</li></ul>
+          <p>A useful workflow is to understand the feature and its trust boundaries, form a specific security question, reproduce it in a local or approved staging environment with test data, record minimal evidence, fix the root cause, and verify the fix with regression cases. A scanner finding needs human validation; a clean scan is not proof of safety.</p>
+        </section>
+
+        <section id="practice">
+          <h2>Safe practice and recap</h2>
+          <div class="lab"><strong>LOCAL API AUTHORIZATION REVIEW</strong><p>Use a deliberately vulnerable training app running locally or a small API you own. Create two test users and two sample records. Capture a request for one record, then check whether the server correctly denies the other user access. Do not test public targets or real user data. Record the expected rule, observed behavior, and a server-side fix.</p></div>
+          <div class="lab"><strong>SECURE REQUEST DESIGN</strong><p>Sketch a password-protected profile update. Mark the cookie or token, CSRF defense, input validation, object and field authorization, database parameterization, and audit event. For each item, write one test that would fail if the safeguard were missing.</p></div>
+          <div class="checkpoint"><strong>CHECK YOUR UNDERSTANDING</strong><ul><li>Why does HTTPS not provide authorization?</li><li>How do authentication and authorization differ?</li><li>Why is a JWT payload not necessarily secret?</li><li>What does CORS control, and what does it not control?</li><li>How do parameterized queries prevent SQL injection?</li><li>What check prevents BOLA when an object ID changes?</li><li>Why should active scanning be restricted to authorized systems?</li></ul></div>
+        </section>
+        <div class="next-guide"><a href="index.html#level-2">← Return to Level 2 learning path</a></div>
+      </article>
+    </div>
+  </main>
+  <footer class="site-footer"><a class="brand" href="index.html"><span class="brand-mark">F</span> FIELDNOTES</a><span>Level 2 · Application Security</span><a href="#top">Back to top ↑</a></footer>
+</body>
+</html>

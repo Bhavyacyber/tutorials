@@ -1,12 +1,15 @@
 # Cybersecurity Foundations
 
-A beginner-friendly, static tutorial site for Level 1 cybersecurity foundations.
+A beginner-friendly, static tutorial site for cybersecurity foundations, application security, product security, and AI application security.
 
 ## Learning paths
 
 - [Networking](networking.html): TCP/IP, DNS, HTTP, TLS, routing, and firewalls.
 - [Operating systems](operating-systems.html): Linux, Windows, macOS, processes, services, permissions, authentication, and logs.
 - [Security](security.html): the CIA triad, threats, vulnerabilities, risk, cryptography, IAM, security controls, and threat modeling.
+- [Application security](application-security.html): web architecture, HTTP, REST, APIs, identity, OWASP risks, and safe security testing with common tools.
+- [Product security](product-security.html): security across the product lifecycle, from requirements and design to deployment, monitoring, and vulnerability management.
+- [AI application security](ai-application-security.html): LLM, RAG, agent, and AI infrastructure risks, with AI red teaming and security engineering practices.
 
 Start at [index.html](index.html). The lessons include safe exercises intended for systems you own or are authorized to use.
 
